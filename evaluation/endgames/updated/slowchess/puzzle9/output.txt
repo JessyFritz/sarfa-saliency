@@ -1,0 +1,728 @@
+move1
+***********************3R4/1p6/2b5/2P1k2p/p3p2P/P6r/1P2KB2/8 b - - 0 1**********************
+Best move is c6d5
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 1.44, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+------------------------------------------
+squares of best move:
+{'d5'}
+------------------------------------------
+perturbing square = a1
+can not put a pawn on this square - so skipped
+------------------------------------------
+perturbing square = a2
+square is empty, so put a pawn from player's color here
+querying engine with perturbed position
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 1.29, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 1.29, original reward Q(s,â): 1.44
+saliency for this square with player's pawn: 'saliency': 0.040256678781544875, 'dP': 0.020541811953473377, 'K': 1.0 
+square is empty, so put a pawn from opponent's color here
+querying engine with perturbed position
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 1.03, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with opponent's pawn: 'saliency': 0.22979780193590363, 'dP': 0.13040229225875902, 'K': 0.9664388767067593 
+saliency calculated as max from pawn perturbation for this empty square: 0.22979780193590363
+------------------------------------------
+perturbing square = a3
+querying engine with perturbed position
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 3.38, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+'saliency': 0.2436807646326799, 'dP': 0.15400499180899155, 'K': 0.5833749383750239, 'QMaxAnswer': 1, 'actionGapBeforePerturbation': 1.44, 'actionGapAfterPerturbation': 3.38
+saliency for this square = {'int': 16, 'saliency': 0.2436807646326799, 'dP': 0.15400499180899155, 'K': 0.5833749383750239, 'QMaxAnswer': 1, 'actionGapBeforePerturbation': 1.44, 'actionGapAfterPerturbation': 3.38}
+------------------------------------------
+perturbing square = a4
+querying engine with perturbed position
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0.02, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0.02, original reward Q(s,â): 1.44
+'saliency': 0.22336805265930817, 'dP': 0.12572556347061709, 'K': 1.0, 'QMaxAnswer': 0, 'actionGapBeforePerturbation': 1.44, 'actionGapAfterPerturbation': 0.02
+saliency for this square = {'int': 24, 'saliency': 0.22336805265930817, 'dP': 0.12572556347061709, 'K': 1.0, 'QMaxAnswer': 0, 'actionGapBeforePerturbation': 1.44, 'actionGapAfterPerturbation': 0.02}
+------------------------------------------
+perturbing square = a5
+square is empty, so put a pawn from player's color here
+querying engine with perturbed position
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0.02, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0.02, original reward Q(s,â): 1.44
+saliency for this square with player's pawn: 'saliency': 0.22336805265930817, 'dP': 0.12572556347061709, 'K': 1.0 
+square is empty, so put a pawn from opponent's color here
+querying engine with perturbed position
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0.08, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0.08, original reward Q(s,â): 1.44
+saliency for this square with opponent's pawn: 'saliency': 0.2188635111721958, 'dP': 0.1228785736214037, 'K': 1.0 
+saliency calculated as max from pawn perturbation for this empty square: 0.22336805265930817
+------------------------------------------
+perturbing square = a6
+square is empty, so put a pawn from player's color here
+querying engine with perturbed position
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0.03, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0.03, original reward Q(s,â): 1.44
+saliency for this square with player's pawn: 'saliency': 0.22263565394697526, 'dP': 0.1252616856197099, 'K': 1.0 
+square is empty, so put a pawn from opponent's color here
+querying engine with perturbed position
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0.05, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0.05, original reward Q(s,â): 1.44
+saliency for this square with opponent's pawn: 'saliency': 0.22114904050233844, 'dP': 0.12432128690803293, 'K': 1.0 
+saliency calculated as max from pawn perturbation for this empty square: 0.22263565394697526
+------------------------------------------
+perturbing square = a7
+square is empty, so put a pawn from player's color here
+querying engine with perturbed position
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0.1, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0.1, original reward Q(s,â): 1.44
+saliency for this square with player's pawn: 'saliency': 0.21730190490680035, 'dP': 0.12189495546380766, 'K': 1.0 
+square is empty, so put a pawn from opponent's color here
+querying engine with perturbed position
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0.06, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0.06, original reward Q(s,â): 1.44
+saliency for this square with opponent's pawn: 'saliency': 0.22039468389136962, 'dP': 0.12384469853871596, 'K': 1.0 
+saliency calculated as max from pawn perturbation for this empty square: 0.22039468389136962
+------------------------------------------
+perturbing square = a8
+can not put a pawn on this square - so skipped
+------------------------------------------
+perturbing square = b1
+can not put a pawn on this square - so skipped
+------------------------------------------
+perturbing square = b2
+querying engine with perturbed position
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 6.17, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+'saliency': 0.20596984136143698, 'dP': 0.17225260917125956, 'K': 0.256099513050322, 'QMaxAnswer': 1, 'actionGapBeforePerturbation': 1.44, 'actionGapAfterPerturbation': 6.17
+saliency for this square = {'int': 9, 'saliency': 0.20596984136143698, 'dP': 0.17225260917125956, 'K': 0.256099513050322, 'QMaxAnswer': 1, 'actionGapBeforePerturbation': 1.44, 'actionGapAfterPerturbation': 6.17}
+------------------------------------------
+perturbing square = b3
+square is empty, so put a pawn from player's color here
+querying engine with perturbed position
+Total Legal Moves : 19
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with player's pawn: 'saliency': 0.2168781063963058, 'dP': 0.12162831221706025, 'K': 1.0 
+square is empty, so put a pawn from opponent's color here
+querying engine with perturbed position
+Total Legal Moves : 20
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with opponent's pawn: 'saliency': 0.22105189759234245, 'dP': 0.12425989116442866, 'K': 1.0 
+saliency calculated as max from pawn perturbation for this empty square: 0.22105189759234245
+------------------------------------------
+perturbing square = b4
+square is empty, so put a pawn from player's color here
+querying engine with perturbed position
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 6.88, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with player's pawn: 'saliency': 0.19358202353288803, 'dP': 0.1732524627497635, 'K': 0.21931680533025827 
+square is empty, so put a pawn from opponent's color here
+querying engine with perturbed position
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 7.19, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with opponent's pawn: 'saliency': 0.18846379878700795, 'dP': 0.17351700607520631, 'K': 0.20622835414957386 
+saliency calculated as max from pawn perturbation for this empty square: 0.19358202353288803
+------------------------------------------
+perturbing square = b5
+square is empty, so put a pawn from player's color here
+querying engine with perturbed position
+Total Legal Moves : 19
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 7.19, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with player's pawn: 'saliency': 0.1873346345900039, 'dP': 0.17351590067632605, 'K': 0.20354486249005718 
+square is empty, so put a pawn from opponent's color here
+querying engine with perturbed position
+Total Legal Moves : 20
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 6.85, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with opponent's pawn: 'saliency': 0.19348186527054323, 'dP': 0.17322134112872722, 'K': 0.2191096311228456 
+saliency calculated as max from pawn perturbation for this empty square: 0.19348186527054323
+------------------------------------------
+perturbing square = b6
+square is empty, so put a pawn from player's color here
+querying engine with perturbed position
+Total Legal Moves : 19
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 6.83, 'h3h2': 0, 'h3h1': 0, 'e4e3': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with player's pawn: 'saliency': 0.1931979821997489, 'dP': 0.1731996603110644, 'K': 0.2184173143287071 
+square is empty, so put a pawn from opponent's color here
+querying engine with perturbed position
+Total Legal Moves : 19
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 7.23, 'h3h2': 0, 'h3h1': 0, 'e4e3': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with opponent's pawn: 'saliency': 0.18669939532866628, 'dP': 0.17354469741159106, 'K': 0.20201190954145656 
+saliency calculated as max from pawn perturbation for this empty square: 0.1931979821997489
+------------------------------------------
+perturbing square = b7
+querying engine with perturbed position
+Total Legal Moves : 19
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0.01, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'e4e3': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+'saliency': 0.21692227864207628, 'dP': 0.12165613729682992, 'K': 0.999997368761934, 'QMaxAnswer': 1, 'actionGapBeforePerturbation': 1.44, 'actionGapAfterPerturbation': 0.01
+saliency for this square = {'int': 49, 'saliency': 0.21692227864207628, 'dP': 0.12165613729682992, 'K': 0.999997368761934, 'QMaxAnswer': 1, 'actionGapBeforePerturbation': 1.44, 'actionGapAfterPerturbation': 0.01}
+------------------------------------------
+perturbing square = b8
+can not put a pawn on this square - so skipped
+------------------------------------------
+perturbing square = c1
+can not put a pawn on this square - so skipped
+------------------------------------------
+perturbing square = c2
+square is empty, so put a pawn from player's color here
+querying engine with perturbed position
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0.0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with player's pawn: 'saliency': 0.22481138380685728, 'dP': 0.12664084354538105, 'K': 1.0 
+square is empty, so put a pawn from opponent's color here
+querying engine with perturbed position
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0.01, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with opponent's pawn: 'saliency': 0.22484721389423873, 'dP': 0.12666362213853788, 'K': 0.9999976178665086 
+saliency calculated as max from pawn perturbation for this empty square: 0.22484721389423873
+------------------------------------------
+perturbing square = c3
+square is empty, so put a pawn from player's color here
+querying engine with perturbed position
+Total Legal Moves : 18
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0.01, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with player's pawn: 'saliency': 0.21226700969300225, 'dP': 0.11873533733349947, 'K': 0.9999972236845341 
+square is empty, so put a pawn from opponent's color here
+querying engine with perturbed position
+Total Legal Moves : 19
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0.01, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with opponent's pawn: 'saliency': 0.21692227864207628, 'dP': 0.12165613729682992, 'K': 0.999997368761934 
+saliency calculated as max from pawn perturbation for this empty square: 0.21692227864207628
+------------------------------------------
+perturbing square = c4
+square is empty, so put a pawn from player's color here
+querying engine with perturbed position
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0.0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with player's pawn: 'saliency': 0.22481138380685728, 'dP': 0.12664084354538105, 'K': 1.0 
+square is empty, so put a pawn from opponent's color here
+querying engine with perturbed position
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0.0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with opponent's pawn: 'saliency': 0.22481138380685728, 'dP': 0.12664084354538105, 'K': 1.0 
+saliency calculated as max from pawn perturbation for this empty square: 0.22481138380685728
+------------------------------------------
+perturbing square = c5
+querying engine with perturbed position
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 2.68, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 2.68, original reward Q(s,â): 1.44
+'saliency': 0, 'dP': -0.24745628496680436, 'K': 1.0, 'QMaxAnswer': 0, 'actionGapBeforePerturbation': 1.44, 'actionGapAfterPerturbation': 2.68
+saliency for this square = {'int': 34, 'saliency': 0, 'dP': -0.24745628496680436, 'K': 1.0, 'QMaxAnswer': 0, 'actionGapBeforePerturbation': 1.44, 'actionGapAfterPerturbation': 2.68}
+------------------------------------------
+perturbing square = c6
+not pseudo legal
+original move illegal in perturbed state c6
+------------------------------------------
+perturbing square = c7
+square is empty, so put a pawn from player's color here
+querying engine with perturbed position
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': -8.21, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with player's pawn: 'saliency': 0.2126115634437962, 'dP': 0.1242605709569894, 'K': 0.7357155219051484 
+square is empty, so put a pawn from opponent's color here
+querying engine with perturbed position
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': -8.38, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with opponent's pawn: 'saliency': 0.21241951645141408, 'dP': 0.12426046468271376, 'K': 0.7311444536755023 
+saliency calculated as max from pawn perturbation for this empty square: 0.2126115634437962
+------------------------------------------
+perturbing square = c8
+can not put a pawn on this square - so skipped
+------------------------------------------
+perturbing square = d1
+can not put a pawn on this square - so skipped
+------------------------------------------
+perturbing square = d2
+square is empty, so put a pawn from player's color here
+querying engine with perturbed position
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': -8.84, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with player's pawn: 'saliency': 0.21190166984190598, 'dP': 0.12426025321867369, 'K': 0.7190549345659148 
+square is empty, so put a pawn from opponent's color here
+querying engine with perturbed position
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': -8.72, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with opponent's pawn: 'saliency': 0.21203650784154512, 'dP': 0.12426029937907315, 'K': 0.7221701098133897 
+saliency calculated as max from pawn perturbation for this empty square: 0.21203650784154512
+------------------------------------------
+perturbing square = d3
+square is empty, so put a pawn from player's color here
+placed pawn results in check
+square is empty, so put a pawn from opponent's color here
+querying engine with perturbed position
+Total Legal Moves : 18
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3h2': -9.06, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with opponent's pawn: 'saliency': 0.19733449792781338, 'dP': 0.11543676390554292, 'K': 0.6791984123271602 
+saliency calculated as max from pawn perturbation for this empty square: 0.19733449792781338
+------------------------------------------
+perturbing square = d4
+square is empty, so put a pawn from player's color here
+querying engine with perturbed position
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': -9.12, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with player's pawn: 'saliency': 0.21158773264113573, 'dP': 0.12426016479962447, 'K': 0.7118894606134842 
+square is empty, so put a pawn from opponent's color here
+placed pawn results in check
+------------------------------------------
+perturbing square = d5
+square is part of original move and must remain empty
+------------------------------------------
+perturbing square = d6
+square is empty, so put a pawn from player's color here
+querying engine with perturbed position
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': -9.36, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with player's pawn: 'saliency': 0.21131940002835217, 'dP': 0.12426010641374881, 'K': 0.7058601454916541 
+square is empty, so put a pawn from opponent's color here
+querying engine with perturbed position
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': -8.42, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with opponent's pawn: 'saliency': 0.2123743818159179, 'dP': 0.12426044219498798, 'K': 0.7300771227109754 
+saliency calculated as max from pawn perturbation for this empty square: 0.2123743818159179
+------------------------------------------
+perturbing square = d7
+square is empty, so put a pawn from player's color here
+querying engine with perturbed position
+Total Legal Moves : 19
+Q Values: {'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': -9.36, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with player's pawn: 'saliency': 0.20228337638202215, 'dP': 0.11870460134864741, 'K': 0.6835986529502919 
+square is empty, so put a pawn from opponent's color here
+querying engine with perturbed position
+Total Legal Moves : 20
+Q Values: {'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': -9.36, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with opponent's pawn: 'saliency': 0.2070324160628781, 'dP': 0.12162855072040803, 'K': 0.6951351669491237 
+saliency calculated as max from pawn perturbation for this empty square: 0.2070324160628781
+------------------------------------------
+perturbing square = d8
+querying engine with perturbed position
+mate in moves: 15
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 40, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+'saliency': 0.04791242807864254, 'dP': 0.17425989116442867, 'K': 0.027774485169308857, 'QMaxAnswer': 1, 'actionGapBeforePerturbation': 1.44, 'actionGapAfterPerturbation': 40
+saliency for this square = {'int': 59, 'saliency': 0.04791242807864254, 'dP': 0.17425989116442867, 'K': 0.027774485169308857, 'QMaxAnswer': 1, 'actionGapBeforePerturbation': 1.44, 'actionGapAfterPerturbation': 40}
+------------------------------------------
+perturbing square = e1
+can not put a pawn on this square - so skipped
+------------------------------------------
+perturbing square = e2
+illegal piece was removed
+------------------------------------------
+perturbing square = e3
+square is empty, so put a pawn from player's color here
+querying engine with perturbed position
+mate in moves: 14
+Total Legal Moves : 15
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with player's pawn: 'saliency': 0.19428292286015045, 'dP': 0.107593224497762, 'K': 1.0 
+square is empty, so put a pawn from opponent's color here
+querying engine with perturbed position
+mate in moves: 14
+Total Legal Moves : 15
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with opponent's pawn: 'saliency': 0.19428292286015045, 'dP': 0.107593224497762, 'K': 1.0 
+saliency calculated as max from pawn perturbation for this empty square: 0.19428292286015045
+------------------------------------------
+perturbing square = e4
+querying engine with perturbed position
+Total Legal Moves : 20
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': -0.01, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'b7b5': 0}
+perturbed reward Q(s',â): -0.01, original reward Q(s,â): 1.44
+'saliency': 0.22179981561647516, 'dP': 0.12473275931717992, 'K': 1.0, 'QMaxAnswer': 1, 'actionGapBeforePerturbation': 1.44, 'actionGapAfterPerturbation': 0
+saliency for this square = {'int': 28, 'saliency': 0.22179981561647516, 'dP': 0.12473275931717992, 'K': 1.0, 'QMaxAnswer': 1, 'actionGapBeforePerturbation': 1.44, 'actionGapAfterPerturbation': 0}
+------------------------------------------
+perturbing square = e5
+illegal piece was removed
+------------------------------------------
+perturbing square = e6
+square is empty, so put a pawn from player's color here
+querying engine with perturbed position
+Total Legal Moves : 20
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5f5': 0.0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with player's pawn: 'saliency': 0.22105189759234245, 'dP': 0.12425989116442866, 'K': 1.0 
+square is empty, so put a pawn from opponent's color here
+querying engine with perturbed position
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0.01, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with opponent's pawn: 'saliency': 0.22484721389423873, 'dP': 0.12666362213853788, 'K': 0.9999976178665086 
+saliency calculated as max from pawn perturbation for this empty square: 0.22484721389423873
+------------------------------------------
+perturbing square = e7
+square is empty, so put a pawn from player's color here
+querying engine with perturbed position
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0.0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with player's pawn: 'saliency': 0.22481138380685728, 'dP': 0.12664084354538105, 'K': 1.0 
+square is empty, so put a pawn from opponent's color here
+querying engine with perturbed position
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': -0.01, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): -0.01, original reward Q(s,â): 1.44
+saliency for this square with opponent's pawn: 'saliency': 0.22552245418174505, 'dP': 0.1270923121643397, 'K': 1.0 
+saliency calculated as max from pawn perturbation for this empty square: 0.22552245418174505
+------------------------------------------
+perturbing square = e8
+can not put a pawn on this square - so skipped
+------------------------------------------
+perturbing square = f1
+can not put a pawn on this square - so skipped
+------------------------------------------
+perturbing square = f2
+querying engine with perturbed position
+mate in moves: 15
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 40, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+'saliency': 0.04791242807864254, 'dP': 0.17425989116442867, 'K': 0.027774485169308857, 'QMaxAnswer': 1, 'actionGapBeforePerturbation': 1.44, 'actionGapAfterPerturbation': 40
+saliency for this square = {'int': 13, 'saliency': 0.04791242807864254, 'dP': 0.17425989116442867, 'K': 0.027774485169308857, 'QMaxAnswer': 1, 'actionGapBeforePerturbation': 1.44, 'actionGapAfterPerturbation': 40}
+------------------------------------------
+perturbing square = f3
+square is empty, so put a pawn from player's color here
+placed pawn results in check
+square is empty, so put a pawn from opponent's color here
+querying engine with perturbed position
+mate in moves: 14
+Total Legal Moves : 16
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3h2': 40, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with opponent's pawn: 'saliency': 0.04835141229425037, 'dP': 0.17425989116442867, 'K': 0.028069952350645983 
+saliency calculated as max from pawn perturbation for this empty square: 0.04835141229425037
+------------------------------------------
+perturbing square = f4
+square is empty, so put a pawn from player's color here
+querying engine with perturbed position
+mate in moves: 14
+Total Legal Moves : 20
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 40, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with player's pawn: 'saliency': 0.04797445490392921, 'dP': 0.17425989116442867, 'K': 0.02781618121253177 
+square is empty, so put a pawn from opponent's color here
+placed pawn results in check
+------------------------------------------
+perturbing square = f5
+square is empty, so put a pawn from player's color here
+querying engine with perturbed position
+mate in moves: 14
+Total Legal Moves : 20
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 40, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with player's pawn: 'saliency': 0.04797445490392921, 'dP': 0.17425989116442867, 'K': 0.02781618121253177 
+square is empty, so put a pawn from opponent's color here
+querying engine with perturbed position
+mate in moves: 14
+Total Legal Moves : 20
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 40, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with opponent's pawn: 'saliency': 0.04797445490392921, 'dP': 0.17425989116442867, 'K': 0.02781618121253177 
+saliency calculated as max from pawn perturbation for this empty square: 0.04797445490392921
+------------------------------------------
+perturbing square = f6
+square is empty, so put a pawn from player's color here
+querying engine with perturbed position
+mate in moves: 14
+Total Legal Moves : 20
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 40, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with player's pawn: 'saliency': 0.04797445490392921, 'dP': 0.17425989116442867, 'K': 0.02781618121253177 
+square is empty, so put a pawn from opponent's color here
+querying engine with perturbed position
+mate in moves: 14
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 40, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with opponent's pawn: 'saliency': 0.04791242807864254, 'dP': 0.17425989116442867, 'K': 0.027774485169308857 
+saliency calculated as max from pawn perturbation for this empty square: 0.04797445490392921
+------------------------------------------
+perturbing square = f7
+square is empty, so put a pawn from player's color here
+querying engine with perturbed position
+mate in moves: 14
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 40, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with player's pawn: 'saliency': 0.04791242807864254, 'dP': 0.17425989116442867, 'K': 0.027774485169308857 
+square is empty, so put a pawn from opponent's color here
+querying engine with perturbed position
+mate in moves: 14
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 40, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with opponent's pawn: 'saliency': 0.04791242807864254, 'dP': 0.17425989116442867, 'K': 0.027774485169308857 
+saliency calculated as max from pawn perturbation for this empty square: 0.04791242807864254
+------------------------------------------
+perturbing square = f8
+can not put a pawn on this square - so skipped
+------------------------------------------
+perturbing square = g1
+can not put a pawn on this square - so skipped
+------------------------------------------
+perturbing square = g2
+square is empty, so put a pawn from player's color here
+querying engine with perturbed position
+mate in moves: 14
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 40, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with player's pawn: 'saliency': 0.04791242807864254, 'dP': 0.17425989116442867, 'K': 0.027774485169308857 
+square is empty, so put a pawn from opponent's color here
+querying engine with perturbed position
+mate in moves: 14
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 40, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with opponent's pawn: 'saliency': 0.04791242807864254, 'dP': 0.17425989116442867, 'K': 0.027774485169308857 
+saliency calculated as max from pawn perturbation for this empty square: 0.04791242807864254
+------------------------------------------
+perturbing square = g3
+square is empty, so put a pawn from player's color here
+querying engine with perturbed position
+mate in moves: 14
+Total Legal Moves : 14
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3h2': 40, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with player's pawn: 'saliency': 0.048665728391977706, 'dP': 0.17425989116442867, 'K': 0.028282040618363136 
+square is empty, so put a pawn from opponent's color here
+querying engine with perturbed position
+mate in moves: 12
+Total Legal Moves : 14
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'h3h4': 0, 'h3g3': 0, 'h3h2': 40, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with opponent's pawn: 'saliency': 0.048665728391977706, 'dP': 0.17425989116442867, 'K': 0.028282040618363136 
+saliency calculated as max from pawn perturbation for this empty square: 0.048665728391977706
+------------------------------------------
+perturbing square = g4
+square is empty, so put a pawn from player's color here
+querying engine with perturbed position
+mate in moves: 12
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 40, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with player's pawn: 'saliency': 0.04791242807864254, 'dP': 0.17425989116442867, 'K': 0.027774485169308857 
+square is empty, so put a pawn from opponent's color here
+querying engine with perturbed position
+mate in moves: 12
+Total Legal Moves : 20
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 40, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with opponent's pawn: 'saliency': 0.04797445490392921, 'dP': 0.17425989116442867, 'K': 0.02781618121253177 
+saliency calculated as max from pawn perturbation for this empty square: 0.04797445490392921
+------------------------------------------
+perturbing square = g5
+square is empty, so put a pawn from player's color here
+querying engine with perturbed position
+mate in moves: 12
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 40, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with player's pawn: 'saliency': 0.04791242807864254, 'dP': 0.17425989116442867, 'K': 0.027774485169308857 
+square is empty, so put a pawn from opponent's color here
+querying engine with perturbed position
+mate in moves: 12
+Total Legal Moves : 20
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 40, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with opponent's pawn: 'saliency': 0.04797445490392921, 'dP': 0.17425989116442867, 'K': 0.02781618121253177 
+saliency calculated as max from pawn perturbation for this empty square: 0.04797445490392921
+------------------------------------------
+perturbing square = g6
+square is empty, so put a pawn from player's color here
+querying engine with perturbed position
+mate in moves: 12
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 40, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with player's pawn: 'saliency': 0.04791242807864254, 'dP': 0.17425989116442867, 'K': 0.027774485169308857 
+square is empty, so put a pawn from opponent's color here
+querying engine with perturbed position
+mate in moves: 12
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 40, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with opponent's pawn: 'saliency': 0.04791242807864254, 'dP': 0.17425989116442867, 'K': 0.027774485169308857 
+saliency calculated as max from pawn perturbation for this empty square: 0.04791242807864254
+------------------------------------------
+perturbing square = g7
+square is empty, so put a pawn from player's color here
+querying engine with perturbed position
+mate in moves: 12
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 40, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with player's pawn: 'saliency': 0.04791242807864254, 'dP': 0.17425989116442867, 'K': 0.027774485169308857 
+square is empty, so put a pawn from opponent's color here
+querying engine with perturbed position
+mate in moves: 12
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 40, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with opponent's pawn: 'saliency': 0.04791242807864254, 'dP': 0.17425989116442867, 'K': 0.027774485169308857 
+saliency calculated as max from pawn perturbation for this empty square: 0.04791242807864254
+------------------------------------------
+perturbing square = g8
+can not put a pawn on this square - so skipped
+------------------------------------------
+perturbing square = h1
+can not put a pawn on this square - so skipped
+------------------------------------------
+perturbing square = h2
+square is empty, so put a pawn from player's color here
+querying engine with perturbed position
+mate in moves: 12
+Total Legal Moves : 19
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with player's pawn: 'saliency': 0.2168781063963058, 'dP': 0.12162831221706025, 'K': 1.0 
+square is empty, so put a pawn from opponent's color here
+querying engine with perturbed position
+mate in moves: 12
+Total Legal Moves : 20
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 40, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with opponent's pawn: 'saliency': 0.04797445490392921, 'dP': 0.17425989116442867, 'K': 0.02781618121253177 
+------------------------------------------
+perturbing square = h3
+querying engine with perturbed position
+Total Legal Moves : 11
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': -12.04, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+'saliency': 0.12849466119064393, 'dP': 0.07425995019733722, 'K': 0.47649903421480233, 'QMaxAnswer': 1, 'actionGapBeforePerturbation': 1.44, 'actionGapAfterPerturbation': 0
+saliency for this square = {'int': 23, 'saliency': 0.12849466119064393, 'dP': 0.07425995019733722, 'K': 0.47649903421480233, 'QMaxAnswer': 1, 'actionGapBeforePerturbation': 1.44, 'actionGapAfterPerturbation': 0}
+------------------------------------------
+perturbing square = h4
+querying engine with perturbed position
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 4.94, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+'saliency': 0.22786634892929322, 'dP': 0.16800090363230716, 'K': 0.3540166483486538, 'QMaxAnswer': 1, 'actionGapBeforePerturbation': 1.44, 'actionGapAfterPerturbation': 4.94
+saliency for this square = {'int': 31, 'saliency': 0.22786634892929322, 'dP': 0.16800090363230716, 'K': 0.3540166483486538, 'QMaxAnswer': 1, 'actionGapBeforePerturbation': 1.44, 'actionGapAfterPerturbation': 4.94}
+------------------------------------------
+perturbing square = h5
+querying engine with perturbed position
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0.02, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+'saliency': 0.22488324714084826, 'dP': 0.12668660754911926, 'K': 0.9999904428644336, 'QMaxAnswer': 1, 'actionGapBeforePerturbation': 1.44, 'actionGapAfterPerturbation': 0.02
+saliency for this square = {'int': 39, 'saliency': 0.22488324714084826, 'dP': 0.12668660754911926, 'K': 0.9999904428644336, 'QMaxAnswer': 1, 'actionGapBeforePerturbation': 1.44, 'actionGapAfterPerturbation': 0.02}
+------------------------------------------
+perturbing square = h6
+square is empty, so put a pawn from player's color here
+querying engine with perturbed position
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0.04, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with player's pawn: 'saliency': 0.22495592859457367, 'dP': 0.12673320549000824, 'K': 0.9999615418407772 
+square is empty, so put a pawn from opponent's color here
+querying engine with perturbed position
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0.03, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with opponent's pawn: 'saliency': 0.22491948491689992, 'dP': 0.1267098014416646, 'K': 0.9999784319402423 
+saliency calculated as max from pawn perturbation for this empty square: 0.22495592859457367
+------------------------------------------
+perturbing square = h7
+square is empty, so put a pawn from player's color here
+querying engine with perturbed position
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0.03, 'e5f5': 0, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with player's pawn: 'saliency': 0.22491948491689992, 'dP': 0.1267098014416646, 'K': 0.9999784319402423 
+square is empty, so put a pawn from opponent's color here
+querying engine with perturbed position
+Total Legal Moves : 21
+Q Values: {'c6e8': 0, 'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': 0, 'e5e6': 0, 'e5f5': 0.03, 'e5f4': 0, 'h3h4': 0, 'h3g3': 0, 'h3f3': 0, 'h3e3': 0, 'h3d3': 0, 'h3c3': 0, 'h3b3': 0, 'h3a3': 0, 'h3h2': 0, 'h3h1': 0, 'b7b6': 0, 'e4e3': 0, 'b7b5': 0}
+perturbed reward Q(s',â): 0, original reward Q(s,â): 1.44
+saliency for this square with opponent's pawn: 'saliency': 0.22491948491689992, 'dP': 0.1267098014416646, 'K': 0.9999784319402423 
+saliency calculated as max from pawn perturbation for this empty square: 0.22491948491689992
+------------------------------------------
+perturbing square = h8
+can not put a pawn on this square - so skipped
+------------------------------------------
+new moves after best move:
+['d5c4', 'd5c6', 'd5g8', 'd5a2', 'd5f7']
+gained new board control over:
+{}
+considered salient:
+a2: max: 0.2297978019, colour player: 0.0402566788, colour opponent: 0.2297978019
+e7: max: 0.2255224542, colour player: 0.2248113838, colour opponent: 0.2255224542
+h6: max: 0.2249559286, colour player: 0.2249559286, colour opponent: 0.2249194849
+h7: max: 0.2249194849, colour player: 0.2249194849, colour opponent: 0.2249194849
+c2: max: 0.2248472139, colour player: 0.2248113838, colour opponent: 0.2248472139
+e6: max: 0.2248472139, colour player: 0.2210518976, colour opponent: 0.2248472139
+c4: max: 0.2248113838, colour player: 0.2248113838, colour opponent: 0.2248113838
+a5: max: 0.2233680527, colour player: 0.2233680527, colour opponent: 0.2188635112
+a6: max: 0.2226356539, colour player: 0.2226356539, colour opponent: 0.2211490405
+b3: max: 0.2210518976, colour player: 0.2168781064, colour opponent: 0.2210518976
+a7: max: 0.2203946839, colour player: 0.2173019049, colour opponent: 0.2203946839
+c3: max: 0.2169222786, colour player: 0.2122670097, colour opponent: 0.2169222786
+c7: max: 0.2126115634, colour player: 0.2126115634, colour opponent: 0.2124195165
+d6: max: 0.2123743818, colour player: 0.2113194, colour opponent: 0.2123743818
+d2: max: 0.2120365078, colour player: 0.2119016698, colour opponent: 0.2120365078
+d7: max: 0.2070324161, colour player: 0.2022833764, colour opponent: 0.2070324161
+d3: max: 0.1973344979, colour player: 0, colour opponent: 0.1973344979
+e3: max: 0.1942829229, colour player: 0.1942829229, colour opponent: 0.1942829229
+b4: max: 0.1935820235, colour player: 0.1935820235, colour opponent: 0.1884637988
+b5: max: 0.1934818653, colour player: 0.1873346346, colour opponent: 0.1934818653
+b6: max: 0.1931979822, colour player: 0.1931979822, colour opponent: 0.1866993953
+g3: max: 0.0486657284, colour player: 0.0486657284, colour opponent: 0.0486657284
+f3: max: 0.0483514123, colour player: 0, colour opponent: 0.0483514123
+f5: max: 0.0479744549, colour player: 0.0479744549, colour opponent: 0.0479744549
+f6: max: 0.0479744549, colour player: 0.0479744549, colour opponent: 0.0479124281
+g4: max: 0.0479744549, colour player: 0.0479124281, colour opponent: 0.0479744549
+g5: max: 0.0479744549, colour player: 0.0479124281, colour opponent: 0.0479744549
+f7: max: 0.0479124281, colour player: 0.0479124281, colour opponent: 0.0479124281
+g2: max: 0.0479124281, colour player: 0.0479124281, colour opponent: 0.0479124281
+g6: max: 0.0479124281, colour player: 0.0479124281, colour opponent: 0.0479124281
+g7: max: 0.0479124281, colour player: 0.0479124281, colour opponent: 0.0479124281
+displaying top empty squares:
+['a2', 'e7', 'h6']
+Printing positive saliencies in order: 
+c6: 1
+a2: 0.6204228019
+e7: 0.6161474542
+h6: 0.6155809286
+d5: 0.390625
+a3: 0.2436807646
+h4: 0.2278663489
+h5: 0.2248832471
+a4: 0.2233680527
+e4: 0.2217998156
+b7: 0.2169222786
+b2: 0.2059698414
+h3: 0.1284946612
+d8: 0.0479124281
+f2: 0.0479124281
+------------------------------------------
+threshold: 0.390625

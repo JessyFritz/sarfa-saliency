@@ -1,43 +1,51 @@
-# SARFA
-Link to the paper - [SARFA paper](https://arxiv.org/abs/1912.12191)
+#Interpreting Chess Evaluation Functions
 
-Working example - [Example](Example.ipynb)
+### SARFA
+Link to the original SARFA paper - [SARFA paper](https://arxiv.org/abs/1912.12191) 
+
+Link to the SARFA project https://github.com/nikaashpuri/sarfa-saliency
+
+### My Contributions
+All executions and evaluations can be called from the [databaseHandler](databaseHandler.py).
+1. [Original SARFA implementation](chess_saliency_original.py) evaluation on Windows with 
+   - different chess engines (see [engines](engines) folder)
+     - Fruit 2.2.1
+     - Komodo 12.1.1
+     - Lc0 v0.26.3 (had to be removed from the commit because the files were too large)
+     - Octochess r5190
+     - Rybka 2.3.2a
+     - Stockfish 11
+     - Stockfish 12  
+   - different puzzle types (see [databases](chess_saliency_databases) folder)
+     - strategic vs tacical positions: Bratko-Kopec Test  
+       positions in FEN notation with solution moves and ground truth analysis can be found [here](chess_saliency_databases\bratko-kopec)  
+       engines' executed puzzles can be found [here](evaluation\bratko-kopec)
+     - endgames  
+       positions in PGN notation can be found [here](chess_saliency_databases\endgames\endgames.pgn)  
+       engines' executed puzzles can be found [here](evaluation\endgames)
+2. Improvement suggestions
+   - increasing saliency based on Δp and K  
+     implemented in [chess_saliency_combination.py](chess_saliency_combination.py)
+   - introducing chess specific cases  
+     implemented in [chess_saliency_chessSpecific.py](chess_saliency_chessSpecific.py)
+   - adaptation for Leela  
+     implemented in [chess_saliency_leela.py](chess_saliency_leela.py)
+
+
 ### Dependencies
 1. Python3
 2. Packages listed in requirements.txt
-### Using SARFA to interpret your RL Models
+
+### Using Saliency Maps to Interpret Chess Boards
 1. Clone Repository
-```
-git clone https://github.com/nikaashpuri/sarfa-saliency.git
-```
+    ```
+    git clone https://github.com
+    ```
 2. Navigage to cloned repository
-```
-cd sarfa-saliency
-```
-3. Install minimal dependencies using pip (if you want to use SARFA with your Reinforcement Learning Models)
-```
-pip install -r requirements-minimal.txt
-```
-3. Install all dependencies using pip (if you want to use the examples included in the repository)
-```
-pip install -r requirements.txt
-```
-4. Use SARFA in your code
-```python
-import sarfa_saliency
-.....
-.....
-
-dict_q_vals_before_perturbation, original_action = RL_agent.q_values(state) # this is a dictionary, where the key is an action, and the value is the q-value of that action for this state 
-
-# now perturb the state, this step depends on your domain 
-# if you are using images or chess boards, you can use the perturbtations provided in our examples 
-perturbed_state = perturb(state)
-
-dict_q_vals_after_perturbation = RL_agent.q_values(perturbed_state)
-
-saliency = sarfa_saliency.computeSaliencyUsingSarfa(original_action, dict_q_vals_before_perturbation, dict_q_vals_after_perturbation)
-
-# that's all folks 
-```
-
+    ```
+    cd sarfa-saliency
+    ```
+3. Install all dependencies using pip
+    ```
+    pip install -r requirements.txt
+    ```

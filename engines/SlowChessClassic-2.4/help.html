@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<head>
+<title>Slow Chess Help</title>
+</HEAD>
+<BODY>
+<i>Slow Chess Blitz Classic</i> is a free chess program <BR/>
+Author : Jonathan Kreuzer <BR/>
+Website : <a href="http://www.3dkingdoms.com/chess/slow.htm">Slow Chess Web Site</a> <BR/>
+Version : 2.4 <BR/>
+Modified : Nov 1st, 2020<BR/>
+<br>
+<p>
+<B>slow64.exe</B> - You should use this executable possible. Running directly will give you the own GUI, but it can also be used as a UCI or winboard engine.<br/>
+<B>slow64_noAvx.exe</B> - For older CPUs without AVX instruction set. Slower but otherwise the same. <br/>
+<B>slow64_noPop.exe</B> - For older CPUS without popcount instruction (or AVX.) Slower but otherwise the same.
+</p>
+<a href="#winboard"> Goto UCI Engine Instructions</a>
+<h3>Using Slow Chess in Own GUI:</h3>
+
+<P>If it's your turn and you click on one of your pieces, it will be selected, 
+  and a white box appears around it. Then just click where you want to move it, or drag and release on the destination square. <br>
+  Castling is done by clicking the king, then the square where he would end up 
+  after castling. (FRC is an exception, to castle click the rook square after the king. Otherwise can be ambiguous.)<br> En Passant captures are performed by clicking the pawn and then 
+  its destination square. <br>
+  <br>
+  <em>Move button</em>: Tells the computer to stop thinking and play the best 
+  move its found so far if it's thinking, otherwise it will tell the computer 
+  to start playing as the side to move.<br>
+  <em>Retract button:</em> will take back the players last move so that he can 
+  make a different one. <br>
+  &lt; and &gt; : will move a half a move backward/forward respectively.<br>
+  &lt;| and |&gt; :will go to the first and last move of the game.<br>
+  Clicking on the transcript will set the board to the move clicked on.<br>
+  <br>
+  The <em>Difficulty level</em> uses all limits set. (Let's say it's set to 7 
+  ply, 5 seconds. If it completes a 7 ply search before 5 seconds it will stop, 
+  otherwise it will stop after 5 seconds no matter how far it has searched.) The 
+  52 ply is meant to be used for time based games, since it will always (except 
+  certain endgame situations) reach the time limit before it reaches 52 ply. Seconds 
+  per move defaults to 0, and when it's set to zero it uses the time control to 
+  choose how long to think about its next move, instead of thinking a set amount 
+  of time per move.&nbsp;<br>
+  <br>
+  <I>Analysis</I>: To start analysis of the position currently on the board, click 
+  the &quot;Analyze&quot; button in the side window. A window will appear below the board 
+  which will display the principle variation of the best move or best moves found. 
+  If you don't mind much slower best move analysis, you can use the '+' and '-' 
+  button to have the computer calculate the 2nd best-6th best moves in addition 
+  to the best. You can also turn on the analysis window while playing against 
+  the computer from the options menu. <br>
+  <br>
+  <I>Multi-Threaded search</I>: The default is 1 thinking thread. For better and quicker analysis, you can increase this number
+  under Search->Threads. This setting is saved in the EngineGUI.dft file. More threads is only a benefit up the the actual number of hardware threads your CPU supports, and additionally you might not want to use the hardware max 
+  threads or other programs might become sluggish.
+<br><br>
+  <em>Displayed Search Info</em>: When the computer is thinking, it will display 
+  info about the search unless this option is unchecked. It will display the furthest 
+  depth to which it searched a move completely (with a * afterwards if not all 
+  moves were searched to that depth, a * after the eval value means there's no 
+  value for this move at the current depth), the number of nodes it searched, 
+  and search speed in Kilonodes/sec, and the evaluation value of the best move.<br>
+  <br>
+ <em>Options->Settings</em> : Set Player Name, Book Dir, Use Book, SyzygyPath, Draw Offers, Resign, Eval White POV
+<br/>
+<br>
+  In the window beneath a player's time, 1R, 2p beneath black's time would mean 
+  that black has 1 more rook than white, and 2 more pawns.<br>
+  The large print top clock is the time left for a player to complete his move 
+  (according to the time limit set on the menu.) The bottom is the total time 
+  the player has taken to make his moves so far. If the time left runs out, you 
+  would lose the game by the rules of chess, but in this program your clock just 
+  stays at zero and you're free to continue to play.</P>
+<P><b>Note on the opening book: </b>You manually add or remove positions from the
+opening book with the 3 and 6 keys. (Also 1 or 2 keys = position prefered by
+black. 4 or 5 keys = position prefered by white.) Remember to Save the book when you're
+done, it never autosaves. You can also add .pgns to the book. If you load an opening book the positions
+will be added to whatever is in the book in memory. Slow Chess can't handle really large books.&nbsp;</P>
+
+<p>
+Interested in how Slow Chess evaluates the board? Right-Click on a piece to see it's full evaluation breakdown. Develop->Display Eval to see total board evaluation.
+</p>
+<BR/>
+<P><A id="winboard"></A>
+<h3>Using Slow Chess as a UCI or Winboard Engine:</h3>
+
+<ul>
+<li>The same slow64.exe can be used as a winboard or UCI engine in any interface that supports those protocols.</li>
+<li>On startup it will try to load the endgame neural nets, bitbases and opening book. The data files are exepected to be in the same directory as the executable.</li>
+<li>Winboard settings are all saved in <i>engineWB.dft</i>.</li>
+<li>You can set the winboard settings from the Slow GUI using Options->Winboard Settings, or by directly text editing the save file <i>engineWB.dft</i>.</li>
+<li>The transposition table size is additionally settable from command line with -TT128 where 128 is the size in MBs.</li>
+<li>Note : actual TT size will always be a power of 2. So 64, 128, 256, etc. Due to a reduction in TTEntry size, allocated memory will be less.</li>
+<li>Own Opening Book usage can be turned off in winboard settings. Under UCI it's the ownBook UCI option.</li>
+<li>Slow Chess saves its games under winboard to winboardgames.pgn in the directory 
+  it is run (can be turned off in winboard settings.)</li>
+<li>FRC / Chess960 variant is supported.</li>
+</ul>
+v1.9 or later
+<ul>
+<li>UCI multi-threading uses the <i>"Threads"</i> setting in engine options.
+<li>Winboard multi-threaded search is supported, respecting the <i>cores</i> command. Settable in WinBoard under <i>"Options->Common Engine->Max nr of CPUs"</i></li>
+<li>If there exists a winboard GUI that doesn't send the cores command, the default is set by "Threads=#" in engineWB.dft</li>
+</ul>
+v2.1 or later
+<ul>
+<li>You can set the SyzygyPath option to use the Syzygy endgame tablebases. This is exposed as a standard option in UCI, and in Options->Settings for Winboard/own GUI.</li>
+</ul>
+<p>
+<br/>
+<h3>Additional notes:</h3>
+
+<p>For those who like to know the country of their 
+  winboard engines, Slow Chess' official country of origin is the United States.</P>
+<P>The piece images are by Josh Hess.</P>
+<p>The engine logo on the page is by Yujin Choo</p>
+Version 2.2 and later contains third party code for Syzygy Tablebase support.<BR/> The Syzygy tablebase code is by Ronald de Man, with additional modications for fathom by basil and Jon Dart.<br/>
+See <a href="https://github.com/jdart1/Fathom">Fathom Github</a>
+<P> If you want a more classic feel try version 1.4 or 1.5. They are weaker but don't do aggresive pruning so feel more like the chess programs of 15 years ago.</p>
+
+<BR><BR><BR><BR><BR><BR><BR><BR>
+<BR><BR><BR><BR><BR><BR><BR><BR>
+<BR><BR><BR><BR><BR><BR><BR><BR>
+<BR><BR><BR><BR><BR><BR><BR><BR>
+</body>

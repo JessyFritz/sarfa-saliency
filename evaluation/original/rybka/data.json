@@ -1,0 +1,5254 @@
+{
+    "puzzle1": {
+        "fen": "2r2rk1/pp1bqpp1/2nppn1p/2p3N1/1bP5/1PN3P1/PBQPPPBP/3R1RK1 w - - 0 1",
+        "best move": "c3d5",
+        "sorted saliencies": {
+            "above threshold": {
+                "c3": 1,
+                "b2": 0.5947442170026312,
+                "c2": 0.58803827416079,
+                "f8": 0.5876544337336223,
+                "e7": 0.567176671847813,
+                "f7": 0.5654542547067755,
+                "g5": 0.5329251169448378
+            },
+            "below threshold": {
+                "c5": 0.1349973385182182,
+                "c4": 0.08337236849917373,
+                "f1": 0.07350583156183418,
+                "f6": 0.05000983969624548,
+                "d1": 0.04774741991560429,
+                "g7": 0.025490177288240632,
+                "a7": 0.0028142112214783457
+            }
+        },
+        "saliency ground truth": [
+            "c3",
+            "c2",
+            "f8",
+            "b2",
+            "f7",
+            "e7",
+            "g5"
+        ],
+        "missing ground truth": {
+            "squares": 0,
+            "details": {}
+        }
+    },
+    "puzzle2": {
+        "fen": "r2qrbk1/1bp2ppp/p2p1n2/2p2NB1/4P3/2N2Q2/PPP2PPP/R3R1K1 w - - 0 1",
+        "best move": "f5h6",
+        "sorted saliencies": {
+            "above threshold": {
+                "f5": 1
+            },
+            "below threshold": {
+                "f3": 0.02734828720122888,
+                "g5": 0.023799598624762955
+            }
+        },
+        "saliency ground truth": [
+            "f5",
+            "f7",
+            "g5",
+            "f3",
+            "g7",
+            "d8",
+            "f6"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "f7",
+                "g5",
+                "f3",
+                "g7",
+                "d8",
+                "f6"
+            ],
+            "details": {
+                "f7": {
+                    "int": 53,
+                    "saliency": 0,
+                    "dP": -0.014381000492926215,
+                    "K": 0.9611052965124224,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.07999999999999996,
+                    "actionGapAfterPerturbation": 0.030000000000000027
+                },
+                "g5": {
+                    "int": 38,
+                    "saliency": 0.023799598624762955,
+                    "dP": 0.012051950278875016,
+                    "K": 0.9425887521227397,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.07999999999999996,
+                    "actionGapAfterPerturbation": 0.33000000000000007
+                },
+                "f3": {
+                    "int": 21,
+                    "saliency": 0.02734828720122888,
+                    "dP": 0.013882662095927723,
+                    "K": 0.9103917365858176,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.07999999999999996,
+                    "actionGapAfterPerturbation": 0.019999999999999574
+                },
+                "g7": {
+                    "int": 54,
+                    "saliency": 0,
+                    "dP": -0.0016444818376076323,
+                    "K": 0.8685619925364646,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.07999999999999996,
+                    "actionGapAfterPerturbation": 0.5299999999999998
+                },
+                "d8": {
+                    "int": 59,
+                    "saliency": 0,
+                    "dP": -0.0651312111316437,
+                    "K": 0.8365244954284758,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.07999999999999996,
+                    "actionGapAfterPerturbation": 0.0600000000000005
+                },
+                "f6": {
+                    "int": 45,
+                    "saliency": 0,
+                    "dP": -0.5380025705066908,
+                    "K": 0.5469511866468869,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 0.07999999999999996,
+                    "actionGapAfterPerturbation": 2.47
+                }
+            }
+        }
+    },
+    "puzzle3": {
+        "fen": "2r4k/3r1p1p/1p2pP2/p2pPp1P/P2P1Q2/6R1/4B1PK/2q5 w - - 0 1",
+        "best move": "g3g8",
+        "sorted saliencies": {
+            "above threshold": {
+                "g3": 1,
+                "f6": 0.9345797530306533,
+                "f7": 0.9290183816437879,
+                "h7": 0.8101212672828788,
+                "c8": 0.6559109674819321
+            },
+            "below threshold": {
+                "e6": 0.2950530886770151,
+                "c1": 0.2362066040829645,
+                "f4": 0.09237582792016195,
+                "d5": 0.03744112690244621,
+                "f5": 0.025499250327840017,
+                "h5": 0.014620072923433983,
+                "a4": 0.01329614679895621,
+                "e2": 0.011948614690046717,
+                "b6": 0.004026449345937251
+            }
+        },
+        "saliency ground truth": [
+            "g3",
+            "f7",
+            "f6",
+            "f4",
+            "c1"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "f4",
+                "c1"
+            ],
+            "details": {
+                "f4": {
+                    "int": 29,
+                    "saliency": 0.09237582792016195,
+                    "dP": 0.9658831383998585,
+                    "K": 0.04850751216967627,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 4.85,
+                    "actionGapAfterPerturbation": 0.0
+                },
+                "c1": {
+                    "int": 2,
+                    "saliency": 0.2362066040829645,
+                    "dP": 0.9658671967052416,
+                    "K": 0.13455645608696543,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 4.85,
+                    "actionGapAfterPerturbation": 0.0
+                }
+            }
+        }
+    },
+    "puzzle4": {
+        "fen": "R4rk1/5bb1/1N1Qpq1p/3pn1p1/3N4/2P2P1P/P5P1/5B1K w - - 0 1",
+        "best move": "b6d5",
+        "sorted saliencies": {
+            "above threshold": {
+                "b6": 1,
+                "f7": 0.7033542364687226,
+                "a8": 0.6882257767130694,
+                "h6": 0.5262372795708067,
+                "d6": 0.5083537692301955,
+                "f6": 0.4668958439402258,
+                "e5": 0.43111383099702666,
+                "f3": 0.41173647168665223,
+                "d5": 0.40439198883033023
+            },
+            "below threshold": {
+                "d4": 0.3734560119860718,
+                "f1": 0.34874937136452216,
+                "a2": 0.3076577063836389,
+                "g2": 0.2531736123317573,
+                "g7": 0.24119773210930687,
+                "e6": 0.19299840191521797,
+                "g5": 0.06801952410260186,
+                "c3": 0.004390055572771524
+            }
+        },
+        "saliency ground truth": [
+            "b6",
+            "a8",
+            "d6",
+            "d5",
+            "f3",
+            "e6"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "e6"
+            ],
+            "details": {
+                "e6": {
+                    "int": 44,
+                    "saliency": 0.19299840191521797,
+                    "dP": 0.6319369476958763,
+                    "K": 0.11389075738444591,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 2.3499999999999996,
+                    "actionGapAfterPerturbation": 6.199999999999999
+                }
+            }
+        }
+    },
+    "puzzle5": {
+        "fen": "5r1k/bp4pp/1n6/5qN1/1PR5/P2Q3P/5PP1/6K1 w - - 0 1",
+        "best move": "c4f4",
+        "sorted saliencies": {
+            "above threshold": {
+                "c4": 1,
+                "g2": 0.9314023416568821,
+                "g5": 0.8700003601281084,
+                "f2": 0.6712561583552059,
+                "g7": 0.5629148946273812
+            },
+            "below threshold": {
+                "f8": 0.3480721511182251,
+                "b6": 0.286867828481524,
+                "d3": 0.10569508279127321,
+                "f5": 0.04720558105637113,
+                "h3": 0.005105211013685906,
+                "a3": 8.898822810790905e-05
+            }
+        },
+        "saliency ground truth": [
+            "c4",
+            "g2",
+            "f2",
+            "g5",
+            "g7",
+            "d3"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "d3"
+            ],
+            "details": {
+                "d3": {
+                    "int": 19,
+                    "saliency": 0.10569508279127321,
+                    "dP": 0.9877645089518181,
+                    "K": 0.05583482553795344,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 8.370000000000001,
+                    "actionGapAfterPerturbation": 4.050000000000001
+                }
+            }
+        }
+    },
+    "puzzle6": {
+        "fen": "r2b1r1k/pppq2pn/2npb1Q1/3N1N1p/2B1PP1P/8/PPP5/2K3RR w - - 0 1",
+        "best move": "d5e7",
+        "sorted saliencies": {
+            "above threshold": {
+                "d5": 1,
+                "g6": 0.693881464303736,
+                "f5": 0.6582259830816143,
+                "c4": 0.6495937890731578,
+                "f8": 0.5947669741543214,
+                "g1": 0.568351745679797
+            },
+            "below threshold": {
+                "c7": 0.31446693666138803,
+                "e4": 0.2840771911161788,
+                "a8": 0.16801649524342982,
+                "f4": 0.14681169663214147,
+                "d7": 0.0645605861879608,
+                "h7": 0.04567782229892192,
+                "h4": 0.04316899043501072,
+                "c2": 0.0358113214414921
+            }
+        },
+        "saliency ground truth": [
+            "d5",
+            "c4",
+            "f5",
+            "g6",
+            "g1"
+        ],
+        "missing ground truth": {
+            "squares": 0,
+            "details": {}
+        }
+    },
+    "puzzle7": {
+        "fen": "2rr2kb/1p1b1p1p/p2pp1pB/q3n3/2PNP3/1PN4P/P2Q1PP1/2RR2K1 w - - 0 1",
+        "best move": "c3d5",
+        "sorted saliencies": {
+            "above threshold": {
+                "c3": 1,
+                "a5": 0.6671329675636656,
+                "d8": 0.6666958939664899,
+                "f7": 0.6517739116055796,
+                "h7": 0.6392994937331196,
+                "f2": 0.6386529093336154,
+                "h6": 0.6313011236376748,
+                "h8": 0.6069062710602896,
+                "d2": 0.5853379319918555
+            },
+            "below threshold": {
+                "d6": 0.388491879278227,
+                "g6": 0.33139353547833517,
+                "a6": 0.11532231142557593
+            }
+        },
+        "saliency ground truth": [
+            "c3",
+            "h8",
+            "a5",
+            "h6",
+            "h7",
+            "f7",
+            "d2"
+        ],
+        "missing ground truth": {
+            "squares": 0,
+            "details": {}
+        }
+    },
+    "puzzle8": {
+        "fen": "2q5/pR6/1p3pnk/1P4pp/8/5QPP/P2r2BK/8 w - - 0 1",
+        "best move": "f3h5",
+        "sorted saliencies": {
+            "above threshold": {
+                "f3": 1,
+                "g2": 1
+            },
+            "below threshold": {
+                "h3": 0.220310354796148,
+                "b7": 0.21548917182071195,
+                "g6": 0.21222266554570587,
+                "d2": 0.19984920414985505,
+                "h5": 0.1505108060405877,
+                "g5": 0.10839578870820042,
+                "a7": 0.07294272016428359
+            }
+        },
+        "saliency ground truth": [
+            "f3",
+            "g2",
+            "h3"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "h3"
+            ],
+            "details": {
+                "h3": {
+                    "int": 23,
+                    "saliency": 0.220310354796148,
+                    "dP": 0.1348771729084739,
+                    "K": 0.600979759195956,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 1.1600000000000001
+                }
+            }
+        }
+    },
+    "puzzle9": {
+        "fen": "1nkrnr2/pp1bbp1p/1qp3p1/3P4/8/1NNB3P/PPQ3PB/1K1R3R w - - 0 1",
+        "best move": "d5d6",
+        "sorted saliencies": {
+            "above threshold": {
+                "d5": 1,
+                "d8": 0.5360195284948751,
+                "e7": 0.5248119286033314,
+                "b3": 0.5241193314610297,
+                "f7": 0.5226663389506013,
+                "c3": 0.5197509431555692,
+                "d7": 0.5142052127634402,
+                "c2": 0.4957516321721202,
+                "b6": 0.4885340151936689,
+                "b7": 0.4556024886421656,
+                "d3": 0.4463230544824222,
+                "b8": 0.42526899894125636,
+                "c6": 0.4170441284785414
+            },
+            "below threshold": {
+                "a2": 0.38268036782477305,
+                "f8": 0.2798734700789452,
+                "a7": 0.19978493062861372,
+                "h2": 0.1698661209999225,
+                "g6": 0.1499996165209038,
+                "h3": 0.06759077106121607,
+                "e8": 0.037757604890790046,
+                "g2": 0.018124364960396072
+            }
+        },
+        "saliency ground truth": [
+            "d5",
+            "e7",
+            "c6",
+            "d3",
+            "b6",
+            "b3",
+            "c2"
+        ],
+        "missing ground truth": {
+            "squares": 0,
+            "details": {}
+        }
+    },
+    "puzzle10": {
+        "fen": "8/7p/2p1r3/Qqkrp3/4R1P1/7P/1P1p4/4RK2 w - - 0 1",
+        "best move": "e4c4",
+        "sorted saliencies": {
+            "above threshold": {
+                "e4": 1,
+                "a5": 0.9090909090909091
+            },
+            "below threshold": {
+                "d5": 0.1746713830483501,
+                "e6": 0.16374136222691918,
+                "e1": 0.13834599892156074,
+                "b2": 0.12912711164439347
+            }
+        },
+        "saliency ground truth": [
+            "e4",
+            "b2",
+            "d5",
+            "e6",
+            "a5"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "b2",
+                "d5",
+                "e6"
+            ],
+            "details": {
+                "b2": {
+                    "int": 9,
+                    "saliency": 0.12912711164439347,
+                    "dP": 0.9996293949005404,
+                    "K": 0.06902148013746698,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 40,
+                    "actionGapAfterPerturbation": 7.9
+                },
+                "d5": {
+                    "int": 35,
+                    "saliency": 0.1746713830483501,
+                    "dP": 0.9965296248850714,
+                    "K": 0.09572501610513678,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 40,
+                    "actionGapAfterPerturbation": 5.66
+                },
+                "e6": {
+                    "int": 44,
+                    "saliency": 0.16374136222691918,
+                    "dP": 0.9955482927223044,
+                    "K": 0.08920675714379941,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 40,
+                    "actionGapAfterPerturbation": 5.41
+                }
+            }
+        }
+    },
+    "puzzle11": {
+        "fen": "4r1k1/pp1rBp1p/5Qp1/3q4/8/2P4P/3nRPP1/4R1K1 w - - 0 1",
+        "best move": "f6h8",
+        "sorted saliencies": {
+            "above threshold": {
+                "f6": 1,
+                "a7": 0.9744156961506458,
+                "f2": 0.8935111339323184,
+                "c3": 0.878340150931693,
+                "d2": 0.6024898931665451,
+                "d5": 0.48308741748232853,
+                "h7": 0.4637659196859824
+            },
+            "below threshold": {
+                "f7": 0.28069484516428084,
+                "e7": 0.21075635127563708,
+                "e8": 5.331119433386972e-09,
+                "g6": 3.8413716652028826e-14,
+                "b7": 2.2204460492503128e-16,
+                "d7": 2.2204460492503123e-16
+            }
+        },
+        "saliency ground truth": [
+            "f6",
+            "e2",
+            "e7"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "e2",
+                "e7"
+            ],
+            "details": {
+                "e2": {
+                    "int": 12,
+                    "saliency": 0,
+                    "dP": 0.0,
+                    "K": 0.12708550840257563,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 37.78,
+                    "actionGapAfterPerturbation": 46.67
+                },
+                "e7": {
+                    "int": 52,
+                    "saliency": 0.21075635127563708,
+                    "dP": 0.9998419771346045,
+                    "K": 0.11779294287845218,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 37.78,
+                    "actionGapAfterPerturbation": 3.36
+                }
+            }
+        }
+    },
+    "puzzle12": {
+        "fen": "r1b4k/3q2rp/8/2pP1Q2/1pB3n1/7R/PP4PP/3R2K1 w - - 0 1",
+        "best move": "h3h7",
+        "sorted saliencies": {
+            "above threshold": {
+                "h3": 1,
+                "b4": 0.8099414805874692,
+                "c4": 0.7337065399809541,
+                "g4": 0.6506143209918305,
+                "a8": 0.6247766661598412,
+                "g7": 0.46367403404354635,
+                "f5": 0.447873480492184,
+                "c5": 0.4459435320508472
+            },
+            "below threshold": {
+                "c8": 0.37594934458960055,
+                "d7": 0.31914038431729286,
+                "d5": 0.05989358020461478,
+                "d1": 0.00030301011679075555,
+                "a2": 1.07984084210765e-05,
+                "g2": 1.5371717716849835e-06
+            }
+        },
+        "saliency ground truth": [
+            "h3",
+            "c4",
+            "f5"
+        ],
+        "missing ground truth": {
+            "squares": 0,
+            "details": {}
+        }
+    },
+    "puzzle13": {
+        "fen": "q1r1r2k/p5pp/1p2B3/1bbP4/8/3R2P1/PB2QP1P/2R3K1 w - - 0 1",
+        "best move": "b2g7",
+        "sorted saliencies": {
+            "above threshold": {
+                "b2": 1,
+                "f2": 1,
+                "c8": 0.8043494110264013,
+                "c5": 0.5283953707988721,
+                "b5": 0.4550510765420592
+            },
+            "below threshold": {
+                "h7": 0.3836514735144615,
+                "e6": 0.3372759033982466,
+                "e2": 0.33680568856129456,
+                "e8": 0.062267925798958984,
+                "a8": 6.17774720235127e-11
+            }
+        },
+        "saliency ground truth": [
+            "b2",
+            "f2",
+            "e2",
+            "e6",
+            "g3"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "e2",
+                "e6",
+                "g3"
+            ],
+            "details": {
+                "e2": {
+                    "int": 12,
+                    "saliency": 0.33680568856129456,
+                    "dP": 0.9833531009980251,
+                    "K": 0.20320192278642527,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 35.78,
+                    "actionGapAfterPerturbation": 0.09999999999999964
+                },
+                "e6": {
+                    "int": 44,
+                    "saliency": 0.3372759033982466,
+                    "dP": 0.9561028753550024,
+                    "K": 0.20475226980899702,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 35.78,
+                    "actionGapAfterPerturbation": 0.4700000000000002
+                },
+                "g3": {
+                    "int": 22,
+                    "saliency": 0,
+                    "dP": -4.440892098500626e-16,
+                    "K": 0.9330158783724876,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 35.78,
+                    "actionGapAfterPerturbation": 36.33
+                }
+            }
+        }
+    },
+    "puzzle14": {
+        "fen": "5k2/p5pp/r7/2pB2p1/b1P5/6P1/4PP1P/R5K1 w - - 0 1",
+        "best move": "a1a2",
+        "sorted saliencies": {
+            "above threshold": {
+                "a1": 1
+            },
+            "below threshold": {
+                "a4": 0.07790611371126638,
+                "a6": 0.06841487930655059,
+                "f2": 0.01574695705292665,
+                "a7": 0.0101121318890453,
+                "c5": 0.00024705231090281065
+            }
+        },
+        "saliency ground truth": [
+            "a1"
+        ],
+        "missing ground truth": {
+            "squares": 0,
+            "details": {}
+        }
+    },
+    "puzzle15": {
+        "fen": "2b3k1/p4ppp/1p6/8/5Q1P/8/Pq3PP1/1B4K1 w - - 0 1",
+        "best move": "b1f5",
+        "sorted saliencies": {
+            "above threshold": {
+                "b1": 1,
+                "b6": 0.48695516088784924,
+                "h7": 0.479199626443258,
+                "f2": 0.47755903648704146,
+                "f4": 0.46343280664658054,
+                "g7": 0.4557493452221,
+                "b2": 0.43762523585227053
+            },
+            "below threshold": {
+                "f7": 0.3154615588548196,
+                "g2": 0.262712405957904,
+                "c8": 0.04903477936333855
+            }
+        },
+        "saliency ground truth": [
+            "b1",
+            "f2",
+            "h7",
+            "g7",
+            "f4",
+            "f7",
+            "c8"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "f7",
+                "c8"
+            ],
+            "details": {
+                "f7": {
+                    "int": 53,
+                    "saliency": 0.3154615588548196,
+                    "dP": 0.46950234463897567,
+                    "K": 0.23752958584484396,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 1.05,
+                    "actionGapAfterPerturbation": 3.9
+                },
+                "c8": {
+                    "int": 58,
+                    "saliency": 0.04903477936333855,
+                    "dP": 0.4768977333532897,
+                    "K": 0.02584614413621551,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 1.05,
+                    "actionGapAfterPerturbation": 40
+                }
+            }
+        }
+    },
+    "puzzle16": {
+        "fen": "8/4Nk2/5P2/pK4P1/P6b/8/8/8 w - - 0 1",
+        "best move": "g5g6",
+        "sorted saliencies": {
+            "above threshold": {
+                "g5": 1,
+                "f6": 0.6651988510160712,
+                "a4": 0.6502659394188302,
+                "e7": 0.5612523939908667
+            },
+            "below threshold": {
+                "h4": 0.19934186505031756
+            }
+        },
+        "saliency ground truth": [
+            "g5",
+            "f6",
+            "h4",
+            "e7"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "h4"
+            ],
+            "details": {
+                "h4": {
+                    "int": 31,
+                    "saliency": 0.19934186505031756,
+                    "dP": 0.8072331507962592,
+                    "K": 0.11371110388239829,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 2.22,
+                    "actionGapAfterPerturbation": 0.120000000000001
+                }
+            }
+        }
+    },
+    "puzzle17": {
+        "fen": "2r1k3/pp1b2b1/4p1r1/5RBp/5QqP/3B4/PPPKR3/8 w - - 0 1",
+        "best move": "f5f8",
+        "sorted saliencies": {
+            "above threshold": {
+                "f5": 1
+            },
+            "below threshold": {
+                "g6": 0.05186805969502072,
+                "d3": 0.05049204553279575,
+                "h5": 0.04686582003888655,
+                "g5": 0.04472254128496325,
+                "d7": 0.029589188133453417,
+                "g7": 0.029472410566606856,
+                "a7": 0.02825809848528082,
+                "f4": 0.025545388582307357
+            }
+        },
+        "saliency ground truth": [
+            "f5",
+            "f4",
+            "g5",
+            "d3"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "f4",
+                "g5",
+                "d3"
+            ],
+            "details": {
+                "f4": {
+                    "int": 29,
+                    "saliency": 0.025545388582307357,
+                    "dP": 0.013124857441051744,
+                    "K": 0.4760287717725469,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.13,
+                    "actionGapAfterPerturbation": 0.6799999999999997
+                },
+                "g5": {
+                    "int": 38,
+                    "saliency": 0.04472254128496325,
+                    "dP": 0.02444711486352993,
+                    "K": 0.26208503318454085,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.13,
+                    "actionGapAfterPerturbation": 0.07999999999999963
+                },
+                "d3": {
+                    "int": 19,
+                    "saliency": 0.05049204553279575,
+                    "dP": 0.027336664907561543,
+                    "K": 0.33011008963473254,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.13,
+                    "actionGapAfterPerturbation": 0.06999999999999984
+                }
+            }
+        }
+    },
+    "puzzle18": {
+        "fen": "2r5/p4pk1/2q2Npp/8/2bP4/8/P4PPP/Q3R1K1 w - - 0 1",
+        "best move": "f6e8",
+        "sorted saliencies": {
+            "above threshold": {
+                "f6": 1,
+                "a1": 0.6342962224988463,
+                "e1": 0.5971805662253924,
+                "c4": 0.3922608051469529
+            },
+            "below threshold": {
+                "g6": 0.38766696794140987,
+                "a2": 0.25804342685406023,
+                "c6": 0.20030933785641755,
+                "h2": 0.17534763762176447,
+                "f7": 0.1287094962529661,
+                "f2": 0.07043829868094223
+            }
+        },
+        "saliency ground truth": [
+            "f6",
+            "a1",
+            "e1"
+        ],
+        "missing ground truth": {
+            "squares": 0,
+            "details": {}
+        }
+    },
+    "puzzle19": {
+        "fen": "2r2k2/p1rbnpbp/3Q1np1/q2P4/Pp4P1/2N1B1NP/1P3PB1/2R1R1K1 w - - 0 1",
+        "best move": "d6e7",
+        "sorted saliencies": {
+            "above threshold": {
+                "d6": 1,
+                "d7": 0.39406737705118766,
+                "e1": 0.39099211373154336
+            },
+            "below threshold": {
+                "a5": 0.38723657959638347,
+                "c7": 0.3382550571759841,
+                "c3": 0.2809768839913704,
+                "b4": 0.27647489336276776,
+                "f7": 0.2681056990306097,
+                "a7": 0.18389836766883014,
+                "b2": 0.1343693254681571,
+                "c1": 0.10179683439827523,
+                "f6": 0.06741853580745817,
+                "g7": 0.05483628251467942,
+                "g3": 0.0429316747473398,
+                "f2": 0.042199244566669916,
+                "g6": 0.038373298887939326,
+                "h3": 0.026138041539333516,
+                "e3": 0.0010890135934687175
+            }
+        },
+        "saliency ground truth": [
+            "d6",
+            "a5",
+            "d7",
+            "c7",
+            "f7",
+            "e1",
+            "f6",
+            "c8",
+            "b4"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "a5",
+                "c7",
+                "f7",
+                "f6",
+                "c8",
+                "b4"
+            ],
+            "details": {
+                "a5": {
+                    "int": 32,
+                    "saliency": 0.38723657959638347,
+                    "dP": 0.27248703781191275,
+                    "K": 0.6689401769651425,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 1.5100000000000002,
+                    "actionGapAfterPerturbation": 0.6099999999999994
+                },
+                "c7": {
+                    "int": 50,
+                    "saliency": 0.3382550571759841,
+                    "dP": 0.21910467976479,
+                    "K": 0.7414714948355442,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 1.5100000000000002,
+                    "actionGapAfterPerturbation": 0.4300000000000006
+                },
+                "f7": {
+                    "int": 53,
+                    "saliency": 0.2681056990306097,
+                    "dP": 0.16274362858420155,
+                    "K": 0.7603922883998412,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 1.5100000000000002,
+                    "actionGapAfterPerturbation": 0.4400000000000004
+                },
+                "f6": {
+                    "int": 45,
+                    "saliency": 0.06741853580745817,
+                    "dP": 0.035297962320566284,
+                    "K": 0.7489599357241482,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 1.5100000000000002,
+                    "actionGapAfterPerturbation": 1.17
+                },
+                "c8": {
+                    "int": 58,
+                    "saliency": 0,
+                    "dP": -0.033723277212216796,
+                    "K": 0.7766305773912178,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 1.5100000000000002,
+                    "actionGapAfterPerturbation": 0.6399999999999997
+                },
+                "b4": {
+                    "int": 25,
+                    "saliency": 0.27647489336276776,
+                    "dP": 0.1833456076505336,
+                    "K": 0.5618767894171217,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 1.5100000000000002,
+                    "actionGapAfterPerturbation": 0.019999999999999574
+                }
+            }
+        }
+    },
+    "puzzle20": {
+        "fen": "r3k2r/p2bbppp/4p3/2p1B1q1/3Q4/2PB4/P1P2PPP/R2R2K1 w kq - 0 1",
+        "best move": "d4d7",
+        "sorted saliencies": {
+            "above threshold": {
+                "d4": 1,
+                "g2": 1,
+                "d1": 0.9157864884316727,
+                "a7": 0.9062764469122873,
+                "c2": 0.8405578451301959,
+                "e6": 0.7911585674892573,
+                "e7": 0.7432673974252425,
+                "e5": 0.5589260681863439,
+                "c5": 0.4611311643213869,
+                "d7": 0.4365716987375969
+            },
+            "below threshold": {
+                "g5": 0.2631421306831385,
+                "f7": 0.07492717213532402,
+                "h7": 0.04819397484048785,
+                "d3": 0.03704911016872494,
+                "a2": 0.002709757615271973
+            }
+        },
+        "saliency ground truth": [
+            "d4",
+            "g2",
+            "a7",
+            "d1",
+            "e7",
+            "e5",
+            "d7"
+        ],
+        "missing ground truth": {
+            "squares": 0,
+            "details": {}
+        }
+    },
+    "puzzle21": {
+        "fen": "1r1q2k1/R4p2/3Pb2p/4Q1p1/1p2B3/2p3PP/1P3P2/6K1 w - - 0 1",
+        "best move": "e4h7",
+        "sorted saliencies": {
+            "above threshold": {
+                "e4": 1,
+                "a7": 0.8452782435458723,
+                "e5": 0.7378198851511694,
+                "d6": 0.6752583802496802,
+                "f2": 0.6690113341816627
+            },
+            "below threshold": {
+                "f7": 0.05798371564231317,
+                "h6": 0.055731270188044205,
+                "b2": 0.02894444062129498,
+                "h3": 0.028913542629365352,
+                "g3": 0.012161573381890419
+            }
+        },
+        "saliency ground truth": [
+            "e4",
+            "a7",
+            "e5",
+            "f7",
+            "d6",
+            "f2"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "f7"
+            ],
+            "details": {
+                "f7": {
+                    "int": 53,
+                    "saliency": 0.05798371564231317,
+                    "dP": 0.6474851144228697,
+                    "K": 0.030350850519865066,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 5.73,
+                    "actionGapAfterPerturbation": 0
+                }
+            }
+        }
+    },
+    "puzzle22": {
+        "fen": "1r3b2/2r2kpp/p2pp2q/4P2P/3N1P2/2p4Q/P1P5/K2R2R1 w - - 0 1",
+        "best move": "g1g6",
+        "sorted saliencies": {
+            "above threshold": {
+                "g1": 1,
+                "d4": 0.7164640014896844,
+                "h3": 0.710085101612763,
+                "f8": 0.4541704425685629
+            },
+            "below threshold": {
+                "h5": 0.2958581145884194,
+                "g7": 0.2758472690617653,
+                "h7": 0.19671461195919043,
+                "e5": 0.10712750560003456,
+                "d1": 0.09725812568039251,
+                "h6": 0.07892214883804659,
+                "f4": 0.06346200250356544,
+                "c2": 0.05022956828581695,
+                "e6": 0.028323106872029276
+            }
+        },
+        "saliency ground truth": [
+            "g1",
+            "h3",
+            "d4",
+            "f8",
+            "g7",
+            "h6"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "g7",
+                "h6"
+            ],
+            "details": {
+                "g7": {
+                    "int": 54,
+                    "saliency": 0.2758472690617653,
+                    "dP": 0.18016356270181832,
+                    "K": 0.5882778322280685,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 3.6599999999999997,
+                    "actionGapAfterPerturbation": 3.33
+                },
+                "h6": {
+                    "int": 47,
+                    "saliency": 0.07892214883804659,
+                    "dP": 0.9502555144914053,
+                    "K": 0.04117076469137492,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 3.6599999999999997,
+                    "actionGapAfterPerturbation": 20.83
+                }
+            }
+        }
+    },
+    "puzzle23": {
+        "fen": "br2rk2/qn2b1np/2Rp2pN/pp1Pp3/1B2Pp2/1P1B1N1P/P2Q1PP1/2R3K1 w - - 0 1",
+        "best move": "f3e5",
+        "sorted saliencies": {
+            "above threshold": {
+                "f2": 1,
+                "f3": 1,
+                "b4": 0.45900585828247537,
+                "c6": 0.43753940966412885,
+                "h6": 0.4092141906081032,
+                "d2": 0.39597505448454623,
+                "g7": 0.39295399766169603
+            },
+            "below threshold": {
+                "a5": 0.3761308817898573,
+                "b5": 0.33549691936068454,
+                "a8": 0.32920978038223475,
+                "g2": 0.3125193692875668,
+                "e5": 0.3068117404387227,
+                "f4": 0.29331014945952766,
+                "b8": 0.2901546488250913,
+                "g6": 0.2680106476326604,
+                "a2": 0.2415105097439736,
+                "b7": 0.1748392748133955,
+                "h3": 0.12068291242970426,
+                "d3": 0.1083303175313625,
+                "b3": 0.06493598337516733,
+                "d6": 0.052949778784113666
+            }
+        },
+        "saliency ground truth": [
+            "f2",
+            "f3",
+            "b4",
+            "c6",
+            "d2",
+            "e7",
+            "b5",
+            "e5",
+            "g7",
+            "f4"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "e7",
+                "b5",
+                "e5",
+                "f4"
+            ],
+            "details": {
+                "e7": {
+                    "int": 52,
+                    "saliency": 0,
+                    "dP": -0.08775916295306657,
+                    "K": 0.6109477391455105,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 0.9699999999999998,
+                    "actionGapAfterPerturbation": 0.5599999999999987
+                },
+                "b5": {
+                    "int": 33,
+                    "saliency": 0.33549691936068454,
+                    "dP": 0.21856317723756252,
+                    "K": 0.7215160899626654,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.9699999999999998,
+                    "actionGapAfterPerturbation": 0.9400000000000004
+                },
+                "e5": {
+                    "int": 36,
+                    "saliency": 0.3068117404387227,
+                    "dP": 0.34004796781771995,
+                    "K": 0.2794940428266033,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.9699999999999998,
+                    "actionGapAfterPerturbation": 3.6099999999999994
+                },
+                "f4": {
+                    "int": 29,
+                    "saliency": 0.29331014945952766,
+                    "dP": 0.327000128384105,
+                    "K": 0.2659137430890049,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.9699999999999998,
+                    "actionGapAfterPerturbation": 4.050000000000001
+                }
+            }
+        }
+    },
+    "puzzle24": {
+        "fen": "5r1k/p4rq1/3p2p1/2pB3p/2P3b1/3P2P1/P3RP1P/2Q1R1K1 w - - 0 1",
+        "best move": "e2e7",
+        "sorted saliencies": {
+            "above threshold": {
+                "e2": 1
+            },
+            "below threshold": {
+                "d5": 0.3140118889220981,
+                "c1": 0.2908478506728482,
+                "e1": 0.2593248320206775,
+                "g6": 0.22400693091892843,
+                "f2": 0.20702407912858958,
+                "c4": 0.06470374818157815,
+                "g7": 0.06383075878046592,
+                "d6": 0.04739722124960424,
+                "g4": 0.043517923699236995,
+                "g3": 0.007782939623624044
+            }
+        },
+        "saliency ground truth": [
+            "e2",
+            "d5",
+            "f2",
+            "e1",
+            "c1",
+            "g7"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "d5",
+                "f2",
+                "e1",
+                "c1",
+                "g7"
+            ],
+            "details": {
+                "d5": {
+                    "int": 35,
+                    "saliency": 0.3140118889220981,
+                    "dP": 0.19712481262093304,
+                    "K": 0.7714516585790542,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.4299999999999997,
+                    "actionGapAfterPerturbation": 0.07999999999999963
+                },
+                "f2": {
+                    "int": 13,
+                    "saliency": 0.20702407912858958,
+                    "dP": 0.1291312915273602,
+                    "K": 0.5217421405136625,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.4299999999999997,
+                    "actionGapAfterPerturbation": 0.12000000000000002
+                },
+                "e1": {
+                    "int": 4,
+                    "saliency": 0.2593248320206775,
+                    "dP": 0.19692303783612686,
+                    "K": 0.3796205887013948,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.4299999999999997,
+                    "actionGapAfterPerturbation": 0.10000000000000009
+                },
+                "c1": {
+                    "int": 2,
+                    "saliency": 0.2908478506728482,
+                    "dP": 0.1976062643017249,
+                    "K": 0.5506974044404654,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.4299999999999997,
+                    "actionGapAfterPerturbation": 0.8499999999999996
+                },
+                "g7": {
+                    "int": 54,
+                    "saliency": 0.06383075878046592,
+                    "dP": 0.19827374536686054,
+                    "K": 0.038038254159065525,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.4299999999999997,
+                    "actionGapAfterPerturbation": 25.11
+                }
+            }
+        }
+    },
+    "puzzle25": {
+        "fen": "R1b2r2/7k/1R4p1/2pN3p/2P1B1q1/3Pp1P1/4P2P/6K1 w - - 0 1",
+        "best move": "b6g6",
+        "sorted saliencies": {
+            "above threshold": {
+                "b6": 1,
+                "g3": 1
+            },
+            "below threshold": {
+                "e4": 0.3855343082271106,
+                "d3": 0.3628381517359501,
+                "e3": 0.22913764997234945,
+                "c4": 0.22678836547540862,
+                "c8": 0.22674487274832864,
+                "e2": 0.21013724393556696,
+                "f8": 0.1638766104164516,
+                "g4": 0.08897082521681575,
+                "h5": 0.0365630552159744,
+                "c5": 0.0292405118257362
+            }
+        },
+        "saliency ground truth": [
+            "d5",
+            "g3",
+            "a8",
+            "d3",
+            "e4"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "d5",
+                "a8",
+                "d3",
+                "e4"
+            ],
+            "details": {
+                "d5": {
+                    "int": 35,
+                    "saliency": 0,
+                    "dP": -0.12018913082550725,
+                    "K": 0.18817659266300504,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.0,
+                    "actionGapAfterPerturbation": 0.20999999999999996
+                },
+                "a8": {
+                    "int": 56,
+                    "saliency": 0,
+                    "dP": -0.18216259231836046,
+                    "K": 0.36250007607802465,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 0.0,
+                    "actionGapAfterPerturbation": 0.4499999999999993
+                },
+                "d3": {
+                    "int": 19,
+                    "saliency": 0.3628381517359501,
+                    "dP": 0.2666426460810489,
+                    "K": 0.5676136580299536,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.0,
+                    "actionGapAfterPerturbation": 1.06
+                },
+                "e4": {
+                    "int": 28,
+                    "saliency": 0.3855343082271106,
+                    "dP": 0.2667758422164895,
+                    "K": 0.6948592281327131,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.0,
+                    "actionGapAfterPerturbation": 0.8499999999999999
+                }
+            }
+        }
+    },
+    "puzzle26": {
+        "fen": "2q3k1/4Qp1p/p2Pn1pB/1p1r4/8/1P5P/1P4P1/4R1K1 w - - 0 1",
+        "best move": "e1e6",
+        "sorted saliencies": {
+            "above threshold": {
+                "e1": 1,
+                "e7": 0.7121153622128263,
+                "c8": 0.4854154618615184,
+                "d6": 0.398038770909678
+            },
+            "below threshold": {
+                "d5": 0.2745195578633947,
+                "h6": 0.2743729703701422,
+                "g2": 0.13946560171486763,
+                "e6": 0.10109336307959105,
+                "h3": 0.002107481650176685,
+                "h7": 0.0006566859790585884,
+                "b3": 5.84809121311792e-06,
+                "b5": 2.14576289042871e-06,
+                "a6": 1.3036697874575717e-06,
+                "b2": 4.490001565907175e-08
+            }
+        },
+        "saliency ground truth": [
+            "e1",
+            "h6",
+            "e7",
+            "e6"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "h6",
+                "e6"
+            ],
+            "details": {
+                "h6": {
+                    "int": 47,
+                    "saliency": 0.2743729703701422,
+                    "dP": 0.9977516064377634,
+                    "K": 0.159055988436653,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 18.61,
+                    "actionGapAfterPerturbation": 0.09999999999999964
+                },
+                "e6": {
+                    "int": 44,
+                    "saliency": 0.10109336307959105,
+                    "dP": 0.9999999754169561,
+                    "K": 0.053237669112498665,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 18.61,
+                    "actionGapAfterPerturbation": 0
+                }
+            }
+        }
+    },
+    "puzzle27": {
+        "fen": "2n2rk1/r2b1ppp/pq6/3Bp3/3pP3/6Q1/PP1B2PP/2R1R1K1 w - - 0 1",
+        "best move": "c1c6",
+        "sorted saliencies": {
+            "above threshold": {
+                "c1": 1,
+                "d4": 1
+            },
+            "below threshold": {
+                "d5": 0.29981192546818985,
+                "g3": 0.2969636958417798,
+                "a7": 0.2961552435345325,
+                "e5": 0.2903284610196641,
+                "d2": 0.28984463102435587,
+                "f8": 0.2824741627977611,
+                "e4": 0.21355872894945183,
+                "b2": 0.05971250290129401,
+                "e1": 0.05948992706460151,
+                "b6": 0.05767097839076576,
+                "d7": 0.0454590605002536,
+                "h2": 0.025991532809805692,
+                "g2": 0.022550206279609863,
+                "a2": 0.01602002824288631
+            }
+        },
+        "saliency ground truth": [
+            "c1",
+            "d5",
+            "g3",
+            "d2",
+            "d4"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "d5",
+                "g3",
+                "d2"
+            ],
+            "details": {
+                "d5": {
+                    "int": 35,
+                    "saliency": 0.29981192546818985,
+                    "dP": 0.17830312259873304,
+                    "K": 0.9412455815675643,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 1.3399999999999999,
+                    "actionGapAfterPerturbation": 0.31999999999999984
+                },
+                "g3": {
+                    "int": 22,
+                    "saliency": 0.2969636958417798,
+                    "dP": 0.17879646837053167,
+                    "K": 0.8757500384834664,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 1.3399999999999999,
+                    "actionGapAfterPerturbation": 0.2400000000000002
+                },
+                "d2": {
+                    "int": 11,
+                    "saliency": 0.28984463102435587,
+                    "dP": 0.17801904065145016,
+                    "K": 0.7795010372748915,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 1.3399999999999999,
+                    "actionGapAfterPerturbation": 0.029999999999999805
+                }
+            }
+        }
+    },
+    "puzzle28": {
+        "fen": "5b1k/p5pp/8/1pp1B3/8/Pr4P1/5PKP/4R3 w - - 0 1",
+        "best move": "e5d6",
+        "sorted saliencies": {
+            "above threshold": {
+                "e5": 1,
+                "h7": 0.8236454301577525,
+                "e1": 0.7489071398264244,
+                "f8": 0.693221661436526,
+                "f2": 0.4639997116523218,
+                "a3": 0.39329888650831546
+            },
+            "below threshold": {
+                "c5": 0.22362498023662017,
+                "b3": 0.13049273028709746,
+                "h2": 0.07996994292704734,
+                "g3": 0.05794382340537736
+            }
+        },
+        "saliency ground truth": [
+            "e5",
+            "h7",
+            "e1",
+            "f8"
+        ],
+        "missing ground truth": {
+            "squares": 0,
+            "details": {}
+        }
+    },
+    "puzzle29": {
+        "fen": "6r1/R1R5/p4pk1/1p1p1p1p/1P1P3P/6PK/4rq2/2Q5 w - - 0 1",
+        "best move": "c1g5",
+        "sorted saliencies": {
+            "above threshold": {
+                "c1": 1,
+                "h5": 0.9855072463768115,
+                "a7": 0.984126984126984,
+                "c7": 0.9777777777777777
+            },
+            "below threshold": {
+                "h4": 0.08498260595459803,
+                "f2": 0.06958658147816474,
+                "f5": 0.05746701715792155,
+                "g8": 0.0536233730246785,
+                "e2": 7.500977612889322e-11
+            }
+        },
+        "saliency ground truth": [
+            "c1",
+            "h4",
+            "a7",
+            "c7"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "h4"
+            ],
+            "details": {
+                "h4": {
+                    "int": 31,
+                    "saliency": 0.08498260595459803,
+                    "dP": 0.9999999999938832,
+                    "K": 0.044376936846040105,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 40,
+                    "actionGapAfterPerturbation": 25.82
+                }
+            }
+        }
+    },
+    "puzzle30": {
+        "fen": "rq3b1r/p2Qnppp/k1B5/8/2N1P3/5b2/PP3P1P/R1B1K2R w KQ - 0 1",
+        "best move": "c6b7",
+        "sorted saliencies": {
+            "above threshold": {
+                "c6": 1
+            },
+            "below threshold": {
+                "h8": 0.0005001844834368604,
+                "a8": 0.0004991535912491572,
+                "c4": 0.0004960829424992345,
+                "e7": 0.0004938046144847681,
+                "f7": 0.0003856881017206065,
+                "a7": 0.00027632832944739943,
+                "g7": 0.0002475447829548977
+            }
+        },
+        "saliency ground truth": [
+            "c6",
+            "b8",
+            "d7",
+            "c4"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "b8",
+                "d7",
+                "c4"
+            ],
+            "details": {
+                "b8": {
+                    "int": 57,
+                    "saliency": 0,
+                    "dP": -0.03678654947538159,
+                    "K": 0.4839161779108461,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.0,
+                    "actionGapAfterPerturbation": 0
+                },
+                "d7": {
+                    "int": 51,
+                    "saliency": 0,
+                    "dP": -0.0022540996991496426,
+                    "K": 0.4560808122922258,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.0,
+                    "actionGapAfterPerturbation": 0.5899999999999999
+                },
+                "c4": {
+                    "int": 26,
+                    "saliency": 0.0004960829424992345,
+                    "dP": 0.00025048756163450234,
+                    "K": 0.02540024837245309,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.0,
+                    "actionGapAfterPerturbation": 37.51
+                }
+            }
+        }
+    },
+    "puzzle31": {
+        "fen": "r3r3/2q2kp1/3p1b2/p3pQ2/Pp2P3/4B3/1PP4P/2KR2R1 w - - 0 1",
+        "best move": "g1g7",
+        "sorted saliencies": {
+            "above threshold": {
+                "c2": 1,
+                "g1": 1,
+                "d1": 0.7636122593178661,
+                "f5": 0.5504766681634066
+            },
+            "below threshold": {
+                "e4": 0.3017521545701796,
+                "g7": 0.2681268635193687,
+                "a5": 0.21605259178091002,
+                "e5": 0.20350944947848137,
+                "a8": 0.19952142174528398,
+                "h2": 0.18824926917455007,
+                "b4": 0.17881021990101698,
+                "a4": 0.15315545095827782,
+                "e3": 0.02377916955968645
+            }
+        },
+        "saliency ground truth": [
+            "c2",
+            "g1",
+            "d1",
+            "f5"
+        ],
+        "missing ground truth": {
+            "squares": 0,
+            "details": {}
+        }
+    },
+    "puzzle32": {
+        "fen": "2bq1r1k/6rp/pp6/3p1B2/3P3Q/4PR1P/P7/5R1K w - - 0 1",
+        "best move": "f5e6",
+        "sorted saliencies": {
+            "above threshold": {
+                "f5": 1,
+                "f1": 0.567923583570372,
+                "g7": 0.5323948431644253,
+                "h3": 0.41400506811352034
+            },
+            "below threshold": {
+                "f3": 0.30564235377347765,
+                "a2": 0.13369761856892642,
+                "h4": 0.10872164260977285,
+                "e3": 0.09141244810201737,
+                "f8": 0.07701433182194178,
+                "d8": 0.06293853995304458
+            }
+        },
+        "saliency ground truth": [
+            "f5",
+            "h4",
+            "f1",
+            "f3"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "h4",
+                "f3"
+            ],
+            "details": {
+                "h4": {
+                    "int": 31,
+                    "saliency": 0.10872164260977285,
+                    "dP": 0.7046127247444665,
+                    "K": 0.05890536608408733,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 2.2199999999999998,
+                    "actionGapAfterPerturbation": 0.5299999999999994
+                },
+                "f3": {
+                    "int": 21,
+                    "saliency": 0.30564235377347765,
+                    "dP": 0.7048735837416771,
+                    "K": 0.19512569691971587,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 2.2199999999999998,
+                    "actionGapAfterPerturbation": 2.5700000000000003
+                }
+            }
+        }
+    },
+    "puzzle33": {
+        "fen": "8/1pQ2ppk/2b1p2p/3q4/6N1/6KP/P4PP1/7r w - - 0 1",
+        "best move": "g4f6",
+        "sorted saliencies": {
+            "above threshold": {
+                "g4": 1,
+                "e6": 0.9910864047507326,
+                "h1": 0.5164392463070528,
+                "c7": 0.44824433882377984
+            },
+            "below threshold": {
+                "d5": 0.36483843678503547,
+                "c6": 0.33699478331594146,
+                "g7": 0.17309967582891658,
+                "b7": 0.014183438078852388,
+                "h6": 0.0032916314779481877
+            }
+        },
+        "saliency ground truth": [
+            "g4",
+            "e6",
+            "c7",
+            "d5"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "d5"
+            ],
+            "details": {
+                "d5": {
+                    "int": 35,
+                    "saliency": 0.36483843678503547,
+                    "dP": 0.9726158188230026,
+                    "K": 0.22453123358064747,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 6.59,
+                    "actionGapAfterPerturbation": 0.8200000000000003
+                }
+            }
+        }
+    },
+    "puzzle34": {
+        "fen": "4r2k/pR5p/6p1/4b3/3B4/2P2K2/1P6/8 w - - 0 1",
+        "best move": "b7b8",
+        "sorted saliencies": {
+            "above threshold": {
+                "b7": 1,
+                "d4": 0.5556275356991139,
+                "b2": 0.43741624074411634,
+                "e8": 0.40173034922953854
+            },
+            "below threshold": {
+                "c3": 0.2723597213042953
+            }
+        },
+        "saliency ground truth": [
+            "b7",
+            "d4",
+            "c3"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "c3"
+            ],
+            "details": {
+                "c3": {
+                    "int": 18,
+                    "saliency": 0.2723597213042953,
+                    "dP": 0.19933163356249334,
+                    "K": 0.42983676991368114,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 2.81,
+                    "actionGapAfterPerturbation": 0.65
+                }
+            }
+        }
+    },
+    "puzzle35": {
+        "fen": "r1b1r1k1/pp1nqp2/2p1p1pp/8/4N3/P1Q1P3/1P3PPP/1BRR2K1 w - - 0 1",
+        "best move": "d1d7",
+        "sorted saliencies": {
+            "above threshold": {
+                "d1": 1,
+                "e4": 0.6393629179834935,
+                "f7": 0.6376497131588061,
+                "c3": 0.6367927468733663,
+                "h6": 0.6081864205759366,
+                "g6": 0.5976031774133111,
+                "g2": 0.5905803302551059,
+                "e6": 0.5608332935721579
+            },
+            "below threshold": {
+                "d7": 0.3778198564680146,
+                "e7": 0.31568845559728664,
+                "b7": 0.22465634489258157,
+                "c6": 0.2019484028082726,
+                "c1": 0.1781202200701098
+            }
+        },
+        "saliency ground truth": [
+            "d1",
+            "f7",
+            "c3",
+            "e4",
+            "e7",
+            "c6",
+            "d7"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "e7",
+                "c6",
+                "d7"
+            ],
+            "details": {
+                "e7": {
+                    "int": 52,
+                    "saliency": 0.31568845559728664,
+                    "dP": 0.19388362604745868,
+                    "K": 0.849165433478568,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 3.14,
+                    "actionGapAfterPerturbation": 2.200000000000001
+                },
+                "c6": {
+                    "int": 42,
+                    "saliency": 0.2019484028082726,
+                    "dP": 0.1126083668523073,
+                    "K": 0.9773404001335821,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 3.14,
+                    "actionGapAfterPerturbation": 2.49
+                },
+                "d7": {
+                    "int": 51,
+                    "saliency": 0.3778198564680146,
+                    "dP": 0.4871448417239756,
+                    "K": 0.3085705024027596,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 3.14,
+                    "actionGapAfterPerturbation": 4.23
+                }
+            }
+        }
+    },
+    "puzzle36": {
+        "fen": "4r1bk/pp4pp/2nq4/3n2N1/2BP4/P2Q2P1/3B3P/R5K1 w - - 0 1",
+        "best move": "d3h7",
+        "sorted saliencies": {
+            "above threshold": {
+                "d3": 1,
+                "g7": 0.8240726213778775,
+                "c4": 0.8131354740467855,
+                "g5": 0.7550996860772994,
+                "d6": 0.6721580236382516,
+                "g8": 0.6686640586944744
+            },
+            "below threshold": {
+                "d2": 0.3527850131325015,
+                "h7": 0.3427012282369903,
+                "a1": 0.2937209039206136,
+                "d4": 0.20101747792259914,
+                "d5": 0.10322880549985934,
+                "e8": 0.040657930834972426,
+                "a3": 0.0018057685246916362
+            }
+        },
+        "saliency ground truth": [
+            "d3",
+            "g5",
+            "d6"
+        ],
+        "missing ground truth": {
+            "squares": 0,
+            "details": {}
+        }
+    },
+    "puzzle37": {
+        "fen": "r3br1k/p5pp/1p3p2/5P2/4P2R/2P1Q1R1/q3B1PP/6K1 w - - 0 1",
+        "best move": "g3g7",
+        "sorted saliencies": {
+            "above threshold": {
+                "g3": 1,
+                "h4": 0.867549040916406,
+                "f5": 0.8284565286277503,
+                "e8": 0.5840952143922012,
+                "f8": 0.5662184561266776,
+                "e2": 0.5215482042598502,
+                "e3": 0.46163253098864704,
+                "c3": 0.4246021903153733
+            },
+            "below threshold": {
+                "e4": 0.16133047116865099,
+                "g2": 0.15561633823715015,
+                "g7": 0.0539881038438004,
+                "h2": 0.044885118829637756,
+                "b6": 0.025444902858953577
+            }
+        },
+        "saliency ground truth": [
+            "g3",
+            "h4",
+            "f5",
+            "f8",
+            "e3"
+        ],
+        "missing ground truth": {
+            "squares": 0,
+            "details": {}
+        }
+    },
+    "puzzle38": {
+        "fen": "2r1kr2/pR5p/2q5/3p4/Q3bP2/8/PP4PP/4R1K1 w - - 0 1",
+        "best move": "e1c1",
+        "sorted saliencies": {
+            "above threshold": {
+                "e1": 1,
+                "f4": 0.6551597021056116,
+                "b7": 0.523784707458089
+            },
+            "below threshold": {
+                "a4": 0.305212372146613,
+                "g2": 0.08366123263344749,
+                "d5": 0.05476224899518783,
+                "h7": 0.009084995517252748,
+                "a2": 0.005061850595347675
+            }
+        },
+        "saliency ground truth": [
+            "e1",
+            "a4",
+            "b7",
+            "c6"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "a4",
+                "c6"
+            ],
+            "details": {
+                "a4": {
+                    "int": 24,
+                    "saliency": 0.305212372146613,
+                    "dP": 0.9612513108975721,
+                    "K": 0.1814057760453622,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 4.44,
+                    "actionGapAfterPerturbation": 3.709999999999999
+                },
+                "c6": {
+                    "int": 42,
+                    "saliency": 0,
+                    "dP": 0,
+                    "K": 0,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 0
+                }
+            }
+        }
+    },
+    "puzzle39": {
+        "fen": "r3n1k1/2rR1p1p/p1p1q1p1/2B1p3/R3P3/1P5P/P2Q1PP1/6K1 w - - 0 1",
+        "best move": "d2h6",
+        "sorted saliencies": {
+            "above threshold": {
+                "d2": 1,
+                "f2": 0.6748177586996724,
+                "g6": 0.5498218120315208,
+                "h7": 0.48900106755837025,
+                "c7": 0.47871437401561245,
+                "c5": 0.46549990092285737,
+                "a6": 0.43285609802434627,
+                "e6": 0.4236900247697066,
+                "c6": 0.407755265716284,
+                "e8": 0.4061931865235505
+            },
+            "below threshold": {
+                "d7": 0.25478259554325683
+            }
+        },
+        "saliency ground truth": [
+            "d2",
+            "g6",
+            "c7",
+            "c5",
+            "e8",
+            "c6"
+        ],
+        "missing ground truth": {
+            "squares": 0,
+            "details": {}
+        }
+    },
+    "puzzle40": {
+        "fen": "q5k1/5ppp/4p3/1p1p4/1PnP4/2P4P/1Q2RPPK/r1N5 w - - 0 1",
+        "best move": "b2a1",
+        "sorted saliencies": {
+            "above threshold": {
+                "b2": 1,
+                "g7": 0.6668794014773887,
+                "h7": 0.6666417715489658,
+                "f7": 0.6628171210366125,
+                "e2": 0.5896087155187989,
+                "c1": 0.579938634831752,
+                "a1": 0.4834626046800929
+            },
+            "below threshold": {
+                "c4": 0.318922657739609,
+                "d4": 0.1351833664240158,
+                "h3": 0.06792594780168151,
+                "f2": 0.049820232272929595
+            }
+        },
+        "saliency ground truth": [
+            "b2",
+            "h7",
+            "f7",
+            "g7",
+            "e2",
+            "c1",
+            "a1"
+        ],
+        "missing ground truth": {
+            "squares": 0,
+            "details": {}
+        }
+    },
+    "puzzle41": {
+        "fen": "k6r/rb3R1p/NQ4p1/2p2n2/1p6/8/PPn3PP/6K1 w - - 0 1",
+        "best move": "b6c7",
+        "sorted saliencies": {
+            "above threshold": {
+                "b6": 1,
+                "a6": 0.830227331546306,
+                "f7": 0.7630728564186094,
+                "g6": 0.6666108076703523,
+                "b4": 0.6666103070177969,
+                "c5": 0.6666102396549152,
+                "h8": 0.39638621430531334
+            },
+            "below threshold": {
+                "b7": 0.3680229916946434,
+                "f5": 0.2329582695063618,
+                "a7": 0.06686887086580832,
+                "c2": 5.689123156375441e-09,
+                "h7": 7.234568499563705e-11
+            }
+        },
+        "saliency ground truth": [
+            "a6",
+            "b6",
+            "f7"
+        ],
+        "missing ground truth": {
+            "squares": 0,
+            "details": {}
+        }
+    },
+    "puzzle42": {
+        "fen": "6R1/p4p2/1p2q2p/8/6Pk/8/PP2r1PK/3Q4 w - - 0 1",
+        "best move": "d1e1",
+        "sorted saliencies": {
+            "above threshold": {
+                "d1": 1,
+                "g2": 1,
+                "g4": 0.7099041481169883,
+                "e2": 0.6720793735209664,
+                "e6": 0.5052064465538301
+            },
+            "below threshold": {
+                "g8": 0.3422704285886037,
+                "f7": 0.06066150087424973
+            }
+        },
+        "saliency ground truth": [
+            "d1",
+            "g2",
+            "g4",
+            "g8"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "g8"
+            ],
+            "details": {
+                "g8": {
+                    "int": 62,
+                    "saliency": 0.3422704285886037,
+                    "dP": 0.9999999999999102,
+                    "K": 0.20646939916575166,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 40.31,
+                    "actionGapAfterPerturbation": 0.34999999999999964
+                }
+            }
+        }
+    },
+    "puzzle43": {
+        "fen": "r4rk1/pb2qpnp/1p2p1p1/2p5/4N3/1P2P1P1/P4PBP/R1QR2K1 w - - 0 1",
+        "best move": "d1d7",
+        "sorted saliencies": {
+            "above threshold": {
+                "d1": 1,
+                "f7": 0.80454026652525,
+                "e4": 0.797836110424782,
+                "e3": 0.7505302004671704,
+                "e7": 0.6856783970804599,
+                "e6": 0.6142774139204272,
+                "g3": 0.42263734932396907
+            },
+            "below threshold": {
+                "c5": 0.2987209383231327,
+                "f8": 0.18869892763991758,
+                "a1": 0.12601852262409524,
+                "c1": 0.0973658282797593,
+                "b3": 0.0802508432757396,
+                "a2": 0.028491592090669784,
+                "g7": 0.011751977432709853
+            }
+        },
+        "saliency ground truth": [
+            "d1",
+            "e4",
+            "f7",
+            "e7"
+        ],
+        "missing ground truth": {
+            "squares": 0,
+            "details": {}
+        }
+    },
+    "puzzle44": {
+        "fen": "6k1/r6p/pp1p2p1/2pP2q1/P1Pb4/4B3/1P1Q2PP/5RK1 w - - 0 1",
+        "best move": "d2d4",
+        "sorted saliencies": {
+            "above threshold": {
+                "d2": 1,
+                "g2": 1
+            },
+            "below threshold": {
+                "g5": 0.31981333855845356,
+                "d4": 0.2744672963647083,
+                "a7": 0.12321224689877079,
+                "a6": 0.04300499665968204,
+                "d5": 0.031067523167564885,
+                "e3": 0.01932549295490087,
+                "g6": 0.005632665265347052,
+                "h7": 0.0010233170069689059
+            }
+        },
+        "saliency ground truth": [
+            "d2",
+            "g2",
+            "g5",
+            "d4",
+            "e3"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "g5",
+                "d4",
+                "e3"
+            ],
+            "details": {
+                "g5": {
+                    "int": 38,
+                    "saliency": 0.31981333855845356,
+                    "dP": 0.9526476047559024,
+                    "K": 0.19216202753772352,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 3.19,
+                    "actionGapAfterPerturbation": 2.6899999999999995
+                },
+                "d4": {
+                    "int": 27,
+                    "saliency": 0.2744672963647083,
+                    "dP": 0.9512549775492278,
+                    "K": 0.16036949673325893,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 3.19,
+                    "actionGapAfterPerturbation": 3.13
+                },
+                "e3": {
+                    "int": 20,
+                    "saliency": 0.01932549295490087,
+                    "dP": 0.010064214566740004,
+                    "K": 0.24223084336580958,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 3.19,
+                    "actionGapAfterPerturbation": 3.200000000000001
+                }
+            }
+        }
+    },
+    "puzzle45": {
+        "fen": "r2r1bk1/1p3p1p/3P2p1/p2P4/4NP1Q/2N4P/1q4P1/4R1K1 w - - 0 1",
+        "best move": "e4f6",
+        "sorted saliencies": {
+            "above threshold": {
+                "e4": 1
+            },
+            "below threshold": {
+                "f8": 0.1974011182301522,
+                "d8": 0.18962906223121004,
+                "a8": 0.17253479734947416,
+                "g6": 0.16880624795618468,
+                "f7": 0.15059906577033733,
+                "h4": 0.128855101291252,
+                "h7": 0.122903570852752,
+                "b7": 0.11165766927933003,
+                "a5": 0.10168874889143104,
+                "d6": 0.041995638883561434
+            }
+        },
+        "saliency ground truth": [
+            "e4",
+            "h4",
+            "c3",
+            "e1"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "h4",
+                "c3",
+                "e1"
+            ],
+            "details": {
+                "h4": {
+                    "int": 31,
+                    "saliency": 0.128855101291252,
+                    "dP": 0.07084972259328069,
+                    "K": 0.7107679656995342,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 0.14000000000000057
+                },
+                "c3": {
+                    "int": 18,
+                    "saliency": 0,
+                    "dP": -0.7972051220810743,
+                    "K": 0.2867479997560799,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 5.09
+                },
+                "e1": {
+                    "int": 4,
+                    "saliency": 0,
+                    "dP": -0.8703213336804394,
+                    "K": 0.7632497023635941,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 45.93
+                }
+            }
+        }
+    },
+    "puzzle46": {
+        "fen": "r1bq1r1k/p3b1p1/1p1p3p/n3p1PQ/8/P1P3N1/BP3PP1/R3K2R w KQ - 0 1",
+        "best move": "h5h6",
+        "sorted saliencies": {
+            "above threshold": {
+                "h5": 1
+            },
+            "below threshold": {
+                "g3": 0.24526814517530454,
+                "h1": 0.24399792014036956,
+                "a2": 0.24374429945908396,
+                "g5": 0.23254469729222738,
+                "e7": 0.19757379948396459,
+                "f8": 0.19441478200569332,
+                "e5": 0.19436379728544995,
+                "a7": 0.19436247100881282,
+                "a3": 0.18816138917316105,
+                "d6": 0.16984926371506684,
+                "b6": 0.16252130818234,
+                "b2": 0.13457536597770942
+            }
+        },
+        "saliency ground truth": [
+            "h5",
+            "g3",
+            "a2",
+            "g5",
+            "h1"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "g3",
+                "a2",
+                "g5",
+                "h1"
+            ],
+            "details": {
+                "g3": {
+                    "int": 22,
+                    "saliency": 0.24526814517530454,
+                    "dP": 0.146133507666624,
+                    "K": 0.7626118298781326,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 0.6599999999999997
+                },
+                "a2": {
+                    "int": 8,
+                    "saliency": 0.24374429945908396,
+                    "dP": 0.14612453019056873,
+                    "K": 0.7342994907721327,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 1.2600000000000002
+                },
+                "g5": {
+                    "int": 38,
+                    "saliency": 0.23254469729222738,
+                    "dP": 0.14610552698303572,
+                    "K": 0.5694342245616862,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 0.10999999999999988
+                },
+                "h1": {
+                    "int": 7,
+                    "saliency": 0.24399792014036956,
+                    "dP": 0.14614373002693085,
+                    "K": 0.7384366517470944,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 0.0
+                }
+            }
+        }
+    },
+    "puzzle47": {
+        "fen": "4r3/p1Rb2k1/1p1r1ppp/3P4/3QqN2/8/P5P1/2R3K1 w - - 0 1",
+        "best move": "d4e4",
+        "sorted saliencies": {
+            "above threshold": {
+                "d4": 1,
+                "c1": 0.8031365133118588,
+                "c7": 0.7812391816569907,
+                "f4": 0.5961602139805761
+            },
+            "below threshold": {
+                "g2": 0.295966598127457,
+                "e4": 0.2578338588584689,
+                "d5": 0.18071722442178026,
+                "g6": 0.12676473671207633,
+                "e8": 0.07636290599128628,
+                "a7": 0.022108420695628808
+            }
+        },
+        "saliency ground truth": [
+            "d4",
+            "c7",
+            "c1",
+            "f4"
+        ],
+        "missing ground truth": {
+            "squares": 0,
+            "details": {}
+        }
+    },
+    "puzzle48": {
+        "fen": "5r1r/1p3pp1/4pk2/p1q2nNp/Pn2QP2/B7/6PP/4R2K w - - 0 2",
+        "best move": "e4e6",
+        "sorted saliencies": {
+            "above threshold": {
+                "e4": 1,
+                "e1": 0.5472359899334169,
+                "g5": 0.5394156684536282,
+                "f4": 0.5376385338935341,
+                "g7": 0.5306645926912645
+            },
+            "below threshold": {
+                "f5": 0.36473180038796094,
+                "c5": 1.887379141862326e-13,
+                "h8": 1.332267629550186e-15,
+                "f7": 1.1102230246251548e-15,
+                "b4": 2.220446049250312e-16
+            }
+        },
+        "saliency ground truth": [
+            "e4",
+            "e1",
+            "f4",
+            "g5",
+            "g7",
+            "f5"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "f5"
+            ],
+            "details": {
+                "f5": {
+                    "int": 37,
+                    "saliency": 0.36473180038796094,
+                    "dP": 0.9997716583496223,
+                    "K": 0.223052329451099,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 41.84,
+                    "actionGapAfterPerturbation": 2.8200000000000003
+                }
+            }
+        }
+    },
+    "puzzle49": {
+        "fen": "5r1k/6p1/p2p1rRp/2pPpq1Q/8/PPp1P3/5P1R/K7 w - - 0 1",
+        "best move": "h5h6",
+        "sorted saliencies": {
+            "above threshold": {
+                "h5": 1
+            },
+            "below threshold": {
+                "g6": 0.13856301799503315,
+                "f6": 0.10640167437224521,
+                "e5": 0.06947893894494482,
+                "h2": 0.05025682314214239,
+                "g7": 0.04046954371883639,
+                "a6": 0.03536447662486434,
+                "c5": 0.028340206959564282,
+                "a3": 0.02024785552368565,
+                "d6": 0.020085312855573724
+            }
+        },
+        "saliency ground truth": [
+            "h5",
+            "g6",
+            "h2"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "g6",
+                "h2"
+            ],
+            "details": {
+                "g6": {
+                    "int": 46,
+                    "saliency": 0.13856301799503315,
+                    "dP": 0.07690777928170361,
+                    "K": 0.6986753424321324,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 0.6000000000000014
+                },
+                "h2": {
+                    "int": 15,
+                    "saliency": 0.05025682314214239,
+                    "dP": 0.07690777928167479,
+                    "K": 0.037323173616337274,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 22.369999999999997
+                }
+            }
+        }
+    },
+    "puzzle50": {
+        "fen": "2rn2rk/pp2Qp1p/1q6/5p2/5P2/P1P3R1/1P4PP/1R5K w - - 0 1",
+        "best move": "e7e5",
+        "sorted saliencies": {
+            "above threshold": {
+                "e7": 1,
+                "h7": 0.804137059980462,
+                "f7": 0.7902215461999563,
+                "d8": 0.7539383789485857,
+                "c8": 0.6864878198588014,
+                "g3": 0.5831358535294044
+            },
+            "below threshold": {
+                "b1": 0.17774800872998361,
+                "g2": 0.13207542093267968,
+                "g8": 0.09826844813482635,
+                "b6": 0.06095837549956759,
+                "a3": 0.03569298974976292,
+                "a7": 0.022284134432826553
+            }
+        },
+        "saliency ground truth": [
+            "e7",
+            "d8",
+            "c8",
+            "g3"
+        ],
+        "missing ground truth": {
+            "squares": 0,
+            "details": {}
+        }
+    },
+    "puzzle51": {
+        "fen": "r4k2/5rbQ/1q2p1R1/pppppp2/3P4/1PP1P3/PB4PP/5RK1 w - - 0 1",
+        "best move": "f1f5",
+        "sorted saliencies": {
+            "above threshold": {
+                "f1": 1,
+                "g6": 0.6611686940872308,
+                "h7": 0.6418448383238775,
+                "b6": 0.6058181869797035
+            },
+            "below threshold": {
+                "e6": 0.30107863067806706,
+                "d5": 0.15603067427183304,
+                "c5": 0.1421912089367735,
+                "c3": 0.10900637544109629,
+                "b3": 0.0856860611676747,
+                "f5": 0.05471397341131346,
+                "f7": 0.046069736821476415,
+                "h2": 0.0353996110109295
+            }
+        },
+        "saliency ground truth": [
+            "f1",
+            "g6",
+            "h7",
+            "b6",
+            "e6"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "e6"
+            ],
+            "details": {
+                "e6": {
+                    "int": 44,
+                    "saliency": 0.30107863067806706,
+                    "dP": 0.4449813015192415,
+                    "K": 0.22750553118596456,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 2.55,
+                    "actionGapAfterPerturbation": 1.9100000000000001
+                }
+            }
+        }
+    },
+    "puzzle52": {
+        "fen": "brr3k1/2R2ppp/4p2q/B7/2P1n3/P3nN2/4BPPP/QR4K1 w - - 0 1",
+        "best move": "a1b2",
+        "sorted saliencies": {
+            "above threshold": {
+                "a1": 1,
+                "e2": 0.55768016407818,
+                "c7": 0.5436289302898011,
+                "a8": 0.5360195562370877,
+                "b1": 0.5223841838613582,
+                "f2": 0.5046541483019916,
+                "f3": 0.4982388145861461,
+                "g7": 0.48718855391755594,
+                "e4": 0.43298768793445075
+            },
+            "below threshold": {
+                "h7": 0.3875580429774827,
+                "f7": 0.38665324729737294,
+                "e3": 0.3227027210927224,
+                "a3": 0.3052572600395282,
+                "c4": 0.3018829160264211,
+                "a5": 0.18415029537543248,
+                "g2": 0.06966817890899261,
+                "c8": 0.061007269918469643,
+                "b8": 0.06010408751801291,
+                "e6": 0.03186023971151241
+            }
+        },
+        "saliency ground truth": [
+            "a1",
+            "c7",
+            "b1",
+            "f7",
+            "f2",
+            "g7",
+            "g2",
+            "b8",
+            "e3",
+            "h7"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "f7",
+                "g2",
+                "b8",
+                "e3",
+                "h7"
+            ],
+            "details": {
+                "f7": {
+                    "int": 53,
+                    "saliency": 0.38665324729737294,
+                    "dP": 0.2618726078866922,
+                    "K": 0.7385837065673087,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 2.1899999999999995,
+                    "actionGapAfterPerturbation": 0.16999999999999993
+                },
+                "g2": {
+                    "int": 14,
+                    "saliency": 0.06966817890899261,
+                    "dP": 0.48929997831065275,
+                    "K": 0.037504067153324015,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 2.1899999999999995,
+                    "actionGapAfterPerturbation": 0.8700000000000001
+                },
+                "b8": {
+                    "int": 57,
+                    "saliency": 0.06010408751801291,
+                    "dP": 0.4892999783106523,
+                    "K": 0.03201857483328323,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 2.1899999999999995,
+                    "actionGapAfterPerturbation": 32.66
+                },
+                "e3": {
+                    "int": 20,
+                    "saliency": 0.3227027210927224,
+                    "dP": 0.20043583957305855,
+                    "K": 0.8274536650539563,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 2.1899999999999995,
+                    "actionGapAfterPerturbation": 1.6600000000000001
+                },
+                "h7": {
+                    "int": 55,
+                    "saliency": 0.3875580429774827,
+                    "dP": 0.25414969259341835,
+                    "K": 0.8157749092605605,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 2.1899999999999995,
+                    "actionGapAfterPerturbation": 0.56
+                }
+            }
+        }
+    },
+    "puzzle53": {
+        "fen": "r1q4r/p2p2p1/1pkPp1Bp/2p1Pp2/2P1b2Q/1P5P/P5P1/2B2RK1 w - - 0 1",
+        "best move": "h4e4",
+        "sorted saliencies": {
+            "above threshold": {
+                "h4": 1
+            },
+            "below threshold": {
+                "g6": 0.050869928449303124,
+                "d6": 0.05031515107869141,
+                "e5": 0.049821798264963364,
+                "b6": 0.049758426002753445,
+                "c4": 0.049067392543285036,
+                "d7": 0.044820901761769213,
+                "f5": 0.0014213794365103695,
+                "h8": 1.970372344987158e-06
+            }
+        },
+        "saliency ground truth": [
+            "h4",
+            "c4",
+            "e5",
+            "g6",
+            "c5",
+            "b6"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "c4",
+                "e5",
+                "g6",
+                "c5",
+                "b6"
+            ],
+            "details": {
+                "c4": {
+                    "int": 26,
+                    "saliency": 0.049067392543285036,
+                    "dP": 0.02576090169524287,
+                    "K": 0.5149994660393145,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 0.040000000000000036
+                },
+                "e5": {
+                    "int": 36,
+                    "saliency": 0.049821798264963364,
+                    "dP": 0.02622395073509836,
+                    "K": 0.49751448481946103,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 0.26
+                },
+                "g6": {
+                    "int": 46,
+                    "saliency": 0.050869928449303124,
+                    "dP": 0.026892671569497782,
+                    "K": 0.46923968771498403,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 0.0
+                },
+                "c5": {
+                    "int": 34,
+                    "saliency": 0,
+                    "dP": -0.033456448212070986,
+                    "K": 0.5160472376779238,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 0.0
+                },
+                "b6": {
+                    "int": 41,
+                    "saliency": 0.049758426002753445,
+                    "dP": 0.026155050620013453,
+                    "K": 0.5100312656812984,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 0.030000000000000027
+                }
+            }
+        }
+    },
+    "puzzle54": {
+        "fen": "3r1k1r/1p2qp1p/p2Nbp2/6p1/1Q2P1P1/5P2/PPP5/2KR3R w - - 0 1",
+        "best move": "d6f5",
+        "sorted saliencies": {
+            "above threshold": {
+                "d6": 1,
+                "f7": 0.9659672494608328,
+                "h1": 0.9463254424357882,
+                "c2": 0.879780732156584,
+                "d1": 0.7557116724701516,
+                "b4": 0.7216806656931917
+            },
+            "below threshold": {
+                "d8": 0.059130039590828604,
+                "f3": 0.05364018319353127,
+                "e4": 0.04734183377998025,
+                "g5": 0.036732758726431204,
+                "g4": 0.01522607158643861,
+                "b7": 0.00485300044913626,
+                "a2": 0.004789210176061468
+            }
+        },
+        "saliency ground truth": [
+            "d6",
+            "h1",
+            "f7",
+            "c2",
+            "d1",
+            "b4"
+        ],
+        "missing ground truth": {
+            "squares": 0,
+            "details": {}
+        }
+    },
+    "puzzle55": {
+        "fen": "2R5/3r1p1k/4pPpp/p3q3/1p4PP/8/PP6/1KQ5 w - - 0 1",
+        "best move": "c1h6",
+        "sorted saliencies": {
+            "above threshold": {
+                "c1": 1,
+                "f7": 0.6666666666666666,
+                "h4": 0.6666666666666666,
+                "g6": 0.6666666666662654
+            },
+            "below threshold": {
+                "a2": 0.35769629504150124,
+                "h6": 0.35690177906768955,
+                "b4": 0.35029356412509527,
+                "e5": 0.34967310932366635,
+                "a5": 0.34658325917240956,
+                "d7": 0.2801254412630468,
+                "g4": 0.2310338939393285,
+                "c8": 0.19365472844955506,
+                "f6": 0.1829970876094355
+            }
+        },
+        "saliency ground truth": [
+            "c1",
+            "f7",
+            "h4",
+            "g6",
+            "c8",
+            "f6"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "c8",
+                "f6"
+            ],
+            "details": {
+                "c8": {
+                    "int": 58,
+                    "saliency": 0.19365472844955506,
+                    "dP": 0.4999999999999208,
+                    "K": 0.12008176601395708,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 1.8599999999999994
+                },
+                "f6": {
+                    "int": 45,
+                    "saliency": 0.1829970876094355,
+                    "dP": 0.49999999999892547,
+                    "K": 0.11199292244508101,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 0.22999999999999998
+                }
+            }
+        }
+    },
+    "puzzle56": {
+        "fen": "R7/2q2ppk/3bp2p/3p4/1n1P1N2/4PNP1/2r2P1P/3Q2K1 w - - 0 1",
+        "best move": "f3g5",
+        "sorted saliencies": {
+            "above threshold": {
+                "f3": 1
+            },
+            "below threshold": {
+                "a8": 0.24153188680148902,
+                "c2": 0.2134376736563992,
+                "d1": 0.19467805558394757,
+                "g7": 0.19203123290508664,
+                "f7": 0.19201829353511743,
+                "h6": 0.17571526941131335,
+                "f4": 0.15456955990655596,
+                "e6": 0.1288512560277532,
+                "d5": 0.10335709111214363,
+                "f2": 0.07635787787968969
+            }
+        },
+        "saliency ground truth": [
+            "f3",
+            "a8",
+            "f4",
+            "d1"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "a8",
+                "f4",
+                "d1"
+            ],
+            "details": {
+                "a8": {
+                    "int": 56,
+                    "saliency": 0.24153188680148902,
+                    "dP": 0.14287538748377568,
+                    "K": 0.7804122479708921,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 0.2599999999999998
+                },
+                "f4": {
+                    "int": 29,
+                    "saliency": 0.15456955990655596,
+                    "dP": 0.08885977556054427,
+                    "K": 0.5933054692982519,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 0.08000000000000007
+                },
+                "d1": {
+                    "int": 3,
+                    "saliency": 0.19467805558394757,
+                    "dP": 0.147875942364398,
+                    "K": 0.284823491607196,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 0.3100000000000005
+                }
+            }
+        }
+    },
+    "puzzle57": {
+        "fen": "r1r3k1/p2bqpbp/1p2p1p1/nP1p4/PBnP1N2/1Q2P1P1/5PBP/R1RN2K1 w - - 0 1",
+        "best move": "b3c4",
+        "sorted saliencies": {
+            "above threshold": {
+                "b3": 1,
+                "c8": 0.5478298627921346,
+                "a7": 0.5120445474866689,
+                "a1": 0.4314837872939075,
+                "c4": 0.43067281963894694
+            },
+            "below threshold": {
+                "b4": 0.3371525105561013,
+                "g2": 0.3152846600047407,
+                "a5": 0.31434209958826775,
+                "e7": 0.31169960821235293,
+                "a8": 0.23325558585327896,
+                "e6": 0.1867494842620589,
+                "b6": 0.059161521280421674,
+                "d5": 0.057276963773950085,
+                "d7": 0.0394602613637954,
+                "a4": 0.036325655495466194
+            }
+        },
+        "saliency ground truth": [
+            "b3",
+            "c4",
+            "a1",
+            "b4",
+            "a8",
+            "c1",
+            "g2",
+            "d5",
+            "e7",
+            "c8"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "b4",
+                "a8",
+                "c1",
+                "g2",
+                "d5",
+                "e7"
+            ],
+            "details": {
+                "b4": {
+                    "int": 25,
+                    "saliency": 0.3371525105561013,
+                    "dP": 0.40233713892060313,
+                    "K": 0.29014472901390825,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 1.6799999999999997,
+                    "actionGapAfterPerturbation": 0.040000000000000036
+                },
+                "a8": {
+                    "int": 56,
+                    "saliency": 0.23325558585327896,
+                    "dP": 0.13358536106693908,
+                    "K": 0.9187500058761418,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 1.6799999999999997,
+                    "actionGapAfterPerturbation": 1.5999999999999996
+                },
+                "c1": {
+                    "int": 2,
+                    "saliency": 0,
+                    "dP": -0.01190189828131688,
+                    "K": 0.7892879018726063,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 1.6799999999999997,
+                    "actionGapAfterPerturbation": 1.58
+                },
+                "g2": {
+                    "int": 14,
+                    "saliency": 0.3152846600047407,
+                    "dP": 0.1929513467601515,
+                    "K": 0.8614598386873075,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 1.6799999999999997,
+                    "actionGapAfterPerturbation": 0.56
+                },
+                "d5": {
+                    "int": 35,
+                    "saliency": 0.057276963773950085,
+                    "dP": 0.029642859504552477,
+                    "K": 0.8452264169793883,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 1.6799999999999997,
+                    "actionGapAfterPerturbation": 1.52
+                },
+                "e7": {
+                    "int": 52,
+                    "saliency": 0.31169960821235293,
+                    "dP": 0.4015803986390064,
+                    "K": 0.25469448189695326,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 1.6799999999999997,
+                    "actionGapAfterPerturbation": 0.4300000000000006
+                }
+            }
+        }
+    },
+    "puzzle58": {
+        "fen": "r2q1r2/3n1pk1/p5pp/2ppP1N1/1p5P/8/PPP2PP1/2KRQ2R w - - 0 1",
+        "best move": "e5e6",
+        "sorted saliencies": {
+            "above threshold": {
+                "e5": 1
+            },
+            "below threshold": {
+                "h4": 0.3111451826372237,
+                "g5": 0.2881335003196153,
+                "d7": 0.23251655850862618,
+                "e1": 0.2315187118749955,
+                "d8": 0.2051853370377131,
+                "f7": 0.19314698995861848,
+                "g6": 0.11762373194472629,
+                "h1": 0.10404045758737662,
+                "c5": 0.09652148021378118,
+                "a2": 0.039822646686743284,
+                "a6": 0.02975766329603583,
+                "g2": 0.010478715006857405,
+                "d5": 0.005899754722524822,
+                "f8": 0.0007486628193815164
+            }
+        },
+        "saliency ground truth": [
+            "e5",
+            "g5",
+            "h4",
+            "f8",
+            "h1",
+            "d8",
+            "e1",
+            "d1"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "g5",
+                "h4",
+                "f8",
+                "h1",
+                "d8",
+                "e1",
+                "d1"
+            ],
+            "details": {
+                "g5": {
+                    "int": 38,
+                    "saliency": 0.2881335003196153,
+                    "dP": 0.17045822928353477,
+                    "K": 0.9305034786320879,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.76,
+                    "actionGapAfterPerturbation": 0.8400000000000001
+                },
+                "h4": {
+                    "int": 31,
+                    "saliency": 0.3111451826372237,
+                    "dP": 0.19465170225155226,
+                    "K": 0.7749017058197007,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.76,
+                    "actionGapAfterPerturbation": 0.32999999999999996
+                },
+                "f8": {
+                    "int": 61,
+                    "saliency": 0.0007486628193815164,
+                    "dP": 0.00037449460337962703,
+                    "K": 0.8590105032634537,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.76,
+                    "actionGapAfterPerturbation": 0.0
+                },
+                "h1": {
+                    "int": 7,
+                    "saliency": 0.10404045758737662,
+                    "dP": 0.055114917873382296,
+                    "K": 0.9264551507068359,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.76,
+                    "actionGapAfterPerturbation": 0.27
+                },
+                "d8": {
+                    "int": 59,
+                    "saliency": 0.2051853370377131,
+                    "dP": 0.11628256111418153,
+                    "K": 0.8714267233173795,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 0.76,
+                    "actionGapAfterPerturbation": 0.11999999999999922
+                },
+                "e1": {
+                    "int": 4,
+                    "saliency": 0.2315187118749955,
+                    "dP": 0.1326177965126912,
+                    "K": 0.9106269729804533,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.76,
+                    "actionGapAfterPerturbation": 0.9600000000000009
+                },
+                "d1": {
+                    "int": 3,
+                    "saliency": 0,
+                    "dP": -0.05947421175761472,
+                    "K": 0.91842229447246,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 0.76,
+                    "actionGapAfterPerturbation": 0.3599999999999999
+                }
+            }
+        }
+    },
+    "puzzle59": {
+        "fen": "6rk/p3PQpp/1p4n1/1b1p4/3P1BR1/P6q/1KP2P2/6R1 w - - 0 1",
+        "best move": "g4g6",
+        "sorted saliencies": {
+            "above threshold": {
+                "g4": 1,
+                "e7": 0.4059785633272175
+            },
+            "below threshold": {
+                "g1": 0.35884893244182003,
+                "f7": 0.26460309813777994,
+                "d5": 0.1768023572695252,
+                "f2": 0.15865497785087432,
+                "g8": 0.15134600474075235,
+                "h3": 0.0790619573690708,
+                "a7": 0.07143209125467867,
+                "g6": 0.06851054969272369,
+                "g7": 0.06805014792137348,
+                "d4": 0.009520007778272886
+            }
+        },
+        "saliency ground truth": [
+            "g4",
+            "d5",
+            "f7",
+            "g6",
+            "g1"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "d5",
+                "f7",
+                "g6",
+                "g1"
+            ],
+            "details": {
+                "d5": {
+                    "int": 35,
+                    "saliency": 0.1768023572695252,
+                    "dP": 0.0991230279126456,
+                    "K": 0.8172650323857643,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 3.2399999999999993,
+                    "actionGapAfterPerturbation": 2.579999999999999
+                },
+                "f7": {
+                    "int": 53,
+                    "saliency": 0.26460309813777994,
+                    "dP": 0.7916995123947113,
+                    "K": 0.15884652017820922,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 3.2399999999999993,
+                    "actionGapAfterPerturbation": 6.67
+                },
+                "g6": {
+                    "int": 46,
+                    "saliency": 0.06851054969272369,
+                    "dP": 0.791938778983506,
+                    "K": 0.03580397407023646,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 3.2399999999999993,
+                    "actionGapAfterPerturbation": 0
+                },
+                "g1": {
+                    "int": 6,
+                    "saliency": 0.35884893244182003,
+                    "dP": 0.6988622757365262,
+                    "K": 0.24140135448146827,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 3.2399999999999993,
+                    "actionGapAfterPerturbation": 2.08
+                }
+            }
+        }
+    },
+    "puzzle60": {
+        "fen": "6k1/2R3pp/5n2/3p4/r1p5/5BP1/1r3P1P/4R1K1 w - - 0 1",
+        "best move": "f3d5",
+        "sorted saliencies": {
+            "above threshold": {
+                "f3": 1
+            },
+            "below threshold": {
+                "h7": 0.15406278833025838,
+                "e1": 0.15306465304406006,
+                "c7": 0.1412148489781825,
+                "c4": 0.11575794747154321,
+                "d5": 0.11108091829462335,
+                "h2": 0.08433837368086508,
+                "f6": 0.04153255582865923
+            }
+        },
+        "saliency ground truth": [
+            "f3",
+            "h7",
+            "c7",
+            "e1"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "h7",
+                "c7",
+                "e1"
+            ],
+            "details": {
+                "h7": {
+                    "int": 55,
+                    "saliency": 0.15406278833025838,
+                    "dP": 0.08868964243468933,
+                    "K": 0.5860131510999886,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 0.24
+                },
+                "c7": {
+                    "int": 50,
+                    "saliency": 0.1412148489781825,
+                    "dP": 0.08574629439366063,
+                    "K": 0.39991921753633686,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 0.019999999999999574
+                },
+                "e1": {
+                    "int": 4,
+                    "saliency": 0.15306465304406006,
+                    "dP": 0.09591749028178619,
+                    "K": 0.3786807672297759,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 0.4399999999999995
+                }
+            }
+        }
+    },
+    "puzzle61": {
+        "fen": "q2r3k/1bRQp2p/p2pBbp1/1p1P4/1P2PP2/4B3/P5PP/6K1 w - - 0 1",
+        "best move": "d7e7",
+        "sorted saliencies": {
+            "above threshold": {
+                "d7": 1
+            },
+            "below threshold": {
+                "a8": 0.06459162300219193,
+                "e3": 0.030479750284463595,
+                "b5": 0.011718804993911766,
+                "d6": 0.002336784013069201,
+                "g6": 4.375429839538037e-05
+            }
+        },
+        "saliency ground truth": [
+            "d7",
+            "e6",
+            "e3",
+            "f6",
+            "h7"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "e6",
+                "e3",
+                "f6",
+                "h7"
+            ],
+            "details": {
+                "e6": {
+                    "int": 44,
+                    "saliency": 0,
+                    "dP": -0.0162136301731641,
+                    "K": 0.33478004641719916,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 0.0
+                },
+                "e3": {
+                    "int": 20,
+                    "saliency": 0.030479750284463595,
+                    "dP": 0.015831288659547728,
+                    "K": 0.4079495233844203,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 0.96
+                },
+                "f6": {
+                    "int": 45,
+                    "saliency": 0,
+                    "dP": -0.003997009505514404,
+                    "K": 0.10698431199917731,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 0
+                },
+                "h7": {
+                    "int": 55,
+                    "saliency": 0,
+                    "dP": -0.9655354710930688,
+                    "K": 0.524739228246353,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 38.7
+                }
+            }
+        }
+    },
+    "puzzle62": {
+        "fen": "8/1p1k4/p5pp/4K1B1/6PP/2P5/1P3b2/8 w - - 0 1",
+        "best move": "h4h5",
+        "sorted saliencies": {
+            "above threshold": {
+                "h4": 1,
+                "g4": 0.5357687570414786,
+                "c3": 0.5332990929764951
+            },
+            "below threshold": {
+                "f2": 0.11642558174953488,
+                "g5": 0.07632589161955271
+            }
+        },
+        "saliency ground truth": [
+            "h4",
+            "g4",
+            "g5",
+            "c3"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "g5"
+            ],
+            "details": {
+                "g5": {
+                    "int": 38,
+                    "saliency": 0.07632589161955271,
+                    "dP": 0.03984044001875048,
+                    "K": 0.9063688836237732,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 1.27,
+                    "actionGapAfterPerturbation": 0.3600000000000003
+                }
+            }
+        }
+    },
+    "puzzle63": {
+        "fen": "8/8/5rp1/2p1k3/8/2rP4/4PR2/R3K3 w Q - 0 1",
+        "best move": "d3d4",
+        "sorted saliencies": {
+            "above threshold": {
+                "d3": 1,
+                "f2": 0.8521433984776143,
+                "f6": 0.653662957580922
+            },
+            "below threshold": {
+                "c5": 0.3211933573760208,
+                "a1": 0.23736055886133503
+            }
+        },
+        "saliency ground truth": [
+            "d3",
+            "f6",
+            "f2",
+            "a1"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "a1"
+            ],
+            "details": {
+                "a1": {
+                    "int": 0,
+                    "saliency": 0.23736055886133503,
+                    "dP": 0.8144518777104339,
+                    "K": 0.13892400418253328,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 3.77,
+                    "actionGapAfterPerturbation": 0.0600000000000005
+                }
+            }
+        }
+    },
+    "puzzle64": {
+        "fen": "2r2rk1/3bbp2/1q2N1pp/p2nB3/Pp2N1QP/4P3/1P3PP1/R2R2K1 w - - 0 3",
+        "best move": "d1d5",
+        "sorted saliencies": {
+            "above threshold": {
+                "d1": 1,
+                "d5": 0.501759305807933,
+                "c8": 0.4732690730166124,
+                "e5": 0.4668367541628526,
+                "f8": 0.4377163339453451,
+                "e4": 0.4038826357212823
+            },
+            "below threshold": {
+                "f2": 0.34330143778292505,
+                "e6": 0.33678445862290385,
+                "d7": 0.33422927074509323,
+                "g4": 0.3210990364359921,
+                "f7": 0.2757280787671733,
+                "b6": 0.25785918170160316,
+                "a4": 0.25121760747238214,
+                "a5": 0.22620566404795775,
+                "a1": 0.0811142960887778,
+                "e3": 0.013983803954929534,
+                "h6": 0.0009290962746330779
+            }
+        },
+        "saliency ground truth": [
+            "d1",
+            "e4",
+            "f2",
+            "g4",
+            "d5",
+            "e6",
+            "e5"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "f2",
+                "g4",
+                "e6"
+            ],
+            "details": {
+                "f2": {
+                    "int": 13,
+                    "saliency": 0.34330143778292505,
+                    "dP": 0.2373501485993812,
+                    "K": 0.620116853634861,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 1.93,
+                    "actionGapAfterPerturbation": 0.9700000000000002
+                },
+                "g4": {
+                    "int": 30,
+                    "saliency": 0.3210990364359921,
+                    "dP": 0.44368784803751277,
+                    "K": 0.2515868137210858,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 1.93,
+                    "actionGapAfterPerturbation": 2.83
+                },
+                "e6": {
+                    "int": 44,
+                    "saliency": 0.33678445862290385,
+                    "dP": 0.45587672467209367,
+                    "K": 0.2670269151817588,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 1.93,
+                    "actionGapAfterPerturbation": 0.1100000000000001
+                }
+            }
+        }
+    },
+    "puzzle65": {
+        "fen": "7r/5pk1/2p2npq/8/1P2PNP1/5PQ1/1PP5/R5K1 w - - 0 1",
+        "best move": "f4e6",
+        "sorted saliencies": {
+            "above threshold": {
+                "f4": 1,
+                "g6": 0.8064377086621072,
+                "a1": 0.5739896281389957,
+                "g4": 0.4751808310232804
+            },
+            "below threshold": {
+                "h8": 0.16836601775828264,
+                "g3": 0.13065406969243795
+            }
+        },
+        "saliency ground truth": [
+            "f4",
+            "g6",
+            "a1",
+            "g3",
+            "g4"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "g3"
+            ],
+            "details": {
+                "g3": {
+                    "int": 22,
+                    "saliency": 0.13065406969243795,
+                    "dP": 0.24190431410436702,
+                    "K": 0.0894956113455773,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 2.4499999999999997,
+                    "actionGapAfterPerturbation": 0.9600000000000009
+                }
+            }
+        }
+    },
+    "puzzle66": {
+        "fen": "r4b1k/1nq2b1p/3p1P2/4pP2/1p2P2Q/1P3B2/r1PRN3/2B3RK w - - 0 1",
+        "best move": "e2d4",
+        "sorted saliencies": {
+            "above threshold": {
+                "e2": 1,
+                "d6": 0.569834813103687,
+                "f6": 0.5129244912765355,
+                "b4": 0.4853911733964725,
+                "e5": 0.4589591117208932,
+                "c1": 0.4525774517352346,
+                "d2": 0.44056353237411466,
+                "g1": 0.43637177934797894,
+                "h4": 0.4318669983638702,
+                "a2": 0.4196476298975141,
+                "c2": 0.4122436484532226,
+                "f7": 0.4105475746014856
+            },
+            "below threshold": {
+                "f5": 0.25186701909349424,
+                "c7": 0.23650420089868915,
+                "f8": 0.16039422394218605,
+                "b7": 0.15396133376611557,
+                "f3": 0.14116779535584617,
+                "e4": 0.05754270034394112,
+                "a8": 0.0026442240188880315
+            }
+        },
+        "saliency ground truth": [
+            "e2",
+            "d6",
+            "f6",
+            "c7",
+            "g1",
+            "h4",
+            "d2",
+            "c1"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "c7"
+            ],
+            "details": {
+                "c7": {
+                    "int": 50,
+                    "saliency": 0.23650420089868915,
+                    "dP": 0.15541110593787194,
+                    "K": 0.49456893339039903,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 1.2400000000000002,
+                    "actionGapAfterPerturbation": 0.22000000000000064
+                }
+            }
+        }
+    },
+    "puzzle67": {
+        "fen": "1r1k3r/p1p3b1/1pB1R1n1/1P1p2p1/6n1/B1N5/P1P3PP/5R1K w - - 0 1",
+        "best move": "f1f8",
+        "sorted saliencies": {
+            "above threshold": {
+                "f1": 1,
+                "h2": 1,
+                "a3": 0.9618407358910994,
+                "c7": 0.8084283731166936,
+                "g4": 0.6981164535524618,
+                "c6": 0.666841078563864,
+                "e6": 0.6091023869415413,
+                "h8": 0.45602657827860765
+            },
+            "below threshold": {
+                "g7": 0.2293976229794627,
+                "g6": 0.12340453083864011,
+                "g5": 0.01992677157013644,
+                "d5": 0.01558846321899416,
+                "a2": 0.0013693271948284015,
+                "c3": 0.0004376870628757079
+            }
+        },
+        "saliency ground truth": [
+            "f1",
+            "h2",
+            "a3",
+            "c6",
+            "e6",
+            "c7",
+            "h8"
+        ],
+        "missing ground truth": {
+            "squares": 0,
+            "details": {}
+        }
+    },
+    "puzzle68": {
+        "fen": "5rrk/5pb1/p1pN3p/7Q/1p2PP1R/1q5P/6P1/6RK w - - 0 1",
+        "best move": "h5h6",
+        "sorted saliencies": {
+            "above threshold": {
+                "h5": 1,
+                "f4": 0.7546105194960999,
+                "g8": 0.5152300841874552,
+                "f7": 0.5003328667657144,
+                "d6": 0.4844842572503357,
+                "h4": 0.4525537148136562
+            },
+            "below threshold": {
+                "f8": 0.292317100355832,
+                "g1": 0.2521262542546869,
+                "b3": 0.06595174622630198,
+                "g2": 1.2878587085651144e-14
+            }
+        },
+        "saliency ground truth": [
+            "h5",
+            "g8",
+            "h4",
+            "f8",
+            "d6",
+            "f7"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "f8"
+            ],
+            "details": {
+                "f8": {
+                    "int": 61,
+                    "saliency": 0.292317100355832,
+                    "dP": 0.9997067531798436,
+                    "K": 0.17118621904884695,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 40,
+                    "actionGapAfterPerturbation": 4.78
+                }
+            }
+        }
+    },
+    "puzzle69": {
+        "fen": "r2k3q/2R1npr1/p3p1p1/nN1pP1N1/3P1Q1P/1P1B2P1/5P2/6K1 w - - 0 3",
+        "best move": "f4f7",
+        "sorted saliencies": {
+            "above threshold": {
+                "f4": 1
+            },
+            "below threshold": {
+                "a5": 2.1130139206494104e-06
+            }
+        },
+        "saliency ground truth": [
+            "f4",
+            "c7",
+            "b5",
+            "g5"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "c7",
+                "b5",
+                "g5"
+            ],
+            "details": {
+                "c7": {
+                    "int": 50,
+                    "saliency": 0,
+                    "dP": -0.029451952962529573,
+                    "K": 0.2688110132085471,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 7.62,
+                    "actionGapAfterPerturbation": 0.3600000000000003
+                },
+                "b5": {
+                    "int": 33,
+                    "saliency": 0,
+                    "dP": -0.006904914523860562,
+                    "K": 0.31811215007852767,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 7.62,
+                    "actionGapAfterPerturbation": 0.23000000000000004
+                },
+                "g5": {
+                    "int": 38,
+                    "saliency": 0,
+                    "dP": -5.38227066614873e-06,
+                    "K": 0.29552078234603657,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 7.62,
+                    "actionGapAfterPerturbation": 2.06
+                }
+            }
+        }
+    },
+    "puzzle70": {
+        "fen": "r2r2k1/2p3p1/3Pq3/p1p1bpPQ/4p3/P7/1P3PP1/R3K2R w KQ - 0 1",
+        "best move": "g5g6",
+        "sorted saliencies": {
+            "above threshold": {
+                "g5": 1,
+                "g7": 0.8403775053533209,
+                "f2": 0.8289085402881843,
+                "e4": 0.6871963769749463,
+                "h5": 0.6182843488674726,
+                "d6": 0.5567947459873356,
+                "h1": 0.5452068209444362
+            },
+            "below threshold": {
+                "b2": 0.17695878151946376,
+                "a8": 0.17549770475408358,
+                "a5": 0.12181360187873493,
+                "f5": 0.07355709019105845,
+                "e6": 0.06533715492587705,
+                "g2": 0.0007292649915141627,
+                "e5": 0.00042174720248081444,
+                "c5": 8.208452559128962e-05
+            }
+        },
+        "saliency ground truth": [
+            "g5",
+            "g7",
+            "f2",
+            "h1",
+            "d6",
+            "h5"
+        ],
+        "missing ground truth": {
+            "squares": 0,
+            "details": {}
+        }
+    },
+    "puzzle71": {
+        "fen": "2rr2k1/p3n1q1/4P1p1/1p3p1Q/2p5/2P5/PP2B2R/6RK w - - 0 1",
+        "best move": "g1g6",
+        "sorted saliencies": {
+            "above threshold": {
+                "g1": 1,
+                "h2": 0.4390763106732238
+            },
+            "below threshold": {
+                "c3": 0.37766449384543666,
+                "e2": 0.3730338988327942,
+                "c4": 0.3677502701226594,
+                "e6": 0.3554914580398683,
+                "c8": 0.3056145089587435,
+                "g6": 0.29826877382281636,
+                "h5": 0.2943456334797098,
+                "a7": 0.15252254829710485,
+                "a2": 0.13257460573430452,
+                "f5": 0.1219519020100617,
+                "g7": 0.06663629945485094,
+                "b5": 0.022679483475387837,
+                "b2": 0.008364712775097663
+            }
+        },
+        "saliency ground truth": [
+            "h2",
+            "g1",
+            "e7",
+            "g7",
+            "e6",
+            "h5"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "e7",
+                "g7",
+                "e6",
+                "h5"
+            ],
+            "details": {
+                "e7": {
+                    "int": 52,
+                    "saliency": 0,
+                    "dP": -0.5698290380889207,
+                    "K": 0.08141563630543514,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 0.20000000000000018,
+                    "actionGapAfterPerturbation": 22.36
+                },
+                "g7": {
+                    "int": 54,
+                    "saliency": 0.06663629945485094,
+                    "dP": 0.23017096290283257,
+                    "K": 0.03895738385038403,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.20000000000000018,
+                    "actionGapAfterPerturbation": 0
+                },
+                "e6": {
+                    "int": 44,
+                    "saliency": 0.3554914580398683,
+                    "dP": 0.4041222054233772,
+                    "K": 0.3173076865464864,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.20000000000000018,
+                    "actionGapAfterPerturbation": 0.15999999999999992
+                },
+                "h5": {
+                    "int": 39,
+                    "saliency": 0.2943456334797098,
+                    "dP": 0.42937194476524904,
+                    "K": 0.22392655492005878,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.20000000000000018,
+                    "actionGapAfterPerturbation": 0.5
+                }
+            }
+        }
+    },
+    "puzzle72": {
+        "fen": "3Q1bk1/p4p2/b3p2p/8/q7/P3N2P/4nPP1/1BR4K w - - 0 1",
+        "best move": "e3g4",
+        "sorted saliencies": {
+            "above threshold": {
+                "e3": 1,
+                "b1": 0.7779032337212862,
+                "e6": 0.5952236485748872,
+                "g2": 0.5805801501655614,
+                "d8": 0.5148821883142043,
+                "f2": 0.4653978277532,
+                "h3": 0.4254424181522769
+            },
+            "below threshold": {
+                "a6": 0.2999570042223154,
+                "a7": 0.21070404674197865,
+                "f7": 0.20892131234692735,
+                "h6": 0.2032800366328534
+            }
+        },
+        "saliency ground truth": [
+            "e3",
+            "b1",
+            "h3",
+            "d8"
+        ],
+        "missing ground truth": {
+            "squares": 0,
+            "details": {}
+        }
+    },
+    "puzzle73": {
+        "fen": "r1b2krQ/1pR1bp1p/1q2p3/1B6/4p3/8/P1P3PP/5R1K w - - 0 1",
+        "best move": "c7e7",
+        "sorted saliencies": {
+            "above threshold": {
+                "c7": 1,
+                "b6": 0.8060047131540318,
+                "b7": 0.8052179945084953,
+                "b5": 0.7551404716928829,
+                "f1": 0.46222841195424336,
+                "g2": 0.45612448960254615,
+                "c8": 0.4125881991955209
+            },
+            "below threshold": {
+                "h8": 0.2191712206333986,
+                "e7": 0.04718066166443264,
+                "c2": 0.03576455146184855
+            }
+        },
+        "saliency ground truth": [
+            "c7",
+            "b6",
+            "b5",
+            "f1",
+            "h8"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "h8"
+            ],
+            "details": {
+                "h8": {
+                    "int": 63,
+                    "saliency": 0.2191712206333986,
+                    "dP": 0.4476539285628134,
+                    "K": 0.1451080338634716,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.75,
+                    "actionGapAfterPerturbation": 0.17999999999999972
+                }
+            }
+        }
+    },
+    "puzzle74": {
+        "fen": "r1b1r1kb/1pq2p1p/1npp1Pp1/2n5/2PNP2Q/1PN1B2P/2B3P1/3R1RK1 w - - 0 1",
+        "best move": "c3b5",
+        "sorted saliencies": {
+            "above threshold": {
+                "c3": 1
+            },
+            "below threshold": {
+                "d4": 0.07046945171905244,
+                "d1": 0.056083677247261064,
+                "c7": 0.055341770217128175,
+                "g6": 0.036228261300420166,
+                "h8": 0.035136469545545494,
+                "c6": 0.03044716128519076,
+                "b6": 0.019858862866738592,
+                "c4": 0.019156407041003663,
+                "e4": 0.016697162256494258
+            }
+        },
+        "saliency ground truth": [
+            "d4",
+            "c3",
+            "c7",
+            "f6",
+            "h7"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "d4",
+                "c7",
+                "f6",
+                "h7"
+            ],
+            "details": {
+                "d4": {
+                    "int": 27,
+                    "saliency": 0.07046945171905244,
+                    "dP": 0.03658698659353088,
+                    "K": 0.953316479752776,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 1.04,
+                    "actionGapAfterPerturbation": 0.010000000000000009
+                },
+                "c7": {
+                    "int": 50,
+                    "saliency": 0.055341770217128175,
+                    "dP": 0.028664653241989822,
+                    "K": 0.7981502926660372,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 1.04,
+                    "actionGapAfterPerturbation": 0.009999999999999787
+                },
+                "f6": {
+                    "int": 45,
+                    "saliency": 0,
+                    "dP": -0.002991317624145312,
+                    "K": 0.8313952569645375,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 1.04,
+                    "actionGapAfterPerturbation": 0.0
+                },
+                "h7": {
+                    "int": 55,
+                    "saliency": 0,
+                    "dP": -0.0033040089202778164,
+                    "K": 0.7983888598139437,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 1.04,
+                    "actionGapAfterPerturbation": 0.29000000000000004
+                }
+            }
+        }
+    },
+    "puzzle75": {
+        "fen": "8/p3P1pk/1p5p/2pBq3/4p3/P5P1/1P3RP1/6K1 w - - 0 9",
+        "best move": "d5g8",
+        "sorted saliencies": {
+            "above threshold": {
+                "d5": 1,
+                "h6": 0.9115856226106408,
+                "f2": 0.6957421281837399,
+                "g2": 0.49705614843858775,
+                "e7": 0.47977935424287943,
+                "g7": 0.4551714024808723
+            },
+            "below threshold": {
+                "e5": 0.05977342647660975,
+                "b2": 0.051402104415493526,
+                "a3": 0.043186698635155014,
+                "e4": 0.008904300513242319,
+                "g3": 0.005503791067408383
+            }
+        },
+        "saliency ground truth": [
+            "d5",
+            "h6",
+            "g7",
+            "f2",
+            "e7"
+        ],
+        "missing ground truth": {
+            "squares": 0,
+            "details": {}
+        }
+    },
+    "puzzle76": {
+        "fen": "4n1rk/1q1r1p1p/4p1pQ/4P3/8/2p1BR2/1P3PP1/5R1K w - - 0 1",
+        "best move": "h6h7",
+        "sorted saliencies": {
+            "above threshold": {
+                "h6": 1
+            },
+            "below threshold": {
+                "b7": 0.06352505410814493,
+                "f7": 0.06252427542329995,
+                "f3": 0.06218947557073575,
+                "e5": 0.062038182538108944,
+                "e3": 0.06118556287821031,
+                "g2": 0.05867162392714516,
+                "g6": 0.051510032723854154,
+                "g8": 0.02957010710661026,
+                "c3": 0.009459789043272425
+            }
+        },
+        "saliency ground truth": [
+            "h6",
+            "f3",
+            "e5",
+            "e3",
+            "f7",
+            "g2",
+            "g6"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "f3",
+                "e5",
+                "e3",
+                "f7",
+                "g2",
+                "g6"
+            ],
+            "details": {
+                "f3": {
+                    "int": 21,
+                    "saliency": 0.06218947557073575,
+                    "dP": 0.03323857839232855,
+                    "K": 0.4820996841426144,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 1.8899999999999997
+                },
+                "e5": {
+                    "int": 36,
+                    "saliency": 0.062038182538108944,
+                    "dP": 0.033236033661476816,
+                    "K": 0.4650330856997352,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 0.19000000000000006
+                },
+                "e3": {
+                    "int": 20,
+                    "saliency": 0.06118556287821031,
+                    "dP": 0.03327685142358012,
+                    "K": 0.3792864748205515,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 0.26000000000000023
+                },
+                "f7": {
+                    "int": 53,
+                    "saliency": 0.06252427542329995,
+                    "dP": 0.03332731899344846,
+                    "K": 0.50449965100688,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 1.16
+                },
+                "g2": {
+                    "int": 14,
+                    "saliency": 0.05867162392714516,
+                    "dP": 0.033294589038418844,
+                    "K": 0.24672361817024263,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 0.5300000000000002
+                },
+                "g6": {
+                    "int": 46,
+                    "saliency": 0.051510032723854154,
+                    "dP": 0.03314133973019288,
+                    "K": 0.11555894650841751,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 1.05
+                }
+            }
+        }
+    },
+    "puzzle77": {
+        "fen": "6k1/2q1rppp/Bp2p3/3bQ3/P7/1P5P/3R1PP1/6K1 w - - 0 2",
+        "best move": "d2c2",
+        "sorted saliencies": {
+            "above threshold": {
+                "d2": 1,
+                "b3": 0.7476115835192662,
+                "g7": 0.6775679756085272,
+                "h7": 0.6351250233479847,
+                "f7": 0.6066094796551462
+            },
+            "below threshold": {
+                "a6": 0.3827877554156433,
+                "c7": 0.332279246769284,
+                "e6": 0.2633442647361696,
+                "e5": 0.2559951185155931,
+                "e7": 0.19009806786413788,
+                "d5": 0.1368806589485399,
+                "a4": 0.032825975900355284,
+                "h3": 0.003312899159370041
+            }
+        },
+        "saliency ground truth": [
+            "d2",
+            "h7",
+            "f7",
+            "g7",
+            "a6",
+            "e5"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "a6",
+                "e5"
+            ],
+            "details": {
+                "a6": {
+                    "int": 40,
+                    "saliency": 0.3827877554156433,
+                    "dP": 0.5645429552372287,
+                    "K": 0.2895627293275867,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 2.76,
+                    "actionGapAfterPerturbation": 0.3400000000000003
+                },
+                "e5": {
+                    "int": 36,
+                    "saliency": 0.2559951185155931,
+                    "dP": 0.7189347238284002,
+                    "K": 0.15572195392818064,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 2.76,
+                    "actionGapAfterPerturbation": 0.2900000000000009
+                }
+            }
+        }
+    },
+    "puzzle78": {
+        "fen": "5q1k/2p3Rp/1p1rnP2/p4p2/2Q5/PP2P3/1B3P1P/7K w - - 0 1",
+        "best move": "c4e6",
+        "sorted saliencies": {
+            "above threshold": {
+                "c4": 1
+            },
+            "below threshold": {
+                "b2": 0.24959913306494808,
+                "h2": 0.24674622687286765,
+                "e3": 0.20227968204384456,
+                "f5": 0.18663588026676306,
+                "f6": 0.10461571896515146,
+                "f8": 0.06880078687779034,
+                "e6": 0.05419512900920496,
+                "h7": 0.04970628703851253,
+                "b3": 0.013054781863632547
+            }
+        },
+        "saliency ground truth": [
+            "c4",
+            "f6",
+            "g7"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "f6",
+                "g7"
+            ],
+            "details": {
+                "f6": {
+                    "int": 45,
+                    "saliency": 0.10461571896515146,
+                    "dP": 0.19032370465558912,
+                    "K": 0.07213248295402541,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.22000000000000064,
+                    "actionGapAfterPerturbation": 0.0
+                },
+                "g7": {
+                    "int": 54,
+                    "saliency": 0,
+                    "dP": -0.3283423517738381,
+                    "K": 0.24098309063871826,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 0.22000000000000064,
+                    "actionGapAfterPerturbation": 1.8300000000000003
+                }
+            }
+        }
+    },
+    "puzzle79": {
+        "fen": "3q1rk1/1bp2ppp/1p5r/8/8/1BP3Q1/PP4PP/4RRK1 w - - 0 1",
+        "best move": "f1f7",
+        "sorted saliencies": {
+            "above threshold": {
+                "f1": 1,
+                "h2": 0.878123025935444,
+                "c3": 0.8743760616763676,
+                "e1": 0.8598418792007284,
+                "b3": 0.845655664652704,
+                "h7": 0.7262802882288535,
+                "b7": 0.689554480819537,
+                "b6": 0.5908987163778386,
+                "g3": 0.5697813333742552
+            },
+            "below threshold": {
+                "g2": 0.3887983951921526
+            }
+        },
+        "saliency ground truth": [
+            "f1",
+            "h2",
+            "c3",
+            "e1",
+            "b3",
+            "h7",
+            "g3",
+            "g7"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "g7"
+            ],
+            "details": {
+                "g7": {
+                    "int": 54,
+                    "saliency": 0,
+                    "dP": 0,
+                    "K": 0,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 0
+                }
+            }
+        }
+    },
+    "puzzle80": {
+        "fen": "4r1k1/R5pp/3Q1pq1/p3P3/8/B6P/2b3PK/8 w - - 0 1",
+        "best move": "a7a8",
+        "sorted saliencies": {
+            "above threshold": {
+                "a7": 1,
+                "a3": 0.8087441506524671,
+                "e5": 0.7944627997758303,
+                "h7": 0.7450913355880214,
+                "f6": 0.6778293896515819,
+                "d6": 0.4621918408676098
+            },
+            "below threshold": {
+                "h3": 0.311729126930675,
+                "g7": 0.2874465601293788,
+                "g6": 0.08910542783405587,
+                "e8": 0.07531843773627589,
+                "a5": 0.021651580213015192,
+                "g2": 0.002172490650134028
+            }
+        },
+        "saliency ground truth": [
+            "a7",
+            "d6",
+            "e5",
+            "a3",
+            "f6",
+            "h7",
+            "h3"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "h3"
+            ],
+            "details": {
+                "h3": {
+                    "int": 23,
+                    "saliency": 0.311729126930675,
+                    "dP": 0.5303174785876703,
+                    "K": 0.22074257926687965,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 4.09,
+                    "actionGapAfterPerturbation": 1.09
+                }
+            }
+        }
+    },
+    "puzzle81": {
+        "fen": "r1b2rk1/p1q1np1p/2p1p1p1/1pP1N2P/3P4/3R2Q1/1P3PP1/1BK4R w - - 0 1",
+        "best move": "e5g6",
+        "sorted saliencies": {
+            "above threshold": {
+                "e5": 1
+            },
+            "below threshold": {
+                "g3": 0.1036402631619918,
+                "c7": 0.10073664158904051,
+                "h7": 0.1004503363997998,
+                "f7": 0.07749586893849948,
+                "e7": 0.06309793268701575,
+                "c8": 0.055119049918731414,
+                "f2": 0.03390618286027766,
+                "c5": 0.02644809534873326,
+                "b2": 0.024181965637014458
+            }
+        },
+        "saliency ground truth": [
+            "h1",
+            "g3",
+            "d3",
+            "c7"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "h1",
+                "g3",
+                "d3",
+                "c7"
+            ],
+            "details": {
+                "h1": {
+                    "int": 7,
+                    "saliency": 0,
+                    "dP": -0.10119176460806975,
+                    "K": 0.5104813564715494,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 1.83,
+                    "actionGapAfterPerturbation": 1.27
+                },
+                "g3": {
+                    "int": 22,
+                    "saliency": 0.1036402631619918,
+                    "dP": 0.057826529670476315,
+                    "K": 0.49889773067899745,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 1.83,
+                    "actionGapAfterPerturbation": 0.009999999999999787
+                },
+                "d3": {
+                    "int": 19,
+                    "saliency": 0,
+                    "dP": -0.12299692862872419,
+                    "K": 0.5581510673375322,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 1.83,
+                    "actionGapAfterPerturbation": 0.8599999999999999
+                },
+                "c7": {
+                    "int": 50,
+                    "saliency": 0.10073664158904051,
+                    "dP": 0.05378369133977687,
+                    "K": 0.7931772506141963,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 1.83,
+                    "actionGapAfterPerturbation": 0.009999999999999787
+                }
+            }
+        }
+    },
+    "puzzle82": {
+        "fen": "8/8/5pkp/P2R1p2/8/3P2p1/5qP1/5R1K w - - 0 1",
+        "best move": "f1f2",
+        "sorted saliencies": {
+            "above threshold": {
+                "f1": 1,
+                "f2": 0.5404873568187916,
+                "a5": 0.5320719357014152
+            },
+            "below threshold": {
+                "d5": 0.1594163429460759,
+                "f5": 0.053019651373714664
+            }
+        },
+        "saliency ground truth": [
+            "f1",
+            "d5",
+            "f2",
+            "g2"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "d5",
+                "g2"
+            ],
+            "details": {
+                "d5": {
+                    "int": 35,
+                    "saliency": 0.1594163429460759,
+                    "dP": 0.08813814283622301,
+                    "K": 0.8333753342491108,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 1.76,
+                    "actionGapAfterPerturbation": 2.08
+                },
+                "g2": {
+                    "int": 14,
+                    "saliency": 0,
+                    "dP": -0.14713665401296394,
+                    "K": 0.2665511453128684,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 1.76,
+                    "actionGapAfterPerturbation": 51.15
+                }
+            }
+        }
+    },
+    "puzzle83": {
+        "fen": "3r1rk1/2q2p1p/1n5Q/1pp1pp2/8/1BP4P/1P3PP1/R2R2K1 w - - 0 1",
+        "best move": "b3f7",
+        "sorted saliencies": {
+            "above threshold": {
+                "b3": 1
+            },
+            "below threshold": {
+                "d1": 0.37818053326133116,
+                "h6": 0.3445585575845094,
+                "f5": 0.3310408109816171,
+                "e5": 0.31070023886289777,
+                "a1": 0.29458323920735446,
+                "h7": 0.21569243326105578,
+                "d8": 0.21503394511943905,
+                "g2": 0.20606723796077675,
+                "f8": 0.19964033533189207,
+                "c5": 0.03258813648413934
+            }
+        },
+        "saliency ground truth": [
+            "h6",
+            "c7",
+            "d1",
+            "b3",
+            "d8"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "h6",
+                "c7",
+                "d1",
+                "d8"
+            ],
+            "details": {
+                "h6": {
+                    "int": 47,
+                    "saliency": 0.3445585575845094,
+                    "dP": 0.23212703972941878,
+                    "K": 0.6682067694187036,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.6899999999999995,
+                    "actionGapAfterPerturbation": 0.23000000000000043
+                },
+                "c7": {
+                    "int": 50,
+                    "saliency": 0,
+                    "dP": -0.26133276315596776,
+                    "K": 0.09759232404428833,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.6899999999999995,
+                    "actionGapAfterPerturbation": 0
+                },
+                "d1": {
+                    "int": 3,
+                    "saliency": 0.37818053326133116,
+                    "dP": 0.23766153877813206,
+                    "K": 0.9252276448302862,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.6899999999999995,
+                    "actionGapAfterPerturbation": 3.15
+                },
+                "d8": {
+                    "int": 59,
+                    "saliency": 0.21503394511943905,
+                    "dP": 0.1358918880545265,
+                    "K": 0.5149155211306611,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.6899999999999995,
+                    "actionGapAfterPerturbation": 0.0
+                }
+            }
+        }
+    },
+    "puzzle84": {
+        "fen": "r4r1k/ppq3pp/3R4/4N1B1/4P3/1Q6/PP2b1PP/2R3K1 w - - 0 1",
+        "best move": "b3d1",
+        "sorted saliencies": {
+            "above threshold": {
+                "b3": 1,
+                "g7": 0.598984588447267,
+                "d6": 0.5503089201732314,
+                "g2": 0.4762329093866291,
+                "b2": 0.40986347979905025
+            },
+            "below threshold": {
+                "a8": 0.37151675372698206,
+                "c7": 0.3301571052998844,
+                "f8": 0.23876679133821269,
+                "e4": 0.23045284129321242,
+                "c1": 0.2232085799241065,
+                "b7": 0.1909547398046203,
+                "a7": 0.1896066464329408,
+                "h2": 0.1820185754849247,
+                "e2": 0.15861217955884907,
+                "e5": 0.15452333922750316,
+                "a2": 0.06961399738528731,
+                "h7": 0.06164068139413928
+            }
+        },
+        "saliency ground truth": [
+            "b3",
+            "d6"
+        ],
+        "missing ground truth": {
+            "squares": 0,
+            "details": {}
+        }
+    },
+    "puzzle85": {
+        "fen": "2r4k/p5pp/1p1P1r2/3B1p2/8/8/PP3PPP/4R1K1 w - - 0 1",
+        "best move": "d6d7",
+        "sorted saliencies": {
+            "above threshold": {
+                "d6": 1,
+                "d5": 0.6525540651243087,
+                "h2": 0.625241471730957,
+                "g2": 0.6186161740950475,
+                "f5": 0.5621802464443896
+            },
+            "below threshold": {
+                "g7": 0.30366122621077857,
+                "e1": 0.12451096338467046,
+                "f2": 0.10802581317137294,
+                "c8": 0.06678463335640283,
+                "b2": 0.019013423644535045,
+                "a2": 0.017315464407438343
+            }
+        },
+        "saliency ground truth": [
+            "d6",
+            "d5",
+            "e1"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "e1"
+            ],
+            "details": {
+                "e1": {
+                    "int": 4,
+                    "saliency": 0.12451096338467046,
+                    "dP": 0.9468285510742548,
+                    "K": 0.06663696823640648,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 4.859999999999999,
+                    "actionGapAfterPerturbation": 0.08000000000000007
+                }
+            }
+        }
+    },
+    "puzzle86": {
+        "fen": "r1bqkb1r/1p3ppp/p7/3N4/8/3Q1N2/PP3PPP/3R1RK1 w kq - 0 1",
+        "best move": "d5f6",
+        "sorted saliencies": {
+            "above threshold": {
+                "d5": 1
+            },
+            "below threshold": {
+                "c8": 0.017293402804969014,
+                "f1": 0.01638739721433807,
+                "b7": 0.015211163168059143,
+                "d3": 0.014498866972886913,
+                "f8": 0.013721552955885837,
+                "d1": 0.011147514054927086,
+                "h7": 0.010720338318167835
+            }
+        },
+        "saliency ground truth": [
+            "d5",
+            "f1",
+            "f7",
+            "d3",
+            "d1"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "f1",
+                "f7",
+                "d3",
+                "d1"
+            ],
+            "details": {
+                "f1": {
+                    "int": 5,
+                    "saliency": 0.01638739721433807,
+                    "dP": 0.008309219821117837,
+                    "K": 0.5893570587401245,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.06000000000000005,
+                    "actionGapAfterPerturbation": 1.75
+                },
+                "f7": {
+                    "int": 53,
+                    "saliency": 0,
+                    "dP": -0.00840009488369954,
+                    "K": 0.42807532719626135,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.06000000000000005,
+                    "actionGapAfterPerturbation": 0.25
+                },
+                "d3": {
+                    "int": 19,
+                    "saliency": 0.014498866972886913,
+                    "dP": 0.007322237871561872,
+                    "K": 0.7291054836252998,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.06000000000000005,
+                    "actionGapAfterPerturbation": 0.0
+                },
+                "d1": {
+                    "int": 3,
+                    "saliency": 0.011147514054927086,
+                    "dP": 0.00562798014056385,
+                    "K": 0.5785170209770824,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.06000000000000005,
+                    "actionGapAfterPerturbation": 0.13000000000000034
+                }
+            }
+        }
+    },
+    "puzzle87": {
+        "fen": "2q1n2k/p5b1/1p1pN2p/1P1P2p1/3n4/2r1pQP1/P5BP/5RK1 w - - 0 1",
+        "best move": "f3f8",
+        "sorted saliencies": {
+            "above threshold": {
+                "f3": 1,
+                "e8": 0.9362498350553574,
+                "g2": 0.7877115827554216,
+                "e6": 0.7753195384710926,
+                "f1": 0.4205566327109015
+            },
+            "below threshold": {
+                "d4": 0.36109243714441547,
+                "h6": 0.3373319399610407,
+                "c8": 0.3093777368157231,
+                "g7": 1.9984014443252794e-15,
+                "c3": 4.4408920985006247e-16
+            }
+        },
+        "saliency ground truth": [
+            "f3",
+            "e8",
+            "g2",
+            "e6",
+            "g7",
+            "f1"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "g7"
+            ],
+            "details": {
+                "g7": {
+                    "int": 54,
+                    "saliency": 1.9984014443252794e-15,
+                    "dP": 9.992007221626409e-16,
+                    "K": 0.7715272959189131,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 42.24,
+                    "actionGapAfterPerturbation": 35.29
+                }
+            }
+        }
+    },
+    "puzzle88": {
+        "fen": "4rk2/pp3p1Q/3qb2p/2r3pP/3p4/P7/1P2RPP1/1B2R1K1 w - - 0 1",
+        "best move": "b1g6",
+        "sorted saliencies": {
+            "above threshold": {
+                "b1": 1,
+                "h5": 0.5115373352997549,
+                "h7": 0.5084010769465299,
+                "e2": 0.4917823242817305
+            },
+            "below threshold": {
+                "c5": 0.34682206512436775,
+                "f7": 0.187144028422828,
+                "e1": 0.08095906896934478,
+                "d6": 0.07253071272437689,
+                "a7": 0.038141240918652716
+            }
+        },
+        "saliency ground truth": [
+            "b1",
+            "h5",
+            "e2",
+            "h7",
+            "h6"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "h6"
+            ],
+            "details": {
+                "h6": {
+                    "int": 47,
+                    "saliency": 0,
+                    "dP": -0.31524797824033185,
+                    "K": 0.9056857006430769,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 1.6300000000000001,
+                    "actionGapAfterPerturbation": 2.73
+                }
+            }
+        }
+    },
+    "puzzle89": {
+        "fen": "5rk1/3R1ppp/p5q1/3BPp2/5P2/2P1b2P/P1Q5/7K w - - 0 1",
+        "best move": "d5f7",
+        "sorted saliencies": {
+            "above threshold": {
+                "d5": 1,
+                "c2": 0.922507188310246,
+                "e5": 0.8919712250754419,
+                "h7": 0.886789843421744,
+                "g7": 0.8504266760507281,
+                "d7": 0.8076255302980809,
+                "e3": 0.45413775047300176,
+                "f8": 0.4285515095467105
+            },
+            "below threshold": {
+                "h3": 0.0754863896533436,
+                "g6": 0.06564747986495197,
+                "a2": 0.007802948343184204,
+                "f4": 0.004042849536303869
+            }
+        },
+        "saliency ground truth": [
+            "d5",
+            "e5",
+            "h7",
+            "g7",
+            "c2",
+            "d7"
+        ],
+        "missing ground truth": {
+            "squares": 0,
+            "details": {}
+        }
+    },
+    "puzzle90": {
+        "fen": "r5rk/1pp1n1pp/p1n1b1q1/3p1p2/7R/2QB1N2/PB3PPP/4R1K1 w - - 0 1",
+        "best move": "e1e6",
+        "sorted saliencies": {
+            "above threshold": {
+                "e1": 1,
+                "g2": 1,
+                "c3": 0.7709230890933659,
+                "f3": 0.7320290776649191,
+                "e6": 0.7151276913186665,
+                "h4": 0.7132960748540396,
+                "g8": 0.7051676129505628,
+                "g6": 0.6723913137512797,
+                "a2": 0.6685266414064212,
+                "f2": 0.6352864606883848,
+                "b2": 0.45989232006801994,
+                "d3": 0.4070811224316305,
+                "c6": 0.39655773632847136,
+                "c7": 0.3928024773921621
+            },
+            "below threshold": {}
+        },
+        "saliency ground truth": [
+            "e1",
+            "g2",
+            "f3",
+            "h4",
+            "e6"
+        ],
+        "missing ground truth": {
+            "squares": 0,
+            "details": {}
+        }
+    },
+    "puzzle91": {
+        "fen": "8/1p4p1/2k2p1p/5P2/4P1PP/3K4/8/8 w - - 0 1",
+        "best move": "e4e5",
+        "sorted saliencies": {
+            "above threshold": {
+                "e4": 1,
+                "h4": 0.9284343206868527,
+                "f5": 0.9115373022869795,
+                "g4": 0.7512927096282164,
+                "b7": 0.6120685898664235,
+                "h6": 0.5758236496824873
+            },
+            "below threshold": {
+                "f6": 0.2564527075976397,
+                "g7": 0.03920460969401633
+            }
+        },
+        "saliency ground truth": [
+            "e4",
+            "g4",
+            "f5",
+            "h4"
+        ],
+        "missing ground truth": {
+            "squares": 0,
+            "details": {}
+        }
+    },
+    "puzzle92": {
+        "fen": "r2q1rk1/1ppb1pp1/p1n4p/4pN2/4P3/1BP2Q2/PP3PPP/R2R2K1 w - - 0 1",
+        "best move": "d1d7",
+        "sorted saliencies": {
+            "above threshold": {
+                "d1": 1,
+                "f3": 0.6098121183367771,
+                "f5": 0.5294433095793455,
+                "d7": 0.4546780174503937
+            },
+            "below threshold": {
+                "f8": 0.2806038990688766,
+                "g7": 0.2740423806894697,
+                "c7": 0.2658607484460919,
+                "c6": 0.09886981361841135,
+                "e5": 0.0981146850819074,
+                "f2": 0.08087095448326684,
+                "a2": 0.05584429106326073,
+                "a1": 0.026943866194673587,
+                "h6": 0.022956143294875237
+            }
+        },
+        "saliency ground truth": [
+            "d1",
+            "f3",
+            "f5",
+            "d7"
+        ],
+        "missing ground truth": {
+            "squares": 0,
+            "details": {}
+        }
+    },
+    "puzzle93": {
+        "fen": "8/6pp/8/1kPPp3/1pn1P3/1N1K3P/1r4P1/2R5 w - - 0 1",
+        "best move": "b3d4",
+        "sorted saliencies": {
+            "above threshold": {
+                "b3": 1,
+                "c1": 0.5120982942982746
+            },
+            "below threshold": {
+                "b2": 0.25689869669087567,
+                "b4": 0.20518003406811236,
+                "e4": 0.19621683531101222,
+                "c4": 0.18691568308385814,
+                "e5": 0.07750450341162461
+            }
+        },
+        "saliency ground truth": [
+            "b3",
+            "c1",
+            "c4"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "c4"
+            ],
+            "details": {
+                "c4": {
+                    "int": 26,
+                    "saliency": 0.18691568308385814,
+                    "dP": 0.17655497300319567,
+                    "K": 0.19856818641283,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 4.140000000000001,
+                    "actionGapAfterPerturbation": 1.5700000000000003
+                }
+            }
+        }
+    },
+    "puzzle94": {
+        "fen": "4rN2/p3PR2/2pb4/2p3k1/8/5K1P/P7/8 w - - 0 1",
+        "best move": "h3h4",
+        "sorted saliencies": {
+            "above threshold": {
+                "h3": 1,
+                "f8": 0.8748382651779245,
+                "f7": 0.638005809865426,
+                "e7": 0.568619711161528
+            },
+            "below threshold": {
+                "e8": 0.08402522482500631,
+                "c5": 0.008659446699292047,
+                "c6": 0.005362653426608435
+            }
+        },
+        "saliency ground truth": [
+            "h3",
+            "f8",
+            "e7",
+            "f7"
+        ],
+        "missing ground truth": {
+            "squares": 0,
+            "details": {}
+        }
+    },
+    "puzzle95": {
+        "fen": "4rrk1/2q1bppp/p2p4/1p1Pn3/3B1R2/P2B2Q1/1PP3PP/5R1K w - - 0 1",
+        "best move": "d3h7",
+        "sorted saliencies": {
+            "above threshold": {
+                "d3": 1,
+                "f4": 0.6135465969226748,
+                "d4": 0.6095637164764488,
+                "c7": 0.5829310881484335,
+                "f1": 0.5748019122656779,
+                "c2": 0.5747845958938839,
+                "e7": 0.5740060502031317,
+                "g3": 0.5472342466896629,
+                "h7": 0.472837123889435
+            },
+            "below threshold": {
+                "f7": 0.2956959455891082,
+                "d6": 0.2921464756364067,
+                "a6": 0.2726756290701391,
+                "b5": 0.24331837575881504,
+                "f8": 0.17451392562662366,
+                "g2": 0.1487828272914242,
+                "d5": 0.13590890905225117,
+                "e5": 0.05511299811074232,
+                "b2": 0.010904197605147756
+            }
+        },
+        "saliency ground truth": [
+            "d3",
+            "d4",
+            "h7",
+            "g3",
+            "c7",
+            "c2",
+            "f4",
+            "f1"
+        ],
+        "missing ground truth": {
+            "squares": 0,
+            "details": {}
+        }
+    },
+    "puzzle96": {
+        "fen": "5rrk/3R1Qbp/6p1/6P1/8/1PP5/q5P1/5R1K w - - 0 1",
+        "best move": "f7g7",
+        "sorted saliencies": {
+            "above threshold": {
+                "f7": 1,
+                "d7": 0.8731111707051045,
+                "g6": 0.8179148323452732,
+                "h7": 0.6741188657919711,
+                "c3": 0.6317350057469812,
+                "g5": 0.6036474992650751,
+                "f8": 0.5074790995855497,
+                "g8": 0.47719390375750026,
+                "a2": 0.42584094522764737
+            },
+            "below threshold": {
+                "g7": 0.39010624604630745,
+                "g2": 0.27506746475129773,
+                "b3": 0.13535571675906938,
+                "f1": 0.1259276598787936
+            }
+        },
+        "saliency ground truth": [
+            "f7",
+            "g6",
+            "h7",
+            "g5",
+            "f1",
+            "d7"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "f1"
+            ],
+            "details": {
+                "f1": {
+                    "int": 5,
+                    "saliency": 0.1259276598787936,
+                    "dP": 0.8932626012953324,
+                    "K": 0.06773854961549973,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 2.36,
+                    "actionGapAfterPerturbation": 4.289999999999999
+                }
+            }
+        }
+    },
+    "puzzle97": {
+        "fen": "6k1/5rpp/p7/4B3/q3p3/2P3Q1/1P1rB1PP/4R2K w - - 0 1",
+        "best move": "e5g7",
+        "sorted saliencies": {
+            "above threshold": {
+                "e5": 1,
+                "h7": 0.7713900433940075,
+                "e2": 0.6199688757946411,
+                "e4": 0.5502864586637207,
+                "g3": 0.46985167335397915
+            },
+            "below threshold": {
+                "d2": 0.33138671735120456,
+                "c3": 0.3029337486011502,
+                "a4": 0.2533072975401498,
+                "a6": 0.20634677648084743,
+                "h2": 0.17833433134966067,
+                "e1": 0.07817276164102357,
+                "f7": 0.0635734458708228,
+                "g2": 0.05844266909038773
+            }
+        },
+        "saliency ground truth": [
+            "e5",
+            "h7",
+            "e2",
+            "e4",
+            "g3",
+            "d2"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "d2"
+            ],
+            "details": {
+                "d2": {
+                    "int": 11,
+                    "saliency": 0.33138671735120456,
+                    "dP": 0.22924277707305946,
+                    "K": 0.5977081560022183,
+                    "QMaxAnswer": 0,
+                    "actionGapBeforePerturbation": 2.43,
+                    "actionGapAfterPerturbation": 0.9400000000000013
+                }
+            }
+        }
+    },
+    "puzzle98": {
+        "fen": "8/1p3pkp/2rQ1p2/3b1q2/5B2/P6P/1P2R1PK/8 w - - 0 1",
+        "best move": "d6f8",
+        "sorted saliencies": {
+            "above threshold": {
+                "d6": 1
+            },
+            "below threshold": {
+                "f7": 0.08444292572447837,
+                "h7": 0.08124987650643066,
+                "f5": 0.07669469653633522,
+                "f4": 0.06668712984138818,
+                "e2": 0.061864161291300054,
+                "f6": 0.03393687152202775,
+                "d5": 0.019814364925842265
+            }
+        },
+        "saliency ground truth": [
+            "d6",
+            "h7",
+            "f7",
+            "e2",
+            "f4"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "h7",
+                "f7",
+                "e2",
+                "f4"
+            ],
+            "details": {
+                "h7": {
+                    "int": 55,
+                    "saliency": 0.08124987650643066,
+                    "dP": 0.04996267057128112,
+                    "K": 0.2173686648734934,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 0.24
+                },
+                "f7": {
+                    "int": 53,
+                    "saliency": 0.08444292572447837,
+                    "dP": 0.049992233337586574,
+                    "K": 0.2716262473534126,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 0.11999999999999988
+                },
+                "e2": {
+                    "int": 12,
+                    "saliency": 0.061864161291300054,
+                    "dP": 0.04999143562385381,
+                    "K": 0.08113281483435596,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 2.3200000000000003
+                },
+                "f4": {
+                    "int": 29,
+                    "saliency": 0.06668712984138818,
+                    "dP": 0.049993539326302426,
+                    "K": 0.10011804123736925,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0,
+                    "actionGapAfterPerturbation": 0.3799999999999999
+                }
+            }
+        }
+    },
+    "puzzle99": {
+        "fen": "3r2b1/p1Q3R1/6pk/2p4p/4Np1q/1PPB1P2/3K4/8 w - - 0 1",
+        "best move": "g7g6",
+        "sorted saliencies": {
+            "above threshold": {
+                "d3": 1,
+                "g7": 1,
+                "h5": 0.9478672308675017,
+                "c7": 0.40911956106141273
+            },
+            "below threshold": {
+                "h4": 0.09027455298139662,
+                "d8": 0.0652084400388531,
+                "g6": 0.0005722949447741741,
+                "f4": 0.00011338457219361788,
+                "c3": 0.00010516509686072083,
+                "c5": 3.1338920079762462e-06
+            }
+        },
+        "saliency ground truth": [
+            "d3",
+            "g7",
+            "h5",
+            "c7",
+            "h4"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "h4"
+            ],
+            "details": {
+                "h4": {
+                    "int": 31,
+                    "saliency": 0.09027455298139662,
+                    "dP": 0.7499530471271307,
+                    "K": 0.04802792368373437,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 11.29,
+                    "actionGapAfterPerturbation": 0
+                }
+            }
+        }
+    },
+    "puzzle100": {
+        "fen": "3n4/8/pppN4/k7/2P5/1K6/P7/8 w - - 0 1",
+        "best move": "c4c5",
+        "sorted saliencies": {
+            "above threshold": {
+                "c4": 1,
+                "d6": 0.9242835582653623,
+                "a6": 0.6584779667165997,
+                "a2": 0.6102248003823435
+            },
+            "below threshold": {
+                "c6": 0.05500833331943749,
+                "d8": 0.05500833331943749
+            }
+        },
+        "saliency ground truth": [
+            "c4",
+            "a2",
+            "a6",
+            "d6"
+        ],
+        "missing ground truth": {
+            "squares": 0,
+            "details": {}
+        }
+    },
+    "puzzle101": {
+        "fen": "6k1/8/2R4p/8/5qp1/P7/6P1/1R4K1 w - - 0 2",
+        "best move": "c6c8",
+        "sorted saliencies": {
+            "above threshold": {
+                "c6": 1
+            },
+            "below threshold": {
+                "f4": 0.07303369620135604
+            }
+        },
+        "saliency ground truth": [
+            "c6",
+            "f4",
+            "b1",
+            "a3"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "f4",
+                "b1",
+                "a3"
+            ],
+            "details": {
+                "f4": {
+                    "int": 29,
+                    "saliency": 0.07303369620135604,
+                    "dP": 0.06842819313439595,
+                    "K": 0.07830387380576881,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.020000000000000018,
+                    "actionGapAfterPerturbation": 0
+                },
+                "b1": {
+                    "int": 1,
+                    "saliency": 0,
+                    "dP": -0.11852841109478401,
+                    "K": 0.4076861821953518,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.020000000000000018,
+                    "actionGapAfterPerturbation": 0.07000000000000028
+                },
+                "a3": {
+                    "int": 16,
+                    "saliency": 0,
+                    "dP": -0.001718322968879804,
+                    "K": 0.7176817204989084,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 0.020000000000000018,
+                    "actionGapAfterPerturbation": 0.08
+                }
+            }
+        }
+    },
+    "puzzle102": {
+        "fen": "3r1q1k/pQ3B1p/8/3R2p1/6b1/6P1/PP2r2P/5RK1 w - - 0 1",
+        "best move": "b7b4",
+        "sorted saliencies": {
+            "above threshold": {
+                "b7": 1,
+                "h7": 0.6332232815394656,
+                "g4": 0.6302242675854376,
+                "b2": 0.5328252954539676
+            },
+            "below threshold": {
+                "f7": 0.3891110112457877,
+                "d8": 0.30408502277509064,
+                "e2": 0.29939442292296864,
+                "a7": 0.18843397898464873,
+                "d5": 0.11331560881473503,
+                "f1": 0.09397260585070684,
+                "f8": 0.09096215351325962,
+                "a2": 0.05951487598036572,
+                "g5": 0.03724556313863348
+            }
+        },
+        "saliency ground truth": [
+            "b7",
+            "h7",
+            "f7",
+            "f1",
+            "d5"
+        ],
+        "missing ground truth": {
+            "squares": [
+                "f7",
+                "f1",
+                "d5"
+            ],
+            "details": {
+                "f7": {
+                    "int": 53,
+                    "saliency": 0.3891110112457877,
+                    "dP": 0.8212549903857984,
+                    "K": 0.25495422253344013,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 3.1000000000000005,
+                    "actionGapAfterPerturbation": 0.0
+                },
+                "f1": {
+                    "int": 5,
+                    "saliency": 0.09397260585070684,
+                    "dP": 0.8213617087152173,
+                    "K": 0.049837262093331135,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 3.1000000000000005,
+                    "actionGapAfterPerturbation": 2.5
+                },
+                "d5": {
+                    "int": 35,
+                    "saliency": 0.11331560881473503,
+                    "dP": 0.8213617087152176,
+                    "K": 0.06085564723539525,
+                    "QMaxAnswer": 1,
+                    "actionGapBeforePerturbation": 3.1000000000000005,
+                    "actionGapAfterPerturbation": 0.0
+                }
+            }
+        }
+    }
+}
