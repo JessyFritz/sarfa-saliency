@@ -1,4 +1,4 @@
-#Interpreting Chess Evaluation Functions
+# Interpreting Chess Evaluation Functions
 
 ### SARFA
 Link to the original SARFA paper - [SARFA paper](https://arxiv.org/abs/1912.12191) 
