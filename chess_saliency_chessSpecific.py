@@ -36,7 +36,7 @@ async def return_bestmove(board, eval_time=5, directory='svg_custom', puzzle='bo
     return evaluation, bestmove
 
 
-async def computeSaliency(enginePath='engines\stockfish_13_win_x64_avx2\stockfish_13_win_x64_avx2.exe', FEN="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", directory ='svg_custom', puzzle='board', givenMove=None, file=None):
+async def computeSaliency(enginePath='engines/stockfish-11-win/stockfish-11-win/Windows/stockfish_20011801_32bit.exe', FEN="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", directory ='svg_custom', puzzle='board', givenMove=None, file=None):
     """
     Function returns saliency map for given board position
     Input :
