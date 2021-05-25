@@ -30,7 +30,8 @@ All executions and evaluations can be called from the [databaseHandler](database
      implemented in [chess_saliency_chessSpecific.py](chess_saliency_chessSpecific.py)
    - adaptation for Leela  
      implemented in [chess_saliency_leela.py](chess_saliency_leela.py)
-
+3. Chess Saliency Map Graphical User Interface
+   - can be downloaded [here](https://github.com/JessyFritz/sarfa-saliency/releases)
 
 ### Dependencies
 1. Python3
