@@ -39,7 +39,7 @@ All executions and evaluations can be called from the [databaseHandler](database
 ### Using Saliency Maps to Interpret Chess Boards
 1. Clone Repository
     ```
-    git clone https://github.com
+    git clone https://github.com/JessyFritz/sarfa-saliency
     ```
 2. Navigage to cloned repository
     ```
