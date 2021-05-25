@@ -30,9 +30,7 @@ All executions and evaluations can be called from the [databaseHandler](database
      implemented in [chess_saliency_chessSpecific.py](chess_saliency_chessSpecific.py)
    - adaptation for Leela  
      implemented in [chess_saliency_leela.py](chess_saliency_leela.py)
-3. Graphical User Interface
-   - I designed a GUI app based on my chess specific improvements for Windows and Linux. It can be accessed at https://1drv.ms/u/s!AlDdfpwNjFy8ugvC4tlZxOXgi8L6?e=8dRWNa.
-     Just download the correct folder and unzip it anywhere you want. They come preinstalled with at least 4 engines, but you can add engines of your own choice.
+
 
 ### Dependencies
 1. Python3
