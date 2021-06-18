@@ -193,9 +193,16 @@ def evaluate(directory="evaluation/endgames/original/"):
     print("Engines sorted by F1 mean:")
     sortedKeys = sorted(evaluation, key=lambda x: 2 * ((evaluation[x]["precision"] * evaluation[x]["recall"]) / (evaluation[x]["precision"] + evaluation[x]["recall"])), reverse=True)  # sort engines according to the F1 mean
     rank = 1
+    mF = 0
+    mP = 0
+    mR = 0
     for key in sortedKeys:
         print("{}. {}:{} wrong move: {}, F1: {} %, precision: {} %, recall: {} %".format(rank, key, " "*(11-len(key)), evaluation[key]["wrong move"], "%.2f" %(round(2 * ((evaluation[key]["precision"] * evaluation[key]["recall"]) / (evaluation[key]["precision"] + evaluation[key]["recall"])),2)), "%.2f" %(evaluation[key]["precision"]), "%.2f" %(evaluation[key]["recall"])))
         rank += 1
+        mF += round(2 * ((evaluation[key]["precision"] * evaluation[key]["recall"]) / (evaluation[key]["precision"] + evaluation[key]["recall"])), 2)
+        mP += evaluation[key]["precision"]
+        mR += evaluation[key]["recall"]
+    print("F1 mean: {} %, precision mean: {} %, recall mean: {} %".format(round(mF / 8, 2), round(mP / 8, 2), round(mR / 8, 2)))
 
 
 def singleEngine_endgames_groundTruthEvaluation(directory1="evaluation/endgames/original/stockfish", directory2="evaluation/endgames/updated/stockfish"):

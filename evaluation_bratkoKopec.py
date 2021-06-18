@@ -213,17 +213,31 @@ def evaluateBratkoKopec(directory="evaluation/bratko-kopec/original"):
     print("Engines sorted by Positional Score:")
     sortedKeys = sorted(evaluation, key=lambda x: evaluation[x]["positional score"],reverse=True) # sort engines according to their positional score
     rank = 1
+    mF = 0
+    mP = 0
+    mR = 0
     for key in sortedKeys:
         print("{}. {}:{} positional score: {}, wrong positional move: {}, salient: {}, positional F1: {} %, positional precision: {} %, positional recall: {} %".format(rank, key, " "*(11-len(key)), "%.2f" %(evaluation[key]["positional score"]), evaluation[key]["wrong move positional"], evaluation[key]["salient positional"], round(2*evaluation[key]["precision positional"]*evaluation[key]["recall positional"]/(evaluation[key]["precision positional"]+evaluation[key]["recall positional"]),2),"%.2f" %(evaluation[key]["precision positional"]), evaluation[key]["recall positional"]))
         rank += 1
+        mF += round(2 * evaluation[key]["precision positional"] * evaluation[key]["recall positional"] / (evaluation[key]["precision positional"] + evaluation[key]["recall positional"]), 2)
+        mP += evaluation[key]["precision positional"]
+        mR += evaluation[key]["recall positional"]
+    print("F1 mean: {} %, precision mean: {} %, recall mean: {} %".format(round(mF/8,2), round(mP/8,2), round(mR/8,2)))
     print('------------------------------------------')
 
     print("Engines sorted by Tactical Score:")
     sortedKeys = sorted(evaluation, key=lambda x: evaluation[x]["tactical score"],reverse=True) # sort engines according to their tactical score
     rank = 1
+    mF = 0
+    mP = 0
+    mR = 0
     for key in sortedKeys:
         print("{}. {}:{} tactical score: {}, wrong tactical move: {}, salient: {}, tactical F1: {} %, tactical precision: {} %, tactical recall: {} %".format(rank, key, " "*(11-len(key)), "%.2f" %(evaluation[key]["tactical score"]), evaluation[key]["wrong move tactical"], evaluation[key]["salient tactical"], round(2*evaluation[key]["precision tactical"]*evaluation[key]["recall tactical"]/(evaluation[key]["precision tactical"]+evaluation[key]["recall tactical"]),2), "%.2f" %(evaluation[key]["precision tactical"]), evaluation[key]["recall tactical"]))
         rank += 1
+        mF += round(2 * evaluation[key]["precision tactical"] * evaluation[key]["recall tactical"] / (evaluation[key]["precision tactical"] + evaluation[key]["recall tactical"]), 2)
+        mP += evaluation[key]["precision tactical"]
+        mR += evaluation[key]["recall tactical"]
+    print("F1 mean: {} %, precision mean: {} %, recall mean: {} %".format(round(mF / 8, 2), round(mP / 8, 2), round(mR / 8, 2)))
     print('------------------------------------------')
 
     print("Engines sorted by Score Average:")
@@ -237,9 +251,16 @@ def evaluateBratkoKopec(directory="evaluation/bratko-kopec/original"):
     print("Engines sorted by F1 mean:")
     sortedKeys = sorted(evaluation, key=lambda x: 2*((evaluation[x]["precision"]*evaluation[x]["recall"])/(evaluation[x]["precision"]+evaluation[x]["recall"])),reverse=True)  # sort engines according to the F1 mean
     rank = 1
+    mF = 0
+    mP = 0
+    mR = 0
     for key in sortedKeys:
         print("{}. {}:{} wrong move: {}, F1: {} %, precision: {} %, recall: {} %".format(rank, key, " "*(11-len(key)), evaluation[key]["wrong move positional"]+evaluation[key]["wrong move tactical"], round(2*((evaluation[key]["precision"]*evaluation[key]["recall"])/(evaluation[key]["precision"]+evaluation[key]["recall"])),2), evaluation[key]["precision"], evaluation[key]["recall"]))
         rank += 1
+        mF += round(2*((evaluation[key]["precision"]*evaluation[key]["recall"])/(evaluation[key]["precision"]+evaluation[key]["recall"])),2)
+        mP += evaluation[key]["precision"]
+        mR += evaluation[key]["recall"]
+    print("F1 mean: {} %, precision mean: {} %, recall mean: {} %".format(round(mF / 8, 2), round(mP / 8, 2), round(mR / 8, 2)))
 
 
 def convertToPosition(directory="evaluation/bratko-kopec/original/output.txt"):
@@ -456,4 +477,3 @@ def singleEngine_bratkoKopec_groundTruthEvaluation(directory1="evaluation/bratko
         print("Update increases recall by {} %".format(round(evaluation[folders[1]]["recall"] - evaluation[folders[0]]["recall"],2)))
     else:
         print("Update decreases recall by {} %".format(round(evaluation[folders[0]]["recall"] - evaluation[folders[1]]["recall"]),2))
-
