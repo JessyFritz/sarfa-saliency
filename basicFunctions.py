@@ -35,6 +35,10 @@ def generate_heatmap(board, evaluation, bestmove, directory, puzzle, file):
     written by SARFA authors
     """
 
+    if file is None:
+        file = open("svg_custom/output.txt", "a")  # append mode
+        file.truncate(0)
+
     # Laying the saliency map over the board
     heatmap = np.zeros((8, 8))
     for position in evaluation:
@@ -52,7 +56,7 @@ def generate_heatmap(board, evaluation, bestmove, directory, puzzle, file):
     cairosvg.svg2png(url='svg_custom/board.svg', write_to=path)
 
     # original board as a numpy array
-    board_array = cv2.imread(path)
+    board_array = cv2.imread(path, cv2.IMREAD_UNCHANGED)
 
     threshold = (100 / 256) * np.max(heatmap)  # percentage threshold. Saliency values above this threshold won't be mapped onto board
     file.write("threshold: {}\n".format(threshold))
