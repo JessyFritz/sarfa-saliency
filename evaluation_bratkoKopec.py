@@ -1,5 +1,7 @@
 import json
 import os
+import chess
+import numpy
 
 
 def evaluateBratkoKopec(directory="evaluation/bratko-kopec/original"):
@@ -31,20 +33,28 @@ def evaluateBratkoKopec(directory="evaluation/bratko-kopec/original"):
     for engine in folders: # iterate engines
         print(engine)
         outputF.write("engine: {}\n".format(engine))
-        evaluation[engine]["score"] = 0                      # overall engine's score (max 24, calculated as described in http://kopecchess.com/bratko-kopec-test/)
-        evaluation[engine]["positional score"] = 0           # engine's score for positional puzzles only (max 12)
-        evaluation[engine]["tactical score"] = 0             # engine's score for tatcical puzzles only (max 12)
-        evaluation[engine]["salient positional"] = 0         # number of salient marked squares for positional puzzles where engine executed solution move
-        evaluation[engine]["salient tactical"] = 0           # number of salient marked squares for tactical puzzles where engine executed solution move
-        evaluation[engine]["missing"] = 0                    # number of missing salient (false negative) squares for puzzles where engine executed solution move
-        evaluation[engine]["precision"] = 0                  # precision over puzzles where engine executed solution move
-        evaluation[engine]["recall"] = 0                     # recall over puzzles where engine executed solution move
-        evaluation[engine]["precision positional"] = 0       # precision over positional puzzles where engine executed solution move
-        evaluation[engine]["recall positional"] = 0          # recall over positional puzzles where engine executed solution move
-        evaluation[engine]["precision tactical"] = 0         # precision over tactical puzzles where engine executed solution move
-        evaluation[engine]["recall tactical"] = 0            # recall over tactical puzzles where engine executed solution move
-        evaluation[engine]["wrong move positional"] = 0      # times that engine executed wrong move for positional puzzles
-        evaluation[engine]["wrong move tactical"] = 0        # times that engine executed wrong move for tactical puzzles
+        evaluation[engine]["score"] = 0                       # overall engine's score (max 24, calculated as described in http://kopecchess.com/bratko-kopec-test/)
+        evaluation[engine]["positional score"] = 0            # engine's score for positional puzzles only (max 12)
+        evaluation[engine]["tactical score"] = 0              # engine's score for tatcical puzzles only (max 12)
+        evaluation[engine]["salient positional"] = 0          # number of salient marked squares for positional puzzles where engine executed solution move
+        evaluation[engine]["salient tactical"] = 0            # number of salient marked squares for tactical puzzles where engine executed solution move
+        evaluation[engine]["missing"] = 0                     # number of missing salient (false negative) squares for puzzles where engine executed solution move
+        evaluation[engine]["precision"] = 0                   # precision over puzzles where engine executed solution move
+        evaluation[engine]["recall"] = 0                      # recall over puzzles where engine executed solution move
+        evaluation[engine]["precision positional"] = 0        # precision over positional puzzles where engine executed solution move
+        evaluation[engine]["recall positional"] = 0           # recall over positional puzzles where engine executed solution move
+        evaluation[engine]["precision tactical"] = 0          # precision over tactical puzzles where engine executed solution move
+        evaluation[engine]["recall tactical"] = 0             # recall over tactical puzzles where engine executed solution move
+        evaluation[engine]["precision positional piece"] = [] # precision over non-empty squares on positional puzzles where engine executed solution move
+        evaluation[engine]["recall positional piece"] = []    # recall over non-empty squares on positional puzzles where engine executed solution move
+        evaluation[engine]["precision tactical piece"] = []   # precision over non-empty squares on tactical puzzles where engine executed solution move
+        evaluation[engine]["recall tactical piece"] = []      # recall over non-empty squares on tactical puzzles where engine executed solution move
+        evaluation[engine]["precision positional empty"] = [] # precision over empty squares on positional puzzles where engine executed solution move
+        evaluation[engine]["recall positional empty"] = []    # recall over empty squares on positional puzzles where engine executed solution move
+        evaluation[engine]["precision tactical empty"] = []   # precision over empty squares on tactical puzzles where engine executed solution move
+        evaluation[engine]["recall tactical empty"] = []      # recall over empty squares on tactical puzzles where engine executed solution move
+        evaluation[engine]["wrong move positional"] = 0       # times that engine executed wrong move for positional puzzles
+        evaluation[engine]["wrong move tactical"] = 0         # times that engine executed wrong move for tactical puzzles
 
         for jsonF in jsonFiles: # positional or tactical folder
             print(jsonF)
@@ -62,6 +72,7 @@ def evaluateBratkoKopec(directory="evaluation/bratko-kopec/original"):
             nr = 1
             for puzzle in database: # iterate puzzles
                 puzzleNr = "puzzle" + str(nr)
+                board = chess.Board(puzzle["fen"])
                 x = 0
                 qValues = dict()
                 current = None
@@ -128,6 +139,9 @@ def evaluateBratkoKopec(directory="evaluation/bratko-kopec/original"):
                 sal = 0
                 miss = 0
                 gTarray = None
+                salEmpty = 0
+                missEmpty = 0
+                gTarrayEmpty = []
                 while i < len(puzzle["best move"]):
                     j = 0
                     while j < len(moves):
@@ -136,14 +150,23 @@ def evaluateBratkoKopec(directory="evaluation/bratko-kopec/original"):
                             if j >= 0 and qValues[moves[j]] >= first and str(move) == current: # assign a score of 1/0.5/0.33/0.25 to puzzle
                                 sc = 1
                                 sal = len(data[engine][puzzleNr]["sorted saliencies"]["above threshold"])
+                                for m in data[engine][puzzleNr]["sorted saliencies"]["above threshold"]: # analyse all empty squares
+                                    if board.piece_type_at(chess.SQUARES[chess.parse_square(m)]) is None:
+                                        salEmpty += 1
                                 gTarray = puzzle["groundTruth"]
                                 if isinstance(puzzle["groundTruth"][0], list):
                                     gTarray = puzzle["groundTruth"][i]
+                                for m in gTarray:
+                                    if board.piece_type_at(chess.SQUARES[chess.parse_square(m)]) is None:
+                                        gTarrayEmpty.append(m)
                                 miss = 0
                                 for sq in data[engine][puzzleNr]["sorted saliencies"]["above threshold"]:
                                     if sq in gTarray:
                                         miss += 1
+                                    if sq in gTarrayEmpty:
+                                        missEmpty += 1
                                 miss = len(gTarray) - miss
+                                missEmpty = len(gTarrayEmpty) - missEmpty
                                 evaluation[engine]["salient {}".format(jsonF)] += sal
                                 evaluation[engine]["missing"] += miss
                                 break
@@ -188,6 +211,27 @@ def evaluateBratkoKopec(directory="evaluation/bratko-kopec/original"):
                 evaluation[engine]["precision {}".format(jsonF)] += pr
                 evaluation[engine]["recall"] += re
                 evaluation[engine]["recall {}".format(jsonF)] += re
+                if gTarray is not None:
+                    print("   {} piece squares should be salient".format(len(gTarray)-len(gTarrayEmpty))) # only non empty squares
+                    if (sal-salEmpty) > 0:
+                        pr = ((len(gTarray)-len(gTarrayEmpty))-(miss-missEmpty)) / (sal-salEmpty) * 100
+                        re = ((len(gTarray)-len(gTarrayEmpty))-(miss-missEmpty)) / (len(gTarray)-len(gTarrayEmpty)) * 100
+                        print("   {} piece squares: salient: {}, missing: {}, precision: {} %, recall: {} %".format(engine, sal-salEmpty, miss-missEmpty, round( pr, 2), round( re, 2)))
+                        evaluation[engine]["precision {} piece".format(jsonF)].append(pr)
+                        evaluation[engine]["recall {} piece".format(jsonF)].append(re)
+                    if len(gTarrayEmpty) > 0:
+                        print("   {} empty squares should be salient".format(len(gTarrayEmpty))) # only empty squares
+                        if salEmpty > 0:
+                            pr = (len(gTarrayEmpty) - missEmpty) / salEmpty * 100
+                            re = (len(gTarrayEmpty) - missEmpty) / len(gTarrayEmpty) * 100
+                            print("   {} empty squares: salient: {}, missing: {}, precision: {} %, recall: {} %".format(engine, salEmpty, missEmpty, round(pr, 2), round(re, 2)))
+                        else:
+                            pr = 0
+                            re = 0
+                            print("   {} empty squares: salient: {}, missing: {}, precision: {} %, recall: {} %".format(
+                                    engine, salEmpty, missEmpty, 0, 0))
+                        evaluation[engine]["precision {} empty".format(jsonF)].append(pr)
+                        evaluation[engine]["recall {} empty".format(jsonF)].append(re)
                 nr += 1
 
         evaluation[engine]["precision"] = round(evaluation[engine]["precision"] / (((nr - 1) * 2) - (evaluation[engine]["wrong move positional"]+evaluation[engine]["wrong move tactical"])), 2)  # calculate mean of all precision values
@@ -196,6 +240,18 @@ def evaluateBratkoKopec(directory="evaluation/bratko-kopec/original"):
         evaluation[engine]["recall positional"] = round(evaluation[engine]["recall positional"] / ((nr - 1) - evaluation[engine]["wrong move positional"]), 2)
         evaluation[engine]["precision tactical"] = round(evaluation[engine]["precision tactical"] / ((nr - 1) - evaluation[engine]["wrong move tactical"]), 2)
         evaluation[engine]["recall tactical"] = round(evaluation[engine]["recall tactical"] / ((nr - 1) - evaluation[engine]["wrong move tactical"]), 2)
+        type1 = ["precision", "recall"]
+        type2 = ["positional", "tactical"]
+        for a in type1:
+            for b in type2:
+                x = 0
+                for m in evaluation[engine]["{} {} empty".format(a, b)]:
+                    x += m
+                evaluation[engine]["{} {} empty".format(a, b)] = round(x/len(evaluation[engine]["{} {} empty".format(a, b)]),2)
+                x = 0
+                for m in evaluation[engine]["{} {} piece".format(a, b)]:
+                    x += m
+                evaluation[engine]["{} {} piece".format(a, b)] = round( x / len(evaluation[engine]["{} {} piece".format(a, b)]), 2)
         outputF.write('------------------------------------------\n')
         print('------------------------------------------')
 
@@ -210,43 +266,79 @@ def evaluateBratkoKopec(directory="evaluation/bratko-kopec/original"):
         rank += 1
     print('------------------------------------------')
 
-    print("Engines sorted by Positional Score:")
-    sortedKeys = sorted(evaluation, key=lambda x: evaluation[x]["positional score"],reverse=True) # sort engines according to their positional score
-    rank = 1
-    mF = 0
-    mP = 0
-    mR = 0
-    for key in sortedKeys:
-        print("{}. {}:{} positional score: {}, wrong positional move: {}, salient: {}, positional F1: {} %, positional precision: {} %, positional recall: {} %".format(rank, key, " "*(11-len(key)), "%.2f" %(evaluation[key]["positional score"]), evaluation[key]["wrong move positional"], evaluation[key]["salient positional"], round(2*evaluation[key]["precision positional"]*evaluation[key]["recall positional"]/(evaluation[key]["precision positional"]+evaluation[key]["recall positional"]),2),"%.2f" %(evaluation[key]["precision positional"]), evaluation[key]["recall positional"]))
-        rank += 1
-        mF += round(2 * evaluation[key]["precision positional"] * evaluation[key]["recall positional"] / (evaluation[key]["precision positional"] + evaluation[key]["recall positional"]), 2)
-        mP += evaluation[key]["precision positional"]
-        mR += evaluation[key]["recall positional"]
-    print("F1 mean: {} %, precision mean: {} %, recall mean: {} %".format(round(mF/8,2), round(mP/8,2), round(mR/8,2)))
-    print('------------------------------------------')
-
-    print("Engines sorted by Tactical Score:")
-    sortedKeys = sorted(evaluation, key=lambda x: evaluation[x]["tactical score"],reverse=True) # sort engines according to their tactical score
-    rank = 1
-    mF = 0
-    mP = 0
-    mR = 0
-    for key in sortedKeys:
-        print("{}. {}:{} tactical score: {}, wrong tactical move: {}, salient: {}, tactical F1: {} %, tactical precision: {} %, tactical recall: {} %".format(rank, key, " "*(11-len(key)), "%.2f" %(evaluation[key]["tactical score"]), evaluation[key]["wrong move tactical"], evaluation[key]["salient tactical"], round(2*evaluation[key]["precision tactical"]*evaluation[key]["recall tactical"]/(evaluation[key]["precision tactical"]+evaluation[key]["recall tactical"]),2), "%.2f" %(evaluation[key]["precision tactical"]), evaluation[key]["recall tactical"]))
-        rank += 1
-        mF += round(2 * evaluation[key]["precision tactical"] * evaluation[key]["recall tactical"] / (evaluation[key]["precision tactical"] + evaluation[key]["recall tactical"]), 2)
-        mP += evaluation[key]["precision tactical"]
-        mR += evaluation[key]["recall tactical"]
-    print("F1 mean: {} %, precision mean: {} %, recall mean: {} %".format(round(mF / 8, 2), round(mP / 8, 2), round(mR / 8, 2)))
-    print('------------------------------------------')
-
     print("Engines sorted by Score Average:")
-    sortedKeys = sorted(evaluation, key=lambda x: (evaluation[x]["positional score"]+evaluation[x]["tactical score"])/2,reverse=True)  # sort engines according to their average score
+    sortedKeys = sorted(evaluation,
+                        key=lambda x: (evaluation[x]["positional score"] + evaluation[x]["tactical score"]) / 2,
+                        reverse=True)  # sort engines according to their average score
     rank = 1
     for key in sortedKeys:
-        print("{}. {}:{} average score: {}".format(rank, key, " "*(11-len(key)), (evaluation[key]["positional score"]+evaluation[key]["tactical score"])/2))
+        print("{}. {}:{} average score: {}".format(rank, key, " " * (11 - len(key)), (
+                    evaluation[key]["positional score"] + evaluation[key]["tactical score"]) / 2))
         rank += 1
     print('------------------------------------------')
+
+    for t in type2: # Positional, Tactical Score
+        print("Engines sorted by {} Score:".format(t.capitalize()))
+        sortedKeys = sorted(evaluation, key=lambda x: evaluation[x]["{} score".format(t)],reverse=True) # sort engines according to their positional score
+        rank = 1
+        mF = 0
+        mP = 0
+        mR = 0
+        for key in sortedKeys:
+            print("{}. {}:{} {} score: {}, wrong {} move: {}, salient: {}, {} F1: {} %, {} precision: {} %, {} recall: {} %".format(rank, key, " "*(11-len(key)), t, "%.2f" %(evaluation[key]["{} score".format(t)]), t, evaluation[key]["wrong move {}".format(t)], evaluation[key]["salient {}".format(t)], t, round(2*evaluation[key]["precision {}".format(t)]*evaluation[key]["recall {}".format(t)]/(evaluation[key]["precision {}".format(t)]+evaluation[key]["recall {}".format(t)]),2), t, "%.2f" %(evaluation[key]["precision {}".format(t)]), t, evaluation[key]["recall {}".format(t)]))
+            rank += 1
+            mF += round(2 * evaluation[key]["precision {}".format(t)] * evaluation[key]["recall {}".format(t)] / (evaluation[key]["precision {}".format(t)] + evaluation[key]["recall {}".format(t)]), 2)
+            mP += evaluation[key]["precision {}".format(t)]
+            mR += evaluation[key]["recall {}".format(t)]
+        print("F1 mean: {} %, precision mean: {} %, recall mean: {} %".format(round(mF/len(folders),2), round(mP/len(folders),2), round(mR/len(folders),2)))
+        print('------------------------------------------')
+
+    for t in type2:  # Positional, Tactical Analysis For Non-Empty Square
+        print("Engines sorted by {} Non-Empty Squares:".format(t.capitalize()))
+        sortedKeys = sorted(evaluation, key=lambda x: 2 * (evaluation[x]["precision {} piece".format(t)] * evaluation[x]["recall {} piece".format(t)] / (evaluation[x]["precision {} piece".format(t)] + evaluation[x]["recall {} piece".format(t)])), reverse=True)  # sort engines according to the F1 mean
+        rank = 1
+        mF = 0
+        mP = 0
+        mR = 0
+        for key in sortedKeys:
+            print("{}. {}:{} non-empty Squares {} F1: {} %, non-empty Squares {} precision: {} %, non-empty Squares {} recall: {} %".format(
+                    rank, key, " " * (11 - len(key)), t,
+                    round(2 * evaluation[key]["precision {} piece".format(t)] * evaluation[key]["recall {} piece".format(t)] / (
+                            evaluation[key]["precision {} piece".format(t)] + evaluation[key]["recall {} piece".format(t)]), 2), t,
+                               "%.2f" % (evaluation[key]["precision {} piece".format(t)]), t, "%.2f" % evaluation[key]["recall {} piece".format(t)]))
+            rank += 1
+            mF += round(2 * evaluation[key]["precision {} piece".format(t)] * evaluation[key]["recall {} piece".format(t)] / (
+                    evaluation[key]["precision {} piece".format(t)] + evaluation[key]["recall {} piece".format(t)]), 2)
+            mP += evaluation[key]["precision {} piece".format(t)]
+            mR += evaluation[key]["recall {} piece".format(t)]
+        print("F1 mean: {} %, precision mean: {} %, recall mean: {} %".format(round(mF / len(folders), 2), round(mP / len(folders), 2),
+                                                                              round(mR / len(folders), 2)))
+        print('------------------------------------------')
+
+    for t in type2:  # Positional, Tactical Analysis For Empty Square
+        print("Engines sorted by {} Empty Squares:".format(t.capitalize()))
+        sortedKeys = sorted(evaluation, key=lambda x: 2 * (
+                    evaluation[x]["precision {} empty".format(t)] * evaluation[x]["recall {} empty".format(t)] / (
+                        evaluation[x]["precision {} empty".format(t)] + evaluation[x]["recall {} empty".format(t)]+1)),
+                            reverse=True)  # sort engines according to the F1 mean
+        rank = 1
+        mF = 0
+        mP = 0
+        mR = 0
+        for key in sortedKeys:
+            f = 0
+            if evaluation[key]["precision {} empty".format(t)] + evaluation[key]["recall {} empty".format(t)] != 0:
+                f = round(2 * evaluation[key]["precision {} empty".format(t)] * evaluation[key]["recall {} empty".format(t)] / (evaluation[key]["precision {} empty".format(t)] + evaluation[key][
+                              "recall {} empty".format(t)]), 2)
+            print("{}. {}:{} empty Squares {} F1: {} %, empty Squares {} precision: {} %, empty Squares {} recall: {} %".format(
+                    rank, key, " " * (11 - len(key)), t, f, t, "%.2f" % (evaluation[key]["precision {} empty".format(t)]), t, "%.2f" % evaluation[key]["recall {} empty".format(t)]))
+            rank += 1
+            mF += f
+            mP += evaluation[key]["precision {} empty".format(t)]
+            mR += evaluation[key]["recall {} empty".format(t)]
+        print("F1 mean: {} %, precision mean: {} %, recall mean: {} %".format(round(mF / len(folders), 2), round(mP / len(folders), 2),
+                                                                              round(mR / len(folders), 2)))
+        print('------------------------------------------')
 
     print("Engines sorted by F1 mean:")
     sortedKeys = sorted(evaluation, key=lambda x: 2*((evaluation[x]["precision"]*evaluation[x]["recall"])/(evaluation[x]["precision"]+evaluation[x]["recall"])),reverse=True)  # sort engines according to the F1 mean
@@ -260,7 +352,7 @@ def evaluateBratkoKopec(directory="evaluation/bratko-kopec/original"):
         mF += round(2*((evaluation[key]["precision"]*evaluation[key]["recall"])/(evaluation[key]["precision"]+evaluation[key]["recall"])),2)
         mP += evaluation[key]["precision"]
         mR += evaluation[key]["recall"]
-    print("F1 mean: {} %, precision mean: {} %, recall mean: {} %".format(round(mF / 8, 2), round(mP / 8, 2), round(mR / 8, 2)))
+    print("F1 mean: {} %, precision mean: {} %, recall mean: {} %".format(round(mF / len(folders), 2), round(mP / len(folders), 2), round(mR / len(folders), 2)))
 
 
 def convertToPosition(directory="evaluation/bratko-kopec/original/output.txt"):
@@ -477,3 +569,224 @@ def singleEngine_bratkoKopec_groundTruthEvaluation(directory1="evaluation/bratko
         print("Update increases recall by {} %".format(round(evaluation[folders[1]]["recall"] - evaluation[folders[0]]["recall"],2)))
     else:
         print("Update decreases recall by {} %".format(round(evaluation[folders[0]]["recall"] - evaluation[folders[1]]["recall"]),2))
+
+
+def bratkoKopec_calculateImprovements_emptySquares(directory="evaluation/bratko-kopec/updated/"):
+    """
+    searches for improvements over all engines' ground-truths empty squares
+    Input :
+        directory : path where evaluation of engines is written
+    """
+
+    import re
+    folders = list(filter(lambda x: os.path.isdir(os.path.join(directory, x)), os.listdir(directory)))
+    engineDir = directory
+    if len(folders) == 0:
+        engineDir, file = os.path.split(directory)
+        engineDir += '/'
+        folders.append(file)
+    print(folders)
+    data = dict()
+    output = dict()
+    evaluation = {f: {} for f in folders}
+    emptyGT = dict()
+
+    for t in ["positional", "tactical"]:
+        with open("{}/{}/bratko-kopec.json".format("chess_saliency_databases/bratko-kopec", t),
+                  "r") as jsonFile:  # open positional or tactical test solution
+            database = json.load(jsonFile)
+
+        emptyGT[t] = []
+        i = 0
+        for puzzle in database:
+            board = chess.Board(puzzle["fen"])
+            x = []
+            for gT in puzzle["groundTruth"]:
+                if board.piece_type_at(chess.SQUARES[chess.parse_square(gT)]) is None:  # empty square
+                    x.append(gT)
+            emptyGT[t].append(x)
+            i += 1
+        #print(emptyGT)
+
+    for engine in folders:
+        evaluation[engine] = dict()
+        data[engine] = dict()
+        output[engine] = dict()
+        for t in ["positional", "tactical"]:
+            with open("{}/{}/bratko-kopec.json".format("chess_saliency_databases/bratko-kopec", t), "r") as jsonFile:  # open positional or tactical test solution
+                database = json.load(jsonFile)
+
+            path = engineDir + engine + "/" + t + "/" +"data.json"
+            with open(path, "r") as jsonFile:
+                data[engine][t] = json.load(jsonFile)
+            path = engineDir + engine + "/" + t + "/" + "output.txt"
+            with open(path, "r") as file:
+                output[engine][t] = file.readlines()
+
+            evaluation[engine][t] = dict()
+            evaluation[engine][t]["answer"] = dict()     # engine's square data
+            evaluation[engine][t]["total"] = 0           # number of empty ground-truth squares for puzzles where engine executed solution move
+            evaluation[engine][t]["lowest"] = 1         # lowest saliency value out of all false positive squares
+            evaluation[engine][t]["highest"] = 0        # highest saliency value out of all false positive squares
+            evaluation[engine][t]["mean"] = 0           # mean saliency value out of all false positive squares
+            evaluation[engine][t]["lowest True"] = 1    # lowest saliency value out of all true positive squares
+            evaluation[engine][t]["highest True"] = 0   # highest saliency value out of all true positive squares
+            evaluation[engine][t]["mean True"] = 0      # mean saliency value out of all true positive squares
+            evaluation[engine][t]["F1"] = -1            # engine's last retrieved F1 mean
+            evaluation[engine][t]["tP"] = -1            # engine's last retrieved number of true positive squares
+            evaluation[engine][t]["fP"] = -1            # engine's last retrieved number of false positive squares
+            evaluation[engine][t]["best F1 mean"] = -1  # engine's highest F1 mean
+            evaluation[engine][t]["above dP 1"] = -1    # engine's above dP value for highest F1 mean
+            evaluation[engine][t]["below dP 1"] = -1    # engine's below dP value for highest F1 mean
+            evaluation[engine][t]["above K 1"] = -1     # engine's above K value for highest F1 mean
+            evaluation[engine][t]["below K 1"] = -1     # engine's below K value for highest F1 mean
+            evaluation[engine][t]["above dP 2"] = -1    # engine's above dP value for highest F1 mean
+            evaluation[engine][t]["below dP 2"] = -1    # engine's below dP value for highest F1 mean
+            evaluation[engine][t]["above K 2"] = -1     # engine's above K value for highest F1 mean
+            evaluation[engine][t]["below K 2"] = -1     # engine's below K value for highest F1 mean
+            evaluation[engine][t]["best tP"] = -1       # engine's number of true positive squares for highest F1 mean
+            evaluation[engine][t]["best fP"] = -1       # engine's number of false positive squares for highest F1 mean
+            evaluation[engine][t]["engines F1_tP"] = -1 # engine's number of true positive squares for overall highest F1 mean over all engines
+            evaluation[engine][t]["engines F1_tP"] = -1 # engine's number of false positive squares for overall highest F1 mean over all engines
+
+            i = 0
+            # parse all available square data below threshold from output file into dictionary
+            while i < len(output[engine][t]):
+                if output[engine][t][i].startswith("puzzle") and len(output[engine][t][i]) < 15:
+                    puzzleNr = output[engine][t][i].replace("\n", "")
+                    evaluation[engine][t]["answer"][puzzleNr] = dict()
+                    board = chess.Board(database[int(puzzleNr.replace("puzzle",""))-1]["fen"])
+                elif output[engine][t][i].startswith("perturbing square = "):
+                    sq = output[engine][t][i].replace("perturbing square = ", "")
+                    sq = sq.replace("\n", "")
+                elif output[engine][t][i].startswith("saliency for this square with player's pawn: "):
+                    sal1 = re.findall(r'\d+(?:\.\d+)?', output[engine][t][i])[0]
+                    dP1 = re.findall(r'\d+(?:\.\d+)?', output[engine][t][i])[1]
+                    k1 = re.findall(r'\d+(?:\.\d+)?', output[engine][t][i])[2]
+                elif output[engine][t][i].startswith("saliency for this square with opponent's pawn: "):
+                    sal2 = re.findall(r'\d+(?:\.\d+)?', output[engine][t][i])[0]
+                    dP2 = re.findall(r'\d+(?:\.\d+)?', output[engine][t][i])[1]
+                    k2 = re.findall(r'\d+(?:\.\d+)?', output[engine][t][i])[2]
+                elif output[engine][t][i].startswith("saliency calculated as max from pawn perturbation for this empty square: ") and board.piece_type_at(chess.SQUARES[chess.parse_square(sq)]) is None:  # empty square
+                    evaluation[engine][t]["total"] += 1
+                    evaluation[engine][t]["answer"][puzzleNr][sq] = dict()
+                    evaluation[engine][t]["answer"][puzzleNr][sq]['saliency1'] = sal1
+                    evaluation[engine][t]["answer"][puzzleNr][sq]['dP1'] = dP1
+                    evaluation[engine][t]["answer"][puzzleNr][sq]['K1'] = k1
+                    evaluation[engine][t]["answer"][puzzleNr][sq]['saliency2'] = sal2
+                    evaluation[engine][t]["answer"][puzzleNr][sq]['dP2'] = dP2
+                    evaluation[engine][t]["answer"][puzzleNr][sq]['K2'] = k2
+                    evaluation[engine][t]["answer"][puzzleNr][sq]['saliency'] = re.findall(r'\d+(?:\.\d+)?', output[engine][t][i])[0]
+                    evaluation[engine][t]["answer"][puzzleNr][sq]['K'] = max(evaluation[engine][t]["answer"][puzzleNr][sq]['dP1'], evaluation[engine][t]["answer"][puzzleNr][sq]['dP2'])
+                    evaluation[engine][t]["answer"][puzzleNr][sq]['dP'] = max(evaluation[engine][t]["answer"][puzzleNr][sq]['K1'], evaluation[engine][t]["answer"][puzzleNr][sq]['K2'])
+                i += 1
+            #print(evaluation[engine][t])
+    maxF1 = dict()
+    for t in ["positional", "tactical"]:
+        print("calculate best threshold for each engine on {} puzzles:".format(t))
+        maxF1[t] = 0
+        for abovedP1 in numpy.arange(0, 1, 0.1):  # count K and dP appearances above values
+            abovedP1 = round(abovedP1, 2)
+            for abovedP2 in numpy.arange(0, 1, 0.1):
+                abovedP2 = round(abovedP2, 2)
+                for aboveK1 in numpy.arange(0, 1, 0.1):
+                    aboveK1 = round(aboveK1, 2)
+                    for aboveK2 in numpy.arange(0, 1, 0.1):
+                        aboveK2 = round(aboveK2, 2)
+                        for belowdP1 in numpy.arange(1, 0, -0.1):
+                            belowdP1 = round(belowdP1, 2)
+                            if abovedP1 >= belowdP1:
+                                break
+                            for belowdP2 in numpy.arange(1, 0, -0.1):
+                                belowdP2 = round(belowdP2, 2)
+                                if abovedP2 >= belowdP2:
+                                    break
+                                for belowK1 in numpy.arange(1, 0, -0.1):
+                                    belowK1 = round(belowK1, 2)
+                                    if aboveK1 >= belowK1:
+                                        break
+                                    for belowK2 in numpy.arange(1, 0, -0.1):
+                                        belowK2 = round(belowK2, 2)
+                                        if aboveK2 >= belowK2:
+                                            break
+
+                                        print("check improvement for all engines with player perturbation dp {} - {}, K {} - {} and opponent perturbation dp {} - {}, K {} - {}".format(abovedP1, belowdP1, aboveK1, belowK1, abovedP2, belowdP2, aboveK2, belowK2))
+                                        meanF1 = 0
+                                        count = 0
+                                        for engine in folders:
+                                            count += 1
+                                            tP = 0
+                                            fP = 0
+                                            for puzzleNr in evaluation[engine][t]["answer"]:  # calculate precision over all squares below threshold
+
+                                                for sq in evaluation[engine][t]["answer"][puzzleNr]:
+                                                    if float(evaluation[engine][t]["answer"][puzzleNr][sq]['dP']) >= float(abovedP1) and float(evaluation[engine][t]["answer"][puzzleNr][sq]['dP']) <= float(belowdP1) \
+                                                            and float(evaluation[engine][t]["answer"][puzzleNr][sq]['K']) >= float(aboveK1) and float(evaluation[engine][t]["answer"][puzzleNr][sq]['K']) <= float(belowK1) and \
+                                                            float(evaluation[engine][t]["answer"][puzzleNr][sq]['dP']) >= float(abovedP2) and float(evaluation[engine][t]["answer"][puzzleNr][sq]['dP']) <= float(belowdP2) \
+                                                            and float(evaluation[engine][t]["answer"][puzzleNr][sq]['K']) >= float(aboveK2) and float(evaluation[engine][t]["answer"][puzzleNr][sq]['K']) <= float(belowK2):
+                                                        fP += 1
+                                                        for gT in emptyGT[t][int(puzzleNr.replace("puzzle", ""))-1]:
+                                                            if sq == gT:
+                                                                tP += 1
+                                                                fP -= 1
+                                                                break
+                                            if tP > 0:
+                                                pr = tP / (tP + fP)
+                                                re = tP / evaluation[engine][t]["total"]
+                                                if (pr + re) > 0:
+                                                    f1 = round(2 * ((pr * re) / (pr + re)) * 100, 2)
+                                                    evaluation[engine][t]["F1"] = f1
+                                                    evaluation[engine][t]["tP"] = tP
+                                                    evaluation[engine][t]["fP"] = fP
+                                                    if f1 > evaluation[engine][t]["best F1 mean"]:
+                                                        evaluation[engine][t]["best F1 mean"] = f1
+                                                        evaluation[engine][t]["above dP 1"] = abovedP1
+                                                        evaluation[engine][t]["below dP 1"] = belowdP1
+                                                        evaluation[engine][t]["above K 1"] = aboveK1
+                                                        evaluation[engine][t]["below K 1"] = belowK1
+                                                        evaluation[engine][t]["above dP 2"] = abovedP2
+                                                        evaluation[engine][t]["below dP 2"] = belowdP2
+                                                        evaluation[engine][t]["above K 2"] = aboveK2
+                                                        evaluation[engine][t]["below K 2"] = belowK2
+                                                        evaluation[engine][t]["best tP"] = tP
+                                                        evaluation[engine][t]["best fP"] = fP
+                                                    meanF1 += f1
+                                                    print( "   {}: F1: {} % (true positive: {} ({} %), false positive: {})".format(engine, f1, tP, round(tP /evaluation[engine][t]["total"] * 100,2), fP))
+
+                                        mean = round(meanF1 / count, 3)
+                                        if mean > maxF1[t]:  # new best F1 mean over all engines
+                                            maxF1[t] = mean
+                                            above_dP_1 = abovedP1
+                                            below_dP_1 = belowdP1
+                                            above_K_1 = aboveK1
+                                            below_K_1 = belowK1
+                                            above_dP_2 = abovedP2
+                                            below_dP_2 = belowdP2
+                                            above_K_2 = aboveK2
+                                            below_K_2 = belowK2
+                                            for engine in folders:
+                                                evaluation[engine][t]["engines F1_tP"] = evaluation[engine][t]["tP"]
+                                                evaluation[engine][t]["engines F1_fP"] = evaluation[engine][t]["fP"]
+
+    for t in ["positional", "tactical"]:
+        print("-----------------------------------------------------------------------")
+        print(t)
+        for engine in folders:
+            print("best F1 mean for engine {}:{} F1: {} %, precision: {} %, recall: {} % (true positive: {}, false positive: {}), player perturbation (dp {} - {}, K {} - {}), opponent perturbation (dp {} - {}, K {} - {})".format(
+                    engine, " " * (11 - len(engine)), evaluation[engine][t]["best F1 mean"],
+                    round(evaluation[engine][t]["best tP"] / (
+                                evaluation[engine][t]["best tP"] + evaluation[engine][t]["best fP"]) * 100, 2),
+                    round(evaluation[engine][t]["best tP"] / evaluation[engine][t]["total"] * 100, 2),
+                    evaluation[engine][t]["best tP"], evaluation[engine][t]["best fP"], evaluation[engine][t]["above dP 1"],
+                    evaluation[engine][t]["below dP 1"], evaluation[engine][t]["above K 1"], evaluation[engine][t]["below K 1"], evaluation[engine][t]["above dP 2"],
+                    evaluation[engine][t]["below dP 2"], evaluation[engine][t]["above K 2"], evaluation[engine][t]["below K 2"]))
+
+        print("-----------------------------------------------------------------------")
+        print("best F1 mean for all engines with {} %: ".format(maxF1[t]))
+        print("player perturbation: dP between {} and {}, K between {} and {}, opponent perturbation: dP between {} and {}, K between {} and {}".format(above_dP_1, below_dP_1, above_K_1, below_K_1, above_dP_2, below_dP_2, above_K_2, below_K_2))
+        for engine in folders:
+            pr = round(evaluation[engine][t]["engines F1_tP"] / (
+                        evaluation[engine][t]["engines F1_tP"] + evaluation[engine][t]["engines F1_fP"]) * 100, 2)
+            re = round(evaluation[engine][t]["engines F1_tP"] / evaluation[engine][t]["total"] * 100, 2)
+            f1 = round(2 * ((pr * re) / (pr + re)), 2)
+            print("   {}:{} F1: {} %, precision: {} %, recall: {} % (true positive: {}, false positive: {})".format(engine,  " " * ( 11 - len(engine)), "%.2f" % f1, "%.2f" % pr, "%.2f" % re, evaluation[engine][t]["engines F1_tP"], evaluation[engine][t][ "engines F1_fP"]))

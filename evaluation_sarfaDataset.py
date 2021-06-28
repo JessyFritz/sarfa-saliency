@@ -407,7 +407,7 @@ def calculateImprovements_threshold(directory="evaluation/original/"):
             output[engine] = file.readlines()
 
         evaluation[engine]["answer"] = dict()     # engine's square data
-        evaluation[engine]["total"] = 0           # number of currently true positive squares for puzzles where engine executed solution move
+        evaluation[engine]["total"] = 0           # number of ground-truth squares for puzzles where engine executed solution move
         evaluation[engine]["best Th"] = 0         # engine's threshold for highest F1 measure
         evaluation[engine]["F1"] = 0              # engine's highest F1 measure
         evaluation[engine]["tP"] = 0              # engine's number of true positive squares for highest F1 measure
@@ -604,24 +604,18 @@ def calculateImprovements_positive(directory="evaluation/original/", feature=Non
     below_dP = -1
     above_K = -1
     below_K = -1
-    dP = dict()
-    K = dict()
     for abovedP in numpy.arange(0, 1, 0.05): # count K and dP appearances above values
         abovedP = round(abovedP,2)
-        dP[abovedP] = dict()
-        for aboveK in numpy.arange(0, 1, 0.05):  # count K and dP appearances above values
+        for aboveK in numpy.arange(0, 1, 0.05):
             aboveK = round(aboveK, 2)
-            K[aboveK] = dict()
-            for belowdP in numpy.arange(1, 0, -0.05):  # count K and dP appearances above values
+            for belowdP in numpy.arange(1, 0, -0.05):
                 belowdP = round(belowdP, 2)
                 if abovedP >= belowdP:
                     break
-                dP[abovedP][belowdP] = {"true positive": 0, "false positive": 0}
-                for belowK in numpy.arange(1, 0, -0.05):  # count K and dP appearances above values
+                for belowK in numpy.arange(1, 0, -0.05):
                     belowK = round(belowK, 2)
                     if aboveK >= belowK:
                         break
-                    K[aboveK][belowK] = {"true positive": 0, "false positive": 0}
 
                     print("check improvement for all engines with dp {} - {}, K {} - {}".format(abovedP, belowdP, aboveK, belowK))
                     meanF1 = 0
@@ -768,24 +762,18 @@ def calculateImprovements_negative(directory="evaluation/original/", feature=Non
     below_dP = -1
     above_K = -1
     below_K = -1
-    dP = dict()
-    K = dict()
     for abovedP in numpy.arange(0, 1, 0.05): # count K and dP appearances above values
         abovedP = round(abovedP,2)
-        dP[abovedP] = dict()
-        for aboveK in numpy.arange(0, 1, 0.05):  # count K and dP appearances above values
+        for aboveK in numpy.arange(0, 1, 0.05):
             aboveK = round(aboveK, 2)
-            K[aboveK] = dict()
-            for belowdP in numpy.arange(1, 0, -0.05):  # count K and dP appearances above values
+            for belowdP in numpy.arange(1, 0, -0.05):
                 belowdP = round(belowdP, 2)
                 if abovedP >= belowdP:
                     break
-                dP[abovedP][belowdP] = {"true positive": 0, "false positive": 0}
-                for belowK in numpy.arange(1, 0, -0.05):  # count K and dP appearances above values
+                for belowK in numpy.arange(1, 0, -0.05):
                     belowK = round(belowK, 2)
                     if aboveK >= belowK:
                         break
-                    K[aboveK][belowK] = {"true positive": 0, "false positive": 0}
 
                     print("check improvement for all engines with dp {} - {}, K {} - {}".format(abovedP, belowdP, aboveK, belowK))
                     evaluation, mean = checkImprovementForOtherEngines(directory, evaluation, data, belowdP,abovedP, belowK, aboveK)
