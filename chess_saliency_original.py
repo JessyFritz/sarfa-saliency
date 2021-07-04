@@ -159,7 +159,6 @@ async def computeSaliency(enginePath='engines/stockfish-11-win/stockfish-11-win/
             # square was empty, so proceed without changing anything
             file.write('square was empty, so skipped\n')
             file.write('------------------------------------------\n')
-
             continue
 
         elif (piece_removed == chess.Piece(6, True) or piece_removed == chess.Piece(6,False)) or board.was_into_check():

@@ -184,41 +184,48 @@ async def computeSaliency(enginePath='engines/stockfish-11-win/stockfish-11-win/
                             answer[chess.SQUARE_NAMES[chess.SQUARES.__getitem__(board.king(colorOpponent))]]['saliency'] = 1 # update king's saliency
                         board.remove_piece_at(entry['int'])
 
-                elif chess.square_rank(entry['int']) != 0 and chess.square_rank(entry['int']) != 7 and board.is_check() is False: # double pawn perturbation on rank 2-7 (1,8 excluded)
+                elif chess.square_rank(entry['int']) != 0 and chess.square_rank(entry['int']) != 7:  # double pawn perturbation on rank 2-7 (1,8 excluded)
+                    check = board.is_check()
                     file.write('square is empty, so put a pawn from player\'s color here\n')
                     board.set_piece_at(entry['int'], chess.Piece(chess.PAWN, colorPlayer))
-
-                    if board.is_check() or board.was_into_check():
+                    if check is False and board.is_check() or board.was_into_check():
                         file.write('placed pawn results in check\n')
                         saliency = 0
                     else:
                         dict_q_values_after_perturbation = await get_dict_q_vals(board, legal_moves, evaltime, colorPlayer, file)
-                        saliency, dP, k, qmax, gapBefore, gapAfter = sarfa_saliency.computeSaliencyUsingSarfa(str(original_move), dict_q_values_before_perturbation, dict_q_values_after_perturbation, file)
-                        file.write("saliency for this square with player\'s pawn: \'saliency\': {}, \'dP\': {}, \'K\': {} \n".format(saliency, dP, k))
+                        saliency, dP, k, qmax, gapBefore, gapAfter = sarfa_saliency.computeSaliencyUsingSarfa(
+                            str(original_move), dict_q_values_before_perturbation, dict_q_values_after_perturbation,file)
+                        file.write(
+                            "saliency for this square with player\'s pawn: \'saliency\': {}, \'dP\': {}, \'K\': {} \n".format(saliency, dP, k))
                     board.remove_piece_at(entry['int'])
 
                     file.write('square is empty, so put a pawn from opponent\'s color here\n')
                     board.set_piece_at(entry['int'], chess.Piece(chess.PAWN, colorOpponent))
-                    if board.is_check() or board.was_into_check():
+                    if check is False and board.is_check() or board.was_into_check():
                         file.write("placed pawn results in check\n")
                         saliency2 = 0
                     else:
                         dict_q_values_after_perturbation2 = await get_dict_q_vals(board, legal_moves, evaltime, colorPlayer, file)
-                        if board.piece_type_at(chess.SQUARES[original_move.from_square]) == chess.KING: # be careful as opponents pawn can make original move illegal
-                            if dict_q_values_after_perturbation2.__contains__(original_move.from_square) is False:
+                        if board.piece_type_at(chess.SQUARES[original_move.from_square]) == chess.KING:
+                            if str(original_move) in dict_q_values_after_perturbation and str(original_move) in dict_q_values_after_perturbation2:  # be careful as opponents pawn can make original move illegal
+                                saliency2, dP2, k2, qmax2, gapBefore2, gapAfter2 = sarfa_saliency.computeSaliencyUsingSarfa(
+                                    str(original_move), dict_q_values_before_perturbation,
+                                    dict_q_values_after_perturbation2, file)
+                                file.write("saliency for this square with opponent\'s pawn: \'saliency\': {}, \'dP\': {}, \'K\': {} \n".format(saliency2, dP2, k2))
+                            else:
                                 file.write('inserted pawn makes king\'s move illegal\n')
                                 saliency2 = 0
-                        else:
-                            saliency2, dP2, k2, qmax2, gapBefore2, gapAfter2 = sarfa_saliency.computeSaliencyUsingSarfa(str(original_move), dict_q_values_before_perturbation, dict_q_values_after_perturbation2, file)
+                        elif str(original_move) in dict_q_values_after_perturbation and str(original_move) in dict_q_values_after_perturbation2:
+                            saliency2, dP2, k2, qmax2, gapBefore2, gapAfter2 = sarfa_saliency.computeSaliencyUsingSarfa(str(original_move), dict_q_values_before_perturbation,dict_q_values_after_perturbation2, file)
                             file.write("saliency for this square with opponent\'s pawn: \'saliency\': {}, \'dP\': {}, \'K\': {} \n".format(saliency2, dP2, k2))
                     board.remove_piece_at(entry['int'])
 
-                    if (saliency > 0 and saliency2 > 0 and (abs(k-k2)<0.2 or abs(dP-dP2)<0.01)) or (saliency == 0 and saliency2 > 0): # get max of both pawn salencies
-                        for key in entry_keys:
-                            entry[key] = -1
-                        entry['saliency'] = max([saliency, saliency2])
+                    for key in entry_keys:
+                        entry[key] = -1
+                    entry['saliency'] = max([saliency, saliency2])
+                    if entry['saliency'] > 0:
                         saliencyEmptySquares[square_string] = {'sal': entry['saliency'], 'sal1': saliency, 'sal2': saliency2}
-                        file.write("saliency calculated as max from pawn perturbation for this empty square: {}\n".format(entry['saliency']))
+                    file.write("saliency calculated as max from pawn perturbation for this empty square: {}\n".format(entry['saliency']))
 
                 else: # rank 1 & 8
                     file.write('can not put a pawn on this square - so skipped\n')
