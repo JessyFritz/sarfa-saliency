@@ -1,7 +1,11 @@
 import json
 import os
+import re
 import chess
 import numpy
+
+import sarfa_saliency
+from basicFunctions import get_moves_squares
 
 
 def evaluateBratkoKopec(directory="evaluation/bratko-kopec/original"):
@@ -267,9 +271,7 @@ def evaluateBratkoKopec(directory="evaluation/bratko-kopec/original"):
     print('------------------------------------------')
 
     print("Engines sorted by Score Average:")
-    sortedKeys = sorted(evaluation,
-                        key=lambda x: (evaluation[x]["positional score"] + evaluation[x]["tactical score"]) / 2,
-                        reverse=True)  # sort engines according to their average score
+    sortedKeys = sorted(evaluation, key=lambda x: (evaluation[x]["positional score"] + evaluation[x]["tactical score"]) / 2, reverse=True)  # sort engines according to their average score
     rank = 1
     for key in sortedKeys:
         print("{}. {}:{} average score: {}".format(rank, key, " " * (11 - len(key)), (
@@ -284,13 +286,16 @@ def evaluateBratkoKopec(directory="evaluation/bratko-kopec/original"):
         mF = 0
         mP = 0
         mR = 0
+        avgMarkedSquares = 0
         for key in sortedKeys:
-            print("{}. {}:{} {} score: {}, wrong {} move: {}, salient: {}, {} F1: {} %, {} precision: {} %, {} recall: {} %".format(rank, key, " "*(11-len(key)), t, "%.2f" %(evaluation[key]["{} score".format(t)]), t, evaluation[key]["wrong move {}".format(t)], evaluation[key]["salient {}".format(t)], t, round(2*evaluation[key]["precision {}".format(t)]*evaluation[key]["recall {}".format(t)]/(evaluation[key]["precision {}".format(t)]+evaluation[key]["recall {}".format(t)]),2), t, "%.2f" %(evaluation[key]["precision {}".format(t)]), t, evaluation[key]["recall {}".format(t)]))
+            avgSq = round(evaluation[key]["salient {}".format(t)]/(12-evaluation[key]["wrong move {}".format(t)]), 2)
+            avgMarkedSquares += avgSq
+            print("{}. {}:{} {} score: {}, wrong {} move: {}, salient: {}, avg square: {}, {} F1: {} %, {} precision: {} %, {} recall: {} %".format(rank, key, " "*(11-len(key)), t, "%.2f" %(evaluation[key]["{} score".format(t)]), t, evaluation[key]["wrong move {}".format(t)], evaluation[key]["salient {}".format(t)], avgSq, t, round(2*evaluation[key]["precision {}".format(t)]*evaluation[key]["recall {}".format(t)]/(evaluation[key]["precision {}".format(t)]+evaluation[key]["recall {}".format(t)]),2), t, "%.2f" %(evaluation[key]["precision {}".format(t)]), t, evaluation[key]["recall {}".format(t)]))
             rank += 1
             mF += round(2 * evaluation[key]["precision {}".format(t)] * evaluation[key]["recall {}".format(t)] / (evaluation[key]["precision {}".format(t)] + evaluation[key]["recall {}".format(t)]), 2)
             mP += evaluation[key]["precision {}".format(t)]
             mR += evaluation[key]["recall {}".format(t)]
-        print("F1 mean: {} %, precision mean: {} %, recall mean: {} %".format(round(mF/len(folders),2), round(mP/len(folders),2), round(mR/len(folders),2)))
+        print("F1 mean: {} %, precision mean: {} %, recall mean: {} %, average marked squares: {}".format(round(mF/len(folders),2), round(mP/len(folders),2), round(mR/len(folders),2), round(avgMarkedSquares/len(folders), 2)))
         print('------------------------------------------')
 
     for t in type2:  # Positional, Tactical Analysis For Non-Empty Square
@@ -606,7 +611,6 @@ def bratkoKopec_calculateImprovements_emptySquares(directory="evaluation/bratko-
                     x.append(gT)
             emptyGT[t].append(x)
             i += 1
-        #print(emptyGT)
 
     for engine in folders:
         evaluation[engine] = dict()
@@ -677,11 +681,17 @@ def bratkoKopec_calculateImprovements_emptySquares(directory="evaluation/bratko-
                     evaluation[engine][t]["answer"][puzzleNr][sq]['dP2'] = dP2
                     evaluation[engine][t]["answer"][puzzleNr][sq]['K2'] = k2
                     evaluation[engine][t]["answer"][puzzleNr][sq]['saliency'] = re.findall(r'\d+(?:\.\d+)?', output[engine][t][i])[0]
-                    evaluation[engine][t]["answer"][puzzleNr][sq]['K'] = max(evaluation[engine][t]["answer"][puzzleNr][sq]['dP1'], evaluation[engine][t]["answer"][puzzleNr][sq]['dP2'])
-                    evaluation[engine][t]["answer"][puzzleNr][sq]['dP'] = max(evaluation[engine][t]["answer"][puzzleNr][sq]['K1'], evaluation[engine][t]["answer"][puzzleNr][sq]['K2'])
                 i += 1
             #print(evaluation[engine][t])
     maxF1 = dict()
+    above_dP_1 = dict()
+    below_dP_1 = dict()
+    above_K_1 = dict()
+    below_K_1 = dict()
+    above_dP_2 = dict()
+    below_dP_2 = dict()
+    above_K_2 = dict()
+    below_K_2 = dict()
     for t in ["positional", "tactical"]:
         print("calculate best threshold for each engine on {} puzzles:".format(t))
         maxF1[t] = 0
@@ -720,10 +730,10 @@ def bratkoKopec_calculateImprovements_emptySquares(directory="evaluation/bratko-
                                             for puzzleNr in evaluation[engine][t]["answer"]:  # calculate precision over all squares below threshold
 
                                                 for sq in evaluation[engine][t]["answer"][puzzleNr]:
-                                                    if float(evaluation[engine][t]["answer"][puzzleNr][sq]['dP']) >= float(abovedP1) and float(evaluation[engine][t]["answer"][puzzleNr][sq]['dP']) <= float(belowdP1) \
-                                                            and float(evaluation[engine][t]["answer"][puzzleNr][sq]['K']) >= float(aboveK1) and float(evaluation[engine][t]["answer"][puzzleNr][sq]['K']) <= float(belowK1) and \
-                                                            float(evaluation[engine][t]["answer"][puzzleNr][sq]['dP']) >= float(abovedP2) and float(evaluation[engine][t]["answer"][puzzleNr][sq]['dP']) <= float(belowdP2) \
-                                                            and float(evaluation[engine][t]["answer"][puzzleNr][sq]['K']) >= float(aboveK2) and float(evaluation[engine][t]["answer"][puzzleNr][sq]['K']) <= float(belowK2):
+                                                    if float(evaluation[engine][t]["answer"][puzzleNr][sq]['dP1']) >= float(abovedP1) and float(evaluation[engine][t]["answer"][puzzleNr][sq]['dP1']) <= float(belowdP1) \
+                                                            and float(evaluation[engine][t]["answer"][puzzleNr][sq]['K1']) >= float(aboveK1) and float(evaluation[engine][t]["answer"][puzzleNr][sq]['K1']) <= float(belowK1) and \
+                                                            float(evaluation[engine][t]["answer"][puzzleNr][sq]['dP2']) >= float(abovedP2) and float(evaluation[engine][t]["answer"][puzzleNr][sq]['dP2']) <= float(belowdP2) \
+                                                            and float(evaluation[engine][t]["answer"][puzzleNr][sq]['K2']) >= float(aboveK2) and float(evaluation[engine][t]["answer"][puzzleNr][sq]['K2']) <= float(belowK2):
                                                         fP += 1
                                                         for gT in emptyGT[t][int(puzzleNr.replace("puzzle", ""))-1]:
                                                             if sq == gT:
@@ -756,14 +766,14 @@ def bratkoKopec_calculateImprovements_emptySquares(directory="evaluation/bratko-
                                         mean = round(meanF1 / count, 3)
                                         if mean > maxF1[t]:  # new best F1 mean over all engines
                                             maxF1[t] = mean
-                                            above_dP_1 = abovedP1
-                                            below_dP_1 = belowdP1
-                                            above_K_1 = aboveK1
-                                            below_K_1 = belowK1
-                                            above_dP_2 = abovedP2
-                                            below_dP_2 = belowdP2
-                                            above_K_2 = aboveK2
-                                            below_K_2 = belowK2
+                                            above_dP_1[t] = abovedP1
+                                            below_dP_1[t] = belowdP1
+                                            above_K_1[t] = aboveK1
+                                            below_K_1[t] = belowK1
+                                            above_dP_2[t] = abovedP2
+                                            below_dP_2[t] = belowdP2
+                                            above_K_2[t] = aboveK2
+                                            below_K_2[t] = belowK2
                                             for engine in folders:
                                                 evaluation[engine][t]["engines F1_tP"] = evaluation[engine][t]["tP"]
                                                 evaluation[engine][t]["engines F1_fP"] = evaluation[engine][t]["fP"]
@@ -783,10 +793,694 @@ def bratkoKopec_calculateImprovements_emptySquares(directory="evaluation/bratko-
 
         print("-----------------------------------------------------------------------")
         print("best F1 mean for all engines with {} %: ".format(maxF1[t]))
-        print("player perturbation: dP between {} and {}, K between {} and {}, opponent perturbation: dP between {} and {}, K between {} and {}".format(above_dP_1, below_dP_1, above_K_1, below_K_1, above_dP_2, below_dP_2, above_K_2, below_K_2))
+        print("player perturbation: dP between {} and {}, K between {} and {}, opponent perturbation: dP between {} and {}, K between {} and {}".format(above_dP_1[t], below_dP_1[t], above_K_1[t], below_K_1[t], above_dP_2[t], below_dP_2[t], above_K_2[t], below_K_2[t]))
         for engine in folders:
             pr = round(evaluation[engine][t]["engines F1_tP"] / (
                         evaluation[engine][t]["engines F1_tP"] + evaluation[engine][t]["engines F1_fP"]) * 100, 2)
             re = round(evaluation[engine][t]["engines F1_tP"] / evaluation[engine][t]["total"] * 100, 2)
             f1 = round(2 * ((pr * re) / (pr + re)), 2)
             print("   {}:{} F1: {} %, precision: {} %, recall: {} % (true positive: {}, false positive: {})".format(engine,  " " * ( 11 - len(engine)), "%.2f" % f1, "%.2f" % pr, "%.2f" % re, evaluation[engine][t]["engines F1_tP"], evaluation[engine][t][ "engines F1_fP"]))
+
+
+def bratkoKopec_calculateImprovements_TopEmptySquares(directory="evaluation/bratko-kopec/updated/"):
+    """
+    analyses the best amount of marked empty squares based on our bratko-kopec ground-truth
+    Input :
+        directory : path where evaluation of engines is written
+    """
+
+    import re
+    folders = list(filter(lambda x: os.path.isdir(os.path.join(directory, x)), os.listdir(directory)))
+    engineDir = directory
+    if len(folders) == 0:
+        engineDir, file = os.path.split(directory)
+        engineDir += '/'
+        folders.append(file)
+    print(folders)
+    data = dict()
+    output = dict()
+    evaluation = {f: {} for f in folders}
+    emptyGT = dict()
+
+    for t in ["positional", "tactical"]:
+        with open("{}/{}/bratko-kopec.json".format("chess_saliency_databases/bratko-kopec", t),
+                  "r") as jsonFile:  # open positional or tactical test solution
+            database = json.load(jsonFile)
+
+        emptyGT[t] = []
+        i = 0
+        for puzzle in database:
+            board = chess.Board(puzzle["fen"])
+            x = []
+            for gT in puzzle["groundTruth"]:
+                if board.piece_type_at(chess.SQUARES[chess.parse_square(gT)]) is None:  # empty square
+                    x.append(gT)
+            emptyGT[t].append(x)
+            i += 1
+        #print(emptyGT)
+
+    for engine in folders:
+        evaluation[engine] = dict()
+        evaluation[engine]["top"] = dict()
+        evaluation[engine]["gT"] = 0
+        data[engine] = dict()
+        output[engine] = dict()
+        evaluation[engine]["puzzles"] = 0
+        for t in ["positional", "tactical"]:
+            with open("{}/{}/bratko-kopec.json".format("chess_saliency_databases/bratko-kopec", t), "r") as jsonFile:  # open positional or tactical test solution
+                database = json.load(jsonFile)
+
+            path = engineDir + engine + "/" + t + "/" +"data.json"
+            with open(path, "r") as jsonFile:
+                data[engine][t] = json.load(jsonFile)
+            path = engineDir + engine + "/" + t + "/" + "output.txt"
+            with open(path, "r") as file:
+                output[engine][t] = file.readlines()
+
+            evaluation[engine][t] = dict()
+            evaluation[engine][t]["answer"] = dict()     # engine's square data
+
+            i = 0
+            # parse all available square data below threshold from output file into dictionary
+            while i < len(output[engine][t]):
+                if output[engine][t][i].startswith("puzzle") and len(output[engine][t][i]) < 15:
+                    puzzleNr = output[engine][t][i].replace("\n", "")
+                    if data[engine][t][puzzleNr]["move"] in database[int(puzzleNr.replace("puzzle",""))-1]["best move"]:
+                        evaluation[engine][t]["answer"][puzzleNr] = dict()
+                        board = chess.Board(database[int(puzzleNr.replace("puzzle",""))-1]["fen"])
+                        evaluation[engine]["puzzles"] += 1
+                    else:
+                        i += 1
+                        while output[engine][t][i].startswith("puzzle") is False:
+                            i += 1
+                            if i >= len(output[engine][t]):
+                                break
+                        i -= 1
+                elif output[engine][t][i].startswith("perturbing square = "):
+                    sq = output[engine][t][i].replace("perturbing square = ", "")
+                    sq = sq.replace("\n", "")
+                elif output[engine][t][i].startswith("saliency for this square with player's pawn: "):
+                    sal1 = re.findall(r'\d+(?:\.\d+)?', output[engine][t][i])[0]
+                    dP1 = re.findall(r'\d+(?:\.\d+)?', output[engine][t][i])[1]
+                    k1 = re.findall(r'\d+(?:\.\d+)?', output[engine][t][i])[2]
+                    if output[engine][t][i].__contains__("e-"):
+                        x = re.search(sal1, output[engine][t][i]).end()
+                        if output[engine][t][i][x] == "e":
+                            x += 2
+                            y = ""
+                            while output[engine][t][i][x].isdigit():
+                                if int(output[engine][t][i][x]) == 0:
+                                    if len(y) > 0:
+                                        y += output[engine][t][i][x]
+                                else:
+                                    y += output[engine][t][i][x]
+                                x += 1
+                            if len(y) > 0:
+                                sal1 = float(sal1) * float(1 / (pow(10, int(y))))
+                        x = re.search(dP1, output[engine][t][i]).end()
+                        if output[engine][t][i][x] == "e":
+                            x += 2
+                            y = ""
+                            while output[engine][t][i][x].isdigit():
+                                if int(output[engine][t][i][x]) == 0:
+                                    if len(y) > 0:
+                                        y += output[engine][t][i][x]
+                                else:
+                                    y += output[engine][t][i][x]
+                                x += 1
+                            if len(y) > 0:
+                                dP1 = float(dP1) * float(1 / (pow(10, int(y))))
+                        x = re.search(k1, output[engine][t][i]).end()
+                        if output[engine][t][i][x] == "e":
+                            x += 2
+                            y = ""
+                            while output[engine][t][i][x].isdigit():
+                                if int(output[engine][t][i][x]) == 0:
+                                    if len(y) > 0:
+                                        y += output[engine][t][i][x]
+                                else:
+                                    y += output[engine][t][i][x]
+                                x += 1
+                            if len(y) > 0:
+                                k1 = float(k1) * float(1 / (pow(10, int(y))))
+                elif output[engine][t][i].startswith("saliency for this square with opponent's pawn: "):
+                    sal2 = re.findall(r'\d+(?:\.\d+)?', output[engine][t][i])[0]
+                    dP2 = re.findall(r'\d+(?:\.\d+)?', output[engine][t][i])[1]
+                    k2 = re.findall(r'\d+(?:\.\d+)?', output[engine][t][i])[2]
+                    if output[engine][t][i].__contains__("e-"):
+                        x = re.search(sal2, output[engine][t][i]).end()
+                        if output[engine][t][i][x] == "e":
+                            x += 2
+                            y = ""
+                            while output[engine][t][i][x].isdigit():
+                                if int(output[engine][t][i][x]) == 0:
+                                    if len(y) > 0:
+                                        y += output[engine][t][i][x]
+                                else:
+                                    y += output[engine][t][i][x]
+                                x += 1
+                            if len(y) > 0:
+                                sal2 = float(sal2) * float(1 / (pow(10, int(y))))
+                        x = re.search(dP2, output[engine][t][i]).end()
+                        if output[engine][t][i][x] == "e":
+                            x += 2
+                            y = ""
+                            while output[engine][t][i][x].isdigit():
+                                if int(output[engine][t][i][x]) == 0:
+                                    if len(y) > 0:
+                                        y += output[engine][t][i][x]
+                                else:
+                                    y += output[engine][t][i][x]
+                                x += 1
+                            if len(y) > 0:
+                                dP2 = float(dP2) * float(1 / (pow(10, int(y))))
+                        x = re.search(k2, output[engine][t][i]).end()
+                        if output[engine][t][i][x] == "e":
+                            x += 2
+                            y = ""
+                            while output[engine][t][i][x].isdigit():
+                                if int(output[engine][t][i][x]) == 0:
+                                    if len(y) > 0:
+                                        y += output[engine][t][i][x]
+                                else:
+                                    y += output[engine][t][i][x]
+                                x += 1
+                            if len(y) > 0:
+                                k2 = float(k2) * float(1 / (pow(10, int(y))))
+                elif output[engine][t][i].startswith("saliency calculated as max from pawn perturbation for this empty square: ") and board.piece_type_at(chess.SQUARES[chess.parse_square(sq)]) is None:  # empty square
+                    evaluation[engine][t]["answer"][puzzleNr][sq] = dict()
+                    evaluation[engine][t]["answer"][puzzleNr][sq]['saliency'] = float(max([float(sal1), float(sal2)]))
+                    evaluation[engine][t][puzzleNr] = dict()
+                    evaluation[engine][t][puzzleNr]["top"] = dict()
+                    evaluation[engine][t][puzzleNr]["best"] = 0
+                    evaluation[engine][t][puzzleNr]["pr"] = dict()
+                    evaluation[engine][t][puzzleNr]["re"] = dict()
+                    evaluation[engine][t][puzzleNr]["f1"] = dict()
+                    evaluation[engine][t]["squares"] = 0
+
+                i += 1
+
+            for puzzleNr in evaluation[engine][t]["answer"].keys():
+                print(puzzleNr, " ground-truth: ",len(emptyGT[t][int(puzzleNr.replace("puzzle",""))-1]))
+                print(evaluation[engine][t]["answer"][puzzleNr])
+                evaluation[engine]["gT"] += len(emptyGT[t][int(puzzleNr.replace("puzzle",""))-1])
+                sortedKeys = sorted(evaluation[engine][t]["answer"][puzzleNr], key=lambda x: evaluation[engine][t]["answer"][puzzleNr][x]["saliency"], reverse=True)
+                print(sortedKeys)
+
+                evaluation[engine][t][puzzleNr]["top"][0] = 0
+                evaluation[engine][t][puzzleNr]["pr"][0] = 10
+                evaluation[engine][t][puzzleNr]["re"][0] = 0
+                evaluation[engine][t][puzzleNr]["f1"][0] = 0
+                i = 1
+                while i < len(sortedKeys):
+                    evaluation[engine][t][puzzleNr]["top"][i] = 0
+                    evaluation[engine][t][puzzleNr]["pr"][i] = 0
+                    evaluation[engine][t][puzzleNr]["re"][i] = 0
+                    evaluation[engine][t][puzzleNr]["f1"][i] = 0
+                    for k in sortedKeys[0:i]:
+                        if k in emptyGT[t][int(puzzleNr.replace("puzzle",""))-1]:
+                            evaluation[engine][t][puzzleNr]["top"][i] += 1
+                            if i not in evaluation[engine]["top"]:
+                                evaluation[engine]["top"][i] = 0
+                            evaluation[engine]["top"][i] += 1
+                            break
+                    if evaluation[engine][t][puzzleNr]["top"][i] > 0 and i > 0:
+                        #print(i,": ", evaluation[engine][t][puzzleNr]["top"][i])
+                        evaluation[engine][t][puzzleNr]["pr"][i] = round(evaluation[engine][t][puzzleNr]["top"][i]/i * 100, 2)
+                        #print("pr: " , evaluation[engine][t][puzzleNr]["pr"][i])
+                        evaluation[engine][t][puzzleNr]["re"][i] = round(evaluation[engine][t][puzzleNr]["top"][i] / len(emptyGT[t][int(puzzleNr.replace("puzzle",""))-1]) * 100, 2)
+                        #print("re: ",evaluation[engine][t][puzzleNr]["re"][i])
+                        evaluation[engine][t][puzzleNr]["f1"][i] = round(2* evaluation[engine][t][puzzleNr]["pr"][i] * evaluation[engine][t][puzzleNr]["re"][i] / (evaluation[engine][t][puzzleNr]["pr"][i] + evaluation[engine][t][puzzleNr]["re"][i]), 2)
+                        #print(evaluation[engine][t][puzzleNr]["f1"][i])
+                        #print(evaluation[engine][t][puzzleNr]["f1"][evaluation[engine][t][puzzleNr]["best"]])
+                        if evaluation[engine][t][puzzleNr]["f1"][i] > evaluation[engine][t][puzzleNr]["f1"][evaluation[engine][t][puzzleNr]["best"]]:
+                            evaluation[engine][t][puzzleNr]["best"] = i
+                    i+= 1
+                print(evaluation[engine][t][puzzleNr]["top"])
+
+    for t in ["positional", "tactical"]:
+        print("-----------------------------------------------------------------------")
+        print(t)
+        for engine in folders:
+            x = 0
+            for puzzleNr in evaluation[engine][t]["answer"].keys():
+                #print(evaluation[engine][t][puzzleNr]["top"])
+                if len(emptyGT[t][int(puzzleNr.replace("puzzle",""))-1]) > 0:
+                    x += 1
+                    if puzzleNr in evaluation[engine][t].keys() and "best" in evaluation[engine][t][puzzleNr].keys():
+                        i = evaluation[engine][t][puzzleNr]["best"]
+                        evaluation[engine][t]["squares"] += i
+                        print("best F1 mean for engine {} on {}: mark first {} empty squares with F1: {} %, precision: {} %, recall: {} % (true positive: {}, false positive: {})".format(
+                            engine, puzzleNr, i, evaluation[engine][t][puzzleNr]["f1"][i],
+                            evaluation[engine][t][puzzleNr]["pr"][i], evaluation[engine][t][puzzleNr]["re"][i],
+                            evaluation[engine][t][puzzleNr]["top"][i], i - evaluation[engine][t][puzzleNr]["top"][i]))
+            evaluation[engine][t]["squares"] = evaluation[engine][t]["squares"]/x
+
+    for t in ["positional", "tactical"]:
+        print("-----------------------------------------------------------------------")
+        print(t)
+        for engine in folders:
+            print("engine {} should mark {} empty squares for maximum F1 score".format(engine, int(evaluation[engine][t]["squares"])))
+
+    print("-----------------------------------------------------------------------")
+    x = 0
+    for engine in folders:
+        bestpr = 0
+        bestre = 0
+        bestf1 = 0
+        bestSq = 0
+        for i in evaluation[engine]["top"]:
+            if evaluation[engine]["top"][i] > 0 and i > 0:
+                pr = round(evaluation[engine]["top"][i] / ((i*evaluation[engine]["puzzles"])-evaluation[engine]["top"][i]) * 100, 2)
+                #print(pr)
+                re = round(evaluation[engine]["top"][i] / evaluation[engine]["gT"] * 100, 2)
+                #print(re)
+                f1 = round(2 * pr * re / (pr + re), 2)
+                #print(f1)
+                if f1 > bestf1:
+                    bestf1 = f1
+                    bestpr = pr
+                    bestre = re
+                    bestSq = i
+        x += bestSq
+        print("engine {} should mark {} empty squares for maximum F1 score {} % (pr: {} %, re {} %)".format(engine, bestSq, bestf1, bestpr, bestre))
+    print("overall around {} empty squares would be best".format(round(x/len(folders))))
+
+
+def bratkoKopec_markEmptySquares(num):
+    """
+    change updated bratko-kopec directory saliency maps with user specific number of empty squares
+    Input :
+        num : number of empty squares
+    """
+    for engine in list(filter(lambda x: os.path.isdir(os.path.join("evaluation/bratko-kopec/updated/", x)), os.listdir("evaluation/bratko-kopec/updated/"))):
+        for t in ["positional", "tactical"]:
+            evaluation = dict()
+            with open("{}/{}/bratko-kopec.json".format("chess_saliency_databases/bratko-kopec", t),
+                      "r") as jsonFile:  # open positional or tactical test solution
+                database = json.load(jsonFile)
+
+            path = "evaluation/bratko-kopec/updated/" + engine + "/" + t + "/" + "data.json"
+            with open(path, "r") as jsonFile:
+                data = json.load(jsonFile)
+            path = "evaluation/bratko-kopec/updated/" + engine + "/" + t + "/" + "output.txt"
+            with open(path, "r") as file:
+                output = file.readlines()
+
+            evaluation = dict()
+            evaluation["answer"] = dict()  # engine's square data
+            indices = dict()
+
+            i = 0
+            # parse all available square data below threshold from output file into dictionary
+            while i < len(output):
+                if output[i].startswith("puzzle") and len(output[i]) < 15:
+                    puzzleNr = output[i].replace("\n", "")
+                    evaluation["answer"][puzzleNr] = dict()
+                    beforeP = None
+                    board = chess.Board(database[int(puzzleNr.replace("puzzle", "")) - 1]["fen"])
+                elif output[i].startswith("perturbing square = "):
+                    sq = output[i].replace("perturbing square = ", "")
+                    sq = sq.replace("\n", "")
+                elif num == 0 and output[i].startswith("square is part of original move and must remain empty"):
+                    evaluation["answer"][puzzleNr][sq] = dict()
+                    evaluation["answer"][puzzleNr][sq]['saliency'] = 0
+                    evaluation[puzzleNr] = dict()
+                    evaluation[puzzleNr]["top"] = dict()
+                    evaluation[puzzleNr]["best"] = 0
+                    evaluation[puzzleNr]["pr"] = dict()
+                    evaluation[puzzleNr]["re"] = dict()
+                    evaluation[puzzleNr]["f1"] = dict()
+                elif output[i].startswith("saliency for this square with player's pawn: "):
+                    sal1 = re.findall(r'\d+(?:\.\d+)?', output[i])[0]
+                    dP1 = re.findall(r'\d+(?:\.\d+)?', output[i])[1]
+                    k1 = re.findall(r'\d+(?:\.\d+)?', output[i])[2]
+                    if output[i].__contains__("e-"):
+                        x = re.search(sal1, output[i]).end()
+                        if output[i][x] == "e":
+                            x += 2
+                            y = ""
+                            while output[i][x].isdigit():
+                                if int(output[i][x]) == 0:
+                                    if len(y) > 0:
+                                        y += output[i][x]
+                                else:
+                                    y += output[i][x]
+                                x += 1
+                            if len(y) > 0:
+                                sal1 = float(sal1) * float(1 / (pow(10, int(y))))
+                        x = re.search(dP1, output[i]).end()
+                        if output[i][x] == "e":
+                            x += 2
+                            y = ""
+                            while output[i][x].isdigit():
+                                if int(output[i][x]) == 0:
+                                    if len(y) > 0:
+                                        y += output[i][x]
+                                else:
+                                    y += output[i][x]
+                                x += 1
+                            if len(y) > 0:
+                                dP1 = float(dP1) * float(1 / (pow(10, int(y))))
+                        x = re.search(k1, output[i]).end()
+                        if output[i][x] == "e":
+                            x += 2
+                            y = ""
+                            while output[i][x].isdigit():
+                                if int(output[i][x]) == 0:
+                                    if len(y) > 0:
+                                        y += output[i][x]
+                                else:
+                                    y += output[i][x]
+                                x += 1
+                            if len(y) > 0:
+                                k1 = float(k1) * float(1 / (pow(10, int(y))))
+                elif output[i].startswith("saliency for this square with opponent's pawn: "):
+                    sal2 = re.findall(r'\d+(?:\.\d+)?', output[i])[0]
+                    dP2 = re.findall(r'\d+(?:\.\d+)?', output[i])[1]
+                    k2 = re.findall(r'\d+(?:\.\d+)?', output[i])[2]
+                    if output[i].__contains__("e-"):
+                        x = re.search(sal2, output[i]).end()
+                        if output[i][x] == "e":
+                            x += 2
+                            y = ""
+                            while output[i][x].isdigit():
+                                if int(output[i][x]) == 0:
+                                    if len(y) > 0:
+                                        y += output[i][x]
+                                else:
+                                    y += output[i][x]
+                                x += 1
+                            if len(y) > 0:
+                                sal2 = float(sal2) * float(1 / (pow(10, int(y))))
+                        x = re.search(dP2, output[i]).end()
+                        if output[i][x] == "e":
+                            x += 2
+                            y = ""
+                            while output[i][x].isdigit():
+                                if int(output[i][x]) == 0:
+                                    if len(y) > 0:
+                                        y += output[i][x]
+                                else:
+                                    y += output[i][x]
+                                x += 1
+                            if len(y) > 0:
+                                dP2 = float(dP2) * float(1 / (pow(10, int(y))))
+                        x = re.search(k2, output[i]).end()
+                        if output[i][x] == "e":
+                            x += 2
+                            y = ""
+                            while output[i][x].isdigit():
+                                if int(output[i][x]) == 0:
+                                    if len(y) > 0:
+                                        y += output[i][x]
+                                else:
+                                    y += output[i][x]
+                                x += 1
+                            if len(y) > 0:
+                                k2 = float(k2) * float(1 / (pow(10, int(y))))
+                    i += 1
+                    if board.piece_type_at(chess.SQUARES[chess.parse_square(sq)]) is None:
+                        evaluation["answer"][puzzleNr][sq] = dict()
+                        evaluation["answer"][puzzleNr][sq]['saliency1'] = float(sal1)
+                        evaluation["answer"][puzzleNr][sq]['dP1'] = float(dP1)
+                        evaluation["answer"][puzzleNr][sq]['K1'] = float(k1)
+                        evaluation["answer"][puzzleNr][sq]['saliency2'] = float(sal2)
+                        evaluation["answer"][puzzleNr][sq]['dP2'] = float(dP2)
+                        evaluation["answer"][puzzleNr][sq]['K2'] = float(k2)
+                        evaluation["answer"][puzzleNr][sq]['saliency'] = float(max([float(sal1), float(sal2)]))
+                        evaluation[puzzleNr] = dict()
+                        evaluation[puzzleNr]["top"] = dict()
+                        evaluation[puzzleNr]["best"] = 0
+                        evaluation[puzzleNr]["pr"] = dict()
+                        evaluation[puzzleNr]["re"] = dict()
+                        evaluation[puzzleNr]["f1"] = dict()
+                        if output[i].startswith("saliency calculated as max from pawn perturbation for this empty square: ") is False:
+                            output.insert(i, "saliency calculated as max from pawn perturbation for this empty square: {}\n".format(
+                                evaluation["answer"][puzzleNr][sq]['saliency']))
+                            path = "evaluation/bratko-kopec/updated/" + engine + "/" + t + "/" + "output.txt"
+                            with open(path, "w") as f:
+                                output = "".join(output)
+                                f.write(output)
+                            with open(path, "r") as file:
+                                output = file.readlines()
+                            i += 1
+                elif output[i].startswith("Q Values: {") and beforeP is None:
+                    beforeP = output[i].replace("Q Values: {", "").split(",")
+                    beforePdict = dict()
+                    for x in beforeP:
+                        key = ""
+                        value = ""
+                        m = re.search(r"[a-h][1-8][a-h][1-8]", x)
+                        if m is not None:
+                            index = m.span()
+                            key = x[index[0]:index[1]]
+                        m = re.findall(r"[-+]?\d*\.\d+|\d+", x)
+                        if len(m) > 2:
+                            value = m[2]
+                        beforePdict[key] = float(value)
+                elif output[i].startswith("inserted pawn makes king\'s move illegal"):
+                    afterP2 = output[i-1].replace("Q Values: {", "").split(",")
+                    afterP2dict = dict()
+                    for x in afterP2:
+                        key = ""
+                        value = ""
+                        m = re.search(r"[a-h][1-8][a-h][1-8]", x)
+                        if m is not None:
+                            index = m.span()
+                            key = x[index[0]:index[1]]
+                        m = re.findall(r"[-+]?\d*\.\d+|\d+", x)
+                        if len(m) > 2:
+                            value = m[2]
+                        afterP2dict[key] = float(value)
+                    move = chess.Move(chess.SQUARES[chess.parse_square(data[puzzleNr]['move'][0:2])],
+                                      chess.SQUARES[chess.parse_square(data[puzzleNr]['move'][2:4])])
+                    if board.piece_type_at(chess.SQUARES[move.from_square]) == chess.KING:  # be careful as opponents pawn can make original move illegal
+                        if str(data[puzzleNr]['move']) in afterP2dict:
+                            saliency2, dP2, k2, qmax2, gapBefore2, gapAfter2, text = sarfa_saliency.computeSaliencyUsingSarfa(str(data[puzzleNr]["move"]), beforePdict, afterP2dict, None)
+                            output.pop(i)
+                            output.insert(i, "{}saliency for this square with opponent\'s pawn: \'saliency\': {}, \'dP\': {}, \'K\': {} \n".format(text, saliency2, dP2, k2))
+                            with open("evaluation/bratko-kopec/updated/" + engine  + "/" + t + "/output.txt", "w") as f:
+                                for line in output:
+                                    f.write(line)
+                            with open("evaluation/bratko-kopec/updated/" + engine  + "/" + t +  "/output.txt", "r") as file:
+                                output = file.readlines()
+                elif output[i].startswith("considered salient:"):
+                    sortedKeys = sorted(evaluation["answer"][puzzleNr], key=lambda x: evaluation["answer"][puzzleNr][x]['saliency'], reverse=True)
+                    newtext = ""
+                    for squarestring in sortedKeys:
+                        if float(evaluation["answer"][puzzleNr][squarestring]['saliency']) > 0:
+                            newtext += ("{}: max: {}, colour player: {}, colour opponent: {}\n".format(squarestring, round(float(evaluation["answer"][puzzleNr][squarestring]['saliency']), 10), round(float(
+                            evaluation["answer"][puzzleNr][squarestring]['saliency1']), 10), round(float(evaluation["answer"][puzzleNr][squarestring]['saliency2']), 10)))
+                    x = i + 1
+                    y = i + 1
+                    indices[puzzleNr] = x
+                    while output[y].startswith("displaying top empty squares:") is False:
+                        y += 1
+                    with open("evaluation/bratko-kopec/updated/" + engine + "/" + t + "/" + "output.txt", "r") as f:
+                        lines = f.readlines()
+                    z = 0
+                    while z < y-x:
+                        lines.pop(x)
+                        z += 1
+                    lines.insert(x, newtext)
+                    with open("evaluation/bratko-kopec/updated/" + engine + "/" + t + "/" + "output.txt", "w") as f:
+                        for line in lines:
+                            f.write(line)
+                    with open("evaluation/bratko-kopec/updated/" + engine + "/" + t + "/" + "output.txt", "r") as file:
+                        output = file.readlines()
+                i += 1
+            #print(evaluation)
+
+            path = "evaluation/bratko-kopec/updated/" + engine + "/" + t + "/" + "data.json"
+            with open(path, 'r') as jsonFile:
+                data = json.load(jsonFile)
+            for puzzleNr in evaluation["answer"]:  # iterate puzzles
+
+                print(puzzleNr)
+
+                answer = {
+                    'a1': {'int': chess.A1, 'saliency': -2},
+                    'a2': {'int': chess.A2, 'saliency': -2},
+                    'a3': {'int': chess.A3, 'saliency': -2},
+                    'a4': {'int': chess.A4, 'saliency': -2},
+                    'a5': {'int': chess.A5, 'saliency': -2},
+                    'a6': {'int': chess.A6, 'saliency': -2},
+                    'a7': {'int': chess.A7, 'saliency': -2},
+                    'a8': {'int': chess.A8, 'saliency': -2},
+                    'b1': {'int': chess.B1, 'saliency': -2},
+                    'b2': {'int': chess.B2, 'saliency': -2},
+                    'b3': {'int': chess.B3, 'saliency': -2},
+                    'b4': {'int': chess.B4, 'saliency': -2},
+                    'b5': {'int': chess.B5, 'saliency': -2},
+                    'b6': {'int': chess.B6, 'saliency': -2},
+                    'b7': {'int': chess.B7, 'saliency': -2},
+                    'b8': {'int': chess.B8, 'saliency': -2},
+                    'c1': {'int': chess.C1, 'saliency': -2},
+                    'c2': {'int': chess.C2, 'saliency': -2},
+                    'c3': {'int': chess.C3, 'saliency': -2},
+                    'c4': {'int': chess.C4, 'saliency': -2},
+                    'c5': {'int': chess.C5, 'saliency': -2},
+                    'c6': {'int': chess.C6, 'saliency': -2},
+                    'c7': {'int': chess.C7, 'saliency': -2},
+                    'c8': {'int': chess.C8, 'saliency': -2},
+                    'd1': {'int': chess.D1, 'saliency': -2},
+                    'd2': {'int': chess.D2, 'saliency': -2},
+                    'd3': {'int': chess.D3, 'saliency': -2},
+                    'd4': {'int': chess.D4, 'saliency': -2},
+                    'd5': {'int': chess.D5, 'saliency': -2},
+                    'd6': {'int': chess.D6, 'saliency': -2},
+                    'd7': {'int': chess.D7, 'saliency': -2},
+                    'd8': {'int': chess.D8, 'saliency': -2},
+                    'e1': {'int': chess.E1, 'saliency': -2},
+                    'e2': {'int': chess.E2, 'saliency': -2},
+                    'e3': {'int': chess.E3, 'saliency': -2},
+                    'e4': {'int': chess.E4, 'saliency': -2},
+                    'e5': {'int': chess.E5, 'saliency': -2},
+                    'e6': {'int': chess.E6, 'saliency': -2},
+                    'e7': {'int': chess.E7, 'saliency': -2},
+                    'e8': {'int': chess.E8, 'saliency': -2},
+                    'f1': {'int': chess.F1, 'saliency': -2},
+                    'f2': {'int': chess.F2, 'saliency': -2},
+                    'f3': {'int': chess.F3, 'saliency': -2},
+                    'f4': {'int': chess.F4, 'saliency': -2},
+                    'f5': {'int': chess.F5, 'saliency': -2},
+                    'f6': {'int': chess.F6, 'saliency': -2},
+                    'f7': {'int': chess.F7, 'saliency': -2},
+                    'f8': {'int': chess.F8, 'saliency': -2},
+                    'g1': {'int': chess.G1, 'saliency': -2},
+                    'g2': {'int': chess.G2, 'saliency': -2},
+                    'g3': {'int': chess.G3, 'saliency': -2},
+                    'g4': {'int': chess.G4, 'saliency': -2},
+                    'g5': {'int': chess.G5, 'saliency': -2},
+                    'g6': {'int': chess.G6, 'saliency': -2},
+                    'g7': {'int': chess.G7, 'saliency': -2},
+                    'g8': {'int': chess.G8, 'saliency': -2},
+                    'h1': {'int': chess.H1, 'saliency': -2},
+                    'h2': {'int': chess.H2, 'saliency': -2},
+                    'h3': {'int': chess.H3, 'saliency': -2},
+                    'h4': {'int': chess.H4, 'saliency': -2},
+                    'h5': {'int': chess.H5, 'saliency': -2},
+                    'h6': {'int': chess.H6, 'saliency': -2},
+                    'h7': {'int': chess.H7, 'saliency': -2},
+                    'h8': {'int': chess.H8, 'saliency': -2},
+                }
+
+                board = chess.Board(data[puzzleNr]["fen"])
+                move = chess.Move(answer[data[puzzleNr]['move'][0:2]]['int'], answer[data[puzzleNr]['move'][2:4]]['int'])
+
+                sortedKeys = sorted(evaluation["answer"][puzzleNr], key=lambda x: evaluation["answer"][puzzleNr][x]["saliency"], reverse=True)
+
+                above = data[puzzleNr]["sorted saliencies"]["above threshold"]
+                below = data[puzzleNr]["sorted saliencies"]["below threshold"]
+                insertAbove = dict()
+                insertBelow = dict()
+
+                moveSquares = get_moves_squares(board, move.from_square, move.to_square)
+
+                i = 0
+                th = (100 / 256)
+                print(sortedKeys)
+
+                aboveKeys = list(above.keys())
+                for sq in aboveKeys:
+                    if (board.piece_type_at(chess.SQUARES[chess.parse_square(sq)]) is None and sq not in moveSquares) or (board.piece_type_at(chess.SQUARES[chess.parse_square(sq)]) is None and num == 0):
+                        del above[sq]
+
+                if num > 0:
+                    for sq in moveSquares:
+                        insertAbove[sq] = th
+
+                for sq in sortedKeys:
+                    if float(evaluation["answer"][puzzleNr][sq]["saliency"]) > 0:
+                        if i < num and sq not in moveSquares and board.piece_type_at(chess.SQUARES[chess.parse_square(sq)]) is None:
+                            insertAbove[sq] = float(evaluation["answer"][puzzleNr][sq]["saliency"])
+                            i += 1
+                        else:
+                            insertBelow[sq] = 0
+
+                print(above)
+                print(insertAbove)
+
+                minSal = 1
+                for key in insertAbove:
+                    if float(insertAbove[key]) < minSal:
+                        minSal = float(insertAbove[key])
+                if minSal < th:  # increase saliency
+                    for key in insertAbove:
+                        insertAbove[key] = float(insertAbove[key]) + (th - minSal)
+                        if insertAbove[key] > 1:
+                            insertAbove[key] = 1
+
+                above.update(insertAbove)
+                print(above)
+
+                board = chess.Board(data[puzzleNr]['fen'])
+
+                for sq in above:
+                    if sq in below:
+                        del below[sq]
+                for sq in answer:
+                    if sq in above:
+                        answer[sq]['saliency'] = float(above[sq])
+                    elif sq in below:
+                        answer[sq]['saliency'] = float(below[sq])
+
+                import chess_saliency_chessSpecific as specific_saliency
+                specific_saliency.generate_heatmap(board=board, bestmove=move, evaluation=answer,
+                                                   directory="evaluation/bratko-kopec/updated/" + engine + "/" + t,
+                                                   puzzle=puzzleNr, file=None)
+                print("{}, {} ({}) updated".format(engine, puzzleNr, t))
+
+                with open("evaluation/bratko-kopec/updated/" + engine + "/" + t + "/" + "output.txt", "r") as f:
+                    lines = f.readlines()
+                if puzzleNr in indices:
+                    x = indices[puzzleNr]
+                    if x < len(lines):
+                        while lines[x].startswith("displaying top empty squares:") is False:
+                            x += 1
+                            if x >= len(lines):
+                                break
+                        x += 1
+                        if x < len(lines):
+                            if len(insertAbove) > 0:
+                                lines.pop(x)
+                                lines.insert(x, '{}\n'.format(list(insertAbove.keys())))
+                                with open("evaluation/bratko-kopec/updated/" + engine + "/" + t + "/" + "output.txt", "w") as f:
+                                    for line in lines:
+                                        f.write(line)
+                        with open("evaluation/bratko-kopec/updated/" + engine + "/" + t + "/" + "output.txt", "r") as f:
+                            lines = f.readlines()
+                        if x < len(lines):
+                            while lines[x].startswith("Printing positive saliencies in order:") is False:
+                                x += 1
+                                if x >= len(lines):
+                                    break
+                            x += 1
+                            if x < len(lines):
+                                y = x
+                                while lines[y].startswith("-----------") is False:
+                                    y += 1
+                                z = 0
+                                while z < y - x:
+                                    lines.pop(x)
+                                    z += 1
+                                sortedKeys = sorted(above, key=lambda x: above[x], reverse=False)
+                                for key in sortedKeys:
+                                    lines.insert(x, "{}: {}\n".format(key, above[key]))
+                                with open("evaluation/bratko-kopec/updated/" + engine + "/" + t + "/" + "output.txt", "w") as f:
+                                    for line in lines:
+                                        f.write(line)
+
+                data[puzzleNr] = {
+                    "fen": data[puzzleNr]['fen'],
+                    "move": data[puzzleNr]["move"],
+                    "sorted saliencies": {
+                        "above threshold": above,
+                        "below threshold": below
+                    }
+                }
+
+                path = "evaluation/bratko-kopec/updated/" + engine + "/" + t + "/" + "data.json"
+                with open(path, "w") as jsonFile:
+                    json.dump(data, jsonFile, indent=4)
