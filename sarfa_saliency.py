@@ -49,18 +49,21 @@ def computeSaliencyUsingSarfa(original_action, dict_q_vals_before_perturbation, 
     q_value_action_perturbed_state = dict_q_vals_after_perturbation[original_action] # Q(s',â)
     q_value_action_original_state = dict_q_vals_before_perturbation[original_action] # Q(s,â)
     if text is None:
-        file.write("perturbed reward Q(s\',â): {}, original reward Q(s,â): {}\n".format(q_value_action_perturbed_state, q_value_action_original_state))
+        if file is not None:
+            file.write("perturbed reward Q(s\',â): {}, original reward Q(s,â): {}\n".format(q_value_action_perturbed_state, q_value_action_original_state))
+        else:
+            printThis = "perturbed reward Q(s\',â): {}, original reward Q(s,â): {}\n".format(q_value_action_perturbed_state, q_value_action_original_state)
     else:
         text.insert(END, "perturbed reward Q(s\',â): {}, original reward Q(s,â): {}\n".format(q_value_action_perturbed_state, q_value_action_original_state))
 
     q_values_after_perturbation = np.asarray(list(dict_q_vals_after_perturbation.values())) # Q(s',a)
     q_values_before_perturbation = np.asarray(list(dict_q_vals_before_perturbation.values())) # Q(s,a)
-    
+
     # P(s',â) = exp(Q(s',â))/Σexp(Q(s',a))
-    probability_action_perturbed_state = np.exp(q_value_action_perturbed_state) / np.sum(np.exp(q_values_after_perturbation)) 
+    probability_action_perturbed_state = np.exp(q_value_action_perturbed_state) / np.sum(np.exp(q_values_after_perturbation))
     # P(s,â) = exp(Q(s,â))/Σexp(Q(s,a))
     probability_action_original_state = np.exp(q_value_action_original_state) / np.sum(np.exp(q_values_before_perturbation))
-    
+
     # K = 1/(1+DKL),        DKL = Prem(s',a)||Prem(s,a),        Prem(s,a) = exp(Q(s,a))/Σexp(Q(s,a'))
     K = cross_entropy(dict_q_vals_after_perturbation, dict_q_vals_before_perturbation, original_action)
 
@@ -68,10 +71,13 @@ def computeSaliencyUsingSarfa(original_action, dict_q_vals_before_perturbation, 
     dP = probability_action_original_state - probability_action_perturbed_state
 
     if probability_action_perturbed_state < probability_action_original_state: # harmonic mean
-        answer = 2*dP*K/(dP + K)     
-        
+        answer = 2*dP*K/(dP + K)
+
     QmaxAnswer = computeSaliencyUsingQMaxChange(original_action, dict_q_vals_before_perturbation, dict_q_vals_after_perturbation)
     action_gap_before_perturbation, action_gap_after_perturbation = computeSaliencyUsingActionGap(dict_q_vals_before_perturbation, dict_q_vals_after_perturbation)
+
+    if file is None and text is None:
+        return answer, dP, K, QmaxAnswer, action_gap_before_perturbation, action_gap_after_perturbation, printThis
 
     return answer, dP, K, QmaxAnswer, action_gap_before_perturbation, action_gap_after_perturbation
 
@@ -79,7 +85,7 @@ def computeSaliencyUsingSarfa(original_action, dict_q_vals_before_perturbation, 
 def computeSaliencyUsingQMaxChange(original_action, dict_q_vals_before_perturbation, dict_q_vals_after_perturbation):
     answer = 0
 
-    best_action = None 
+    best_action = None
     best_q_value = 0
 
     for move, q_value in dict_q_vals_after_perturbation.items():
@@ -88,11 +94,11 @@ def computeSaliencyUsingQMaxChange(original_action, dict_q_vals_before_perturbat
             best_q_value = q_value
         elif q_value > best_q_value:
            best_q_value = q_value
-           best_action = move 
+           best_action = move
 
     if best_action != original_action:
         answer = 1
-    
+
     return answer
 
 
@@ -105,4 +111,3 @@ def computeSaliencyUsingActionGap(dict_q_vals_before_perturbation, dict_q_vals_a
 
         return action_gap_before_perturbation, action_gap_after_perturbation
     return None, None
-
