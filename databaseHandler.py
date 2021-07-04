@@ -5,12 +5,9 @@ import re
 import chess
 import chess.pgn
 
-from evaluation_bratkoKopec import evaluateBratkoKopec, convertToPosition, singleEngine_bratkoKopec_groundTruthEvaluation
-from evaluation_endgames import evaluate, singleEngine_endgames_groundTruthEvaluation
-from evaluation_sarfaDataset import groundTruthEvaluation, missingGroundTruth, singleEngine_groundTruthEvaluation, \
-    calculateImprovements_threshold, calculateImprovements_negative, calculateImprovements_positive
-
 datasetBestMoves = ["c3d5","f5h6","g3g8","b6d5","c4f4","d5e7","c3d5","f3h5","d5d6","e4c4","f6h8","h3h7","b2g7","a1a2","b1f5","g5g6","f5f8","f6e8","d6e7","d4d7","e4h7","g1g6","f3e5","e2e7","b6g6","e1e6","c1c6","e5d6","c1g5","c6b7","g1g7","f5e6","g4f6","b7b8","d1d7","d3h7","g3g7","e1c1","d2h6","b2a1","b6c7","d1e1","d1d7","d2d4","e4f6","h5h6","d4e4","e4e6","h5h6","e7e5","f1f5","a1b2","h4e4","d6f5","c1h6","f3g5","b3c4","e5e6","g4g6","f3d5","d7e7","h4h5","d3d4","d1d5","f4e6","e2d4","f1f8","h5h6","f4f7","g5g6","g1g6","e3g4","c7e7","c3b5","d5g8","h6h7","d2c2","c4e6","f1f7","a7a8","e5g6","f1f2","b3f7","b3d1","d6d7","d5f6","f3f8","b1g6","d5f7","e1e6","e4e5","d1d7","b3d4","h3h4","d3h7","f7g7","e5g7","d6f8","g7g6","c4c5","c6c8","b7b4"]
+
+import chess_saliency_original as original_saliency
 
 
 def runDatabase(path, engineLocation="engines/stockfish-11-win/stockfish-11-win/Windows/stockfish_20011801_32bit.exe", saliency=None):
@@ -751,129 +748,8 @@ def runAll_engines(function, saliency=None):
     run_engine(function, 'engines/stockfish_12_win_x64_bmi2/stockfish_20090216_x64_bmi2.exe', "stockfish12", saliency)
     run_engine(function, 'engines/lc0-v0.26.3-windows-gpu-nvidia-cudnn/lc0.exe', "leela", saliency)
     run_engine(function, 'engines/stockfish-11-win/stockfish-11-win/Windows/stockfish_20011801_32bit.exe', "stockfish", saliency)
-    run_engine(function, 'engines/rybka/Rybkav2.3.2a.mp.x64.exe', "rybka", saliency)
-    run_engine(function, 'engines/SlowChessClassic-2.4/slow64.exe', "slowchess", saliency)
     run_engine(function, 'engines/octochess-r5190/octochess-windows-sse4-r5190.exe', "octochess", saliency)
     run_engine(function, 'engines/komodo/Windows/komodo-12.1.1-64bit.exe', "komodo", saliency)
+    run_engine(function, 'engines/rybka/Rybkav2.3.2a.mp.x64.exe', "rybka", saliency)
     run_engine(function, 'engines/fruit/Fruit2.2.1.exe', "fruit", saliency)
-
-
-import chess_saliency_original as original_saliency
-import chess_saliency_combination as updated_saliency
-import chess_saliency_chessSpecific as specific_saliency
-import chess_saliency_leela as leela_saliency
-
-
-#**************************************************** run & evaluate sarfa dataset's 102 puzzles ****************************************************
-
-#runAll_engines("SARFA")
-#runAll_engines("SARFA", updated_saliency)
-#runAll_engines("SARFA", specific_saliency)
-
-'''subset = groundTruthEvaluation() # evaluate all 102 puzzles
-groundTruthEvaluation(subset=subset)''' # evaluate only 69 puzzles with correct move
-#missingGroundTruth()
-'''subset = groundTruthEvaluation(directory="evaluation/updated/")
-groundTruthEvaluation(directory="evaluation/updated/",subset=subset)'''
-
-#singleEngine_groundTruthEvaluation(subset=True)
-#singleEngine_groundTruthEvaluation(directory1="evaluation/original/leela", directory2="evaluation/updated/leela",subset=True)
-#singleEngine_groundTruthEvaluation(directory1="evaluation/original/stockfish12",   directory2="evaluation/updated/stockfish12",subset=True)
-#singleEngine_groundTruthEvaluation(directory1="evaluation/original/slowchess", directory2="evaluation/updated/slowchess",subset=True)
-#singleEngine_groundTruthEvaluation(directory1="evaluation/original/rybka", directory2="evaluation/updated/rybka",subset=True)
-#singleEngine_groundTruthEvaluation(directory1="evaluation/original/fruit", directory2="evaluation/updated/fruit",subset=True)
-#singleEngine_groundTruthEvaluation(directory1="evaluation/original/komodo", directory2="evaluation/updated/komodo",subset=True)
-#singleEngine_groundTruthEvaluation(directory1="evaluation/original/octochess", directory2="evaluation/updated/octochess",subset=True)
-
-#calculateImprovements_threshold()
-#calculateImprovements_negative()
-#calculateImprovements_positive()
-
-updated_saliency.enableEmptySquares = True #enable empty squares
-specific_saliency.enableEmptySquares = True
-leela_saliency.enableEmptySquares = True
-
-
-#********************************** run & evaluate bratko-kopec test from http://kopecchess.com/bratko-kopec-test/ **********************************
-
-#runAll_engines("bratkoKopec")
-#runAll_engines("bratkoKopec", updated_saliency)
-#runAll_engines("bratkoKopec", specific_saliency)
-
-#evaluateBratkoKopec()
-#evaluateBratkoKopec("evaluation/bratko-kopec/updated")
-#convertToPosition()
-
-#singleEngine_bratkoKopec_groundTruthEvaluation()
-#singleEngine_bratkoKopec_groundTruthEvaluation(directory1="evaluation/bratko-kopec/original/leela", directory2="evaluation/bratko-kopec/updated/leela")
-#singleEngine_bratkoKopec_groundTruthEvaluation(directory1="evaluation/bratko-kopec/original/stockfish12",   directory2="evaluation/bratko-kopec/updated/stockfish12")
-#singleEngine_bratkoKopec_groundTruthEvaluation(directory1="evaluation/bratko-kopec/original/slowchess", directory2="evaluation/bratko-kopec/updated/slowchess")
-#singleEngine_bratkoKopec_groundTruthEvaluation(directory1="evaluation/bratko-kopec/original/rybka", directory2="evaluation/bratko-kopec/updated/rybka")
-#singleEngine_bratkoKopec_groundTruthEvaluation(directory1="evaluation/bratko-kopec/original/fruit", directory2="evaluation/bratko-kopec/updated/fruit")
-#singleEngine_bratkoKopec_groundTruthEvaluation(directory1="evaluation/bratko-kopec/original/komodo", directory2="evaluation/bratko-kopec/updated/komodo")
-#singleEngine_bratkoKopec_groundTruthEvaluation(directory1="evaluation/bratko-kopec/original/octochess", directory2="evaluation/bratko-kopec/updated/octochess")
-
-
-#****************************** run & evaluate 20 endgame puzzles from https://www.stmintz.com/ccc/index.php?id=476109 ******************************
-
-#runAll_engines("endgame")
-#runAll_engines("endgame", updated_saliency)
-#runAll_engines("endgame", specific_saliency)
-
-#evaluate()
-#evaluate("evaluation/endgames/updated/")
-
-#singleEngine_endgames_groundTruthEvaluation()
-#singleEngine_endgames_groundTruthEvaluation(directory1="evaluation/endgames/original/leela", directory2="evaluation/endgames/updated/leela")
-#singleEngine_endgames_groundTruthEvaluation(directory1="evaluation/endgames/original/stockfish12",   directory2="evaluation/endgames/updated/stockfish12")
-#singleEngine_endgames_groundTruthEvaluation(directory1="evaluation/endgames/original/slowchess", directory2="evaluation/endgames/updated/slowchess")
-#singleEngine_endgames_groundTruthEvaluation(directory1="evaluation/endgames/original/rybka", directory2="evaluation/endgames/updated/rybka")
-#singleEngine_endgames_groundTruthEvaluation(directory1="evaluation/endgames/original/fruit", directory2="evaluation/endgames/updated/fruit")
-#singleEngine_endgames_groundTruthEvaluation(directory1="evaluation/endgames/original/komodo", directory2="evaluation/endgames/updated/komodo")
-#singleEngine_endgames_groundTruthEvaluation(directory1="evaluation/endgames/original/octochess", directory2="evaluation/endgames/updated/octochess")
-
-
-#****************************************** run some generally problematic maps & more posiitonal puzzles *******************************************
-
-#runAll_engines("general")
-#runAll_engines("positional")
-#runAll_engines("general", saliency=specific_saliency)
-#runAll_engines("positional", saliency=specific_saliency)
-
-
-#********************************************************** basic analyisis functions ***************************************************************
-
-#getMean(variable="dP", subset=subset)
-#getMean(variable="K", subset=subset)
-#getMean(variable="saliency", subset=subset)
-#getQValues()
-#getMean(variable="original reward")
-#getMean()
-#getMinMax(variable="reward Q(s',â)", mode="max")
-#getMinMax(variable="reward Q(s',â)", mode="min")
-#getMinMax(variable="reward Q(s,â)", mode="max")
-#getMinMax(variable="reward Q(s,â)", mode="min")
-#getMinMax(variable="K", mode="min")
-
-
-#************************************************** evaluate features for updated implementation ***************************************************
-
-'''evaluateFeature("evaluation/endgames/updated/leela",feature="pawn promotion on this square")
-evaluateFeature("evaluation/endgames/updated/leela",feature="opponent is in check after best move")
-evaluateFeature("evaluation/endgames/updated/leela",feature="saliency calculated as max from pawn perturbation")
-evaluateFeature("evaluation/endgames/updated/leela",feature="king is salient because of check")
-evaluateFeature("evaluation/endgames/updated/leela",feature="already pawn here")
-evaluateFeature("evaluation/endgames/updated/leela",feature="new pawn saliency for this square")
-evaluateFeature("evaluation/endgames/updated/leela",feature="opponent is in check after best move")
-evaluateFeature("evaluation/endgames/updated/leela",feature="saliency is in best positive range")
-evaluateFeature("evaluation/endgames/updated/leela",feature="saliency is not in best positive range")
-evaluateFeature("evaluation/endgames/updated/leela",feature="saliency is in best negative range")
-evaluateFeature("evaluation/endgames/updated/leela",feature="guards best move")
-evaluateFeature("evaluation/endgames/updated/leela",feature="piece is no longer blocked - salient square")
-evaluateFeature("evaluation/endgames/updated/leela",feature="is under attack - salient square")'''
-
-
-#*************************************************************** try it out yourself ****************************************************************
-
-'''asyncio.set_event_loop_policy(chess.engine.EventLoopPolicy())
-asyncio.run(specific_saliency.computeSaliency("engines/lc0-v0.26.3-windows-gpu-nvidia-cudnn/lc0.exe","2r2rk1/pp1bqpp1/2nppn1p/2p3N1/1bP5/1PN3P1/PBQPPPBP/3R1RK1 w - - 0 1"))'''
+    run_engine(function, 'engines/SlowChessClassic-2.4/slow64.exe', "slowchess", saliency)
