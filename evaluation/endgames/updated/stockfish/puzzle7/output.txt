@@ -444,6 +444,7 @@ Total Legal Moves : 16
 Q Values: {'f6h8': 40, 'f6d8': 40, 'f6g7': 40, 'f6e7': 40, 'f6e5': 21.07, 'f6d4': 40, 'f6c3': 40, 'f6b2': 40, 'f6a1': 40, 'f2g2': 40, 'f2e2': 40, 'f2g1': 40, 'f2f1': 40, 'f2e1': 40, 'c5c6': 40, 'a3a4': 40}
 perturbed reward Q(s',â): 40, original reward Q(s,â): -0.42
 saliency for this square with opponent's pawn: 'saliency': 0.09553411223668183, 'dP': 0.05083767435081901, 'K': 0.7908394530966283 
+saliency calculated as max from pawn perturbation for this empty square: 0.09553411223668183
 ------------------------------------------
 perturbing square = d8
 can not put a pawn on this square - so skipped
@@ -494,6 +495,7 @@ Total Legal Moves : 15
 Q Values: {'f6h8': 40, 'f6d8': 40, 'f6g7': 40, 'f6e7': 40, 'f6e5': 58.62, 'f6d4': 40, 'f6c3': 40, 'f6b2': 40, 'f6a1': 40, 'f2g2': 40, 'f2e2': 40, 'f2g1': 40, 'f2e1': 40, 'c5c6': 40, 'a3a4': 40}
 perturbed reward Q(s',â): 40, original reward Q(s,â): -0.42
 saliency for this square with opponent's pawn: 'saliency': 0.0773751688005406, 'dP': 0.11750433279789686, 'K': 0.05767757342109508 
+saliency calculated as max from pawn perturbation for this empty square: 0.08699061586938854
 ------------------------------------------
 perturbing square = e3
 square is empty, so put a pawn from player's color here
@@ -566,6 +568,7 @@ Total Legal Moves : 12
 Q Values: {'f6h8': 40, 'f6d8': 40, 'f6g7': 40, 'f6e7': 40, 'f6e5': 58.62, 'f2g2': 40, 'f2e2': 40, 'f2g1': 40, 'f2f1': 40, 'f2e1': 40, 'c5c6': 40, 'a3a4': 40}
 perturbed reward Q(s',â): 40, original reward Q(s,â): -0.42
 saliency for this square with opponent's pawn: 'saliency': 0.07668336688293075, 'dP': 0.11750433279789665, 'K': 0.056912116607571984 
+saliency calculated as max from pawn perturbation for this empty square: 0.07668336688293075
 ------------------------------------------
 perturbing square = e6
 square is empty, so put a pawn from player's color here
@@ -924,16 +927,19 @@ gained new board control over:
 considered salient:
 a5: max: 0.1405651485, colour player: 0.1269367022, colour opponent: 0.1405651485
 e6: max: 0.0961268305, colour player: 0.0961268305, colour opponent: 0.0763191396
-f3: max: 0.0939701429, colour player: 0, colour opponent: 0.0939701429
+f3: max: 0.0961268305, colour player: 0.0961268305, colour opponent: 0.0939701429
+d7: max: 0.0955341122, colour player: 0.0668265873, colour opponent: 0.0955341122
 d6: max: 0.0932849449, colour player: 0.0797448534, colour opponent: 0.0932849449
 c7: max: 0.0920558912, colour player: 0.0920558912, colour opponent: 0.0850299054
-d3: max: 0.088742918, colour player: 0, colour opponent: 0.088742918
+d3: max: 0.088742918, colour player: 0.0798808096, colour opponent: 0.088742918
 f5: max: 0.0873600775, colour player: 0.0873600775, colour opponent: 0.0873600775
+e2: max: 0.0869906159, colour player: 0.0869906159, colour opponent: 0.0773751688
 d2: max: 0.0798808096, colour player: 0.0798808096, colour opponent: 0.0680795442
 c2: max: 0.077246684, colour player: 0.077246684, colour opponent: 0.0772466067
 c4: max: 0.0772465971, colour player: 0.0772465971, colour opponent: 0.0772465375
 b7: max: 0.0772465385, colour player: 0.0770433768, colour opponent: 0.0772465385
 b6: max: 0.0770434472, colour player: 0.0770434262, colour opponent: 0.0770434472
+e5: max: 0.0766833669, colour player: 0.0514744402, colour opponent: 0.0766833669
 h2: max: 0.0711036145, colour player: 0.0711036145, colour opponent: 0.055662229
 h3: max: 0.0705560122, colour player: 0.0705560122, colour opponent: 0.0670101969
 h4: max: 0.0683245122, colour player: 0.068091933, colour opponent: 0.0683245122
@@ -953,21 +959,12 @@ g2: max: 0.0117138616, colour player: 0.0116023651, colour opponent: 0.011713861
 f7: max: 0.0116023647, colour player: 0.0116023647, colour opponent: 0.0116023647
 g4: max: 0.0116023647, colour player: 0.0116023647, colour opponent: 0.0116023647
 displaying top empty squares:
-['a5', 'e6', 'f3']
+['e7', 'a5', 'e6', 'f3']
 Printing positive saliencies in order: 
 f6: 1
-a5: 0.5311901485
-e6: 0.4867518305
-f3: 0.4845951429
-e7: 0.390625
-f4: 0.0873600775
-b5: 0.0769491199
-g6: 0.0724115458
-a6: 0.0681324749
-b4: 0.0667850756
-g5: 0.0544660285
-c5: 0.049247539
-d5: 0.0454089312
-a3: 0.0399742848
+f3: 0.7
+e6: 0.7
+a5: 0.7
+e7: 0.7
 ------------------------------------------
 threshold: 0.390625

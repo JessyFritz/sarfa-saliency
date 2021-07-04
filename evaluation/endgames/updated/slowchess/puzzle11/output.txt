@@ -23,6 +23,7 @@ Total Legal Moves : 23
 Q Values: {'d4d8': 0, 'd4d7': 0, 'd4d6': 0, 'd4d5': 0, 'd4g4': 0, 'd4f4': 0, 'd4e4': 0, 'd4c4': 0, 'd4b4': 0, 'd4a4': 3.27, 'd4d3': 0, 'd4d2': 0, 'd4d1': 0, 'g2h3': 0, 'g2f3': 0, 'g2h2': 0, 'g2h1': 0, 'g2g1': 0, 'g2f1': 0, 'h4h5': 0, 'g3g4': 0, 'f2f3': 0, 'f2f4': 0}
 perturbed reward Q(s',â): 3.27, original reward Q(s,â): 2.77
 saliency for this square with opponent's pawn: 'saliency': 0, 'dP': -0.12419865157449539, 'K': 1.0 
+saliency calculated as max from pawn perturbation for this empty square: 0.0
 ------------------------------------------
 perturbing square = a3
 square is empty, so put a pawn from player's color here
@@ -37,6 +38,7 @@ Total Legal Moves : 23
 Q Values: {'d4d8': 0, 'd4d7': 0, 'd4d6': 0, 'd4d5': 0, 'd4g4': 0, 'd4f4': 0, 'd4e4': 0, 'd4c4': 0, 'd4b4': 0, 'd4a4': 3.17, 'd4d3': 0, 'd4d2': 0, 'd4d1': 0, 'g2h3': 0, 'g2f3': 0, 'g2h2': 0, 'g2h1': 0, 'g2g1': 0, 'g2f1': 0, 'h4h5': 0, 'g3g4': 0, 'f2f3': 0, 'f2f4': 0}
 perturbed reward Q(s',â): 3.17, original reward Q(s,â): 2.77
 saliency for this square with opponent's pawn: 'saliency': 0, 'dP': -0.09930742294551753, 'K': 1.0 
+saliency calculated as max from pawn perturbation for this empty square: 0.0
 ------------------------------------------
 perturbing square = a4
 square is part of original move and must remain empty
@@ -608,6 +610,7 @@ Total Legal Moves : 22
 Q Values: {'d4d8': 0, 'd4d7': 0, 'd4d6': 0, 'd4d5': 0, 'd4g4': 0, 'd4f4': 0, 'd4e4': 0, 'd4c4': 0, 'd4b4': 0, 'd4a4': 8.12, 'd4d3': 0, 'd4d2': 0, 'd4d1': 0, 'g2h3': 0, 'g2f3': 0, 'g2h2': 0, 'g2h1': 0, 'g2f1': 0, 'h4h5': 0, 'g3g4': 0, 'f2f3': 0, 'f2f4': 0}
 perturbed reward Q(s',â): 8.12, original reward Q(s,â): 2.77
 saliency for this square with opponent's pawn: 'saliency': 0, 'dP': -0.5733689794950699, 'K': 1.0 
+saliency calculated as max from pawn perturbation for this empty square: 0.0
 ------------------------------------------
 perturbing square = h3
 square is empty, so put a pawn from player's color here
@@ -663,6 +666,7 @@ Total Legal Moves : 23
 Q Values: {'d4d8': 0, 'd4d7': 0, 'd4d6': 0, 'd4d5': 0, 'd4g4': 0, 'd4f4': 0, 'd4e4': 0, 'd4c4': 0, 'd4b4': 0, 'd4a4': 8.41, 'd4d3': 0, 'd4d2': 0, 'd4d1': 0, 'g2h3': 0, 'g2f3': 0, 'g2h2': 0, 'g2h1': 0, 'g2g1': 0, 'g2f1': 0, 'h4h5': 0, 'g3g4': 0, 'f2f3': 0, 'f2f4': 0}
 perturbed reward Q(s',â): 8.41, original reward Q(s,â): 2.77
 saliency for this square with opponent's pawn: 'saliency': 0, 'dP': -0.5747043002185667, 'K': 1.0 
+saliency calculated as max from pawn perturbation for this empty square: 0.0
 ------------------------------------------
 perturbing square = h8
 can not put a pawn on this square - so skipped
@@ -674,7 +678,7 @@ gained new board control over:
 considered salient:
 g5: max: 0.547651657, colour player: 0.547651657, colour opponent: 0.5452598107
 f5: max: 0.5475464669, colour player: 0.5475464669, colour opponent: 0.54706669
-f6: max: 0.5475272347, colour player: 0, colour opponent: 0.5475272347
+f6: max: 0.5475464669, colour player: 0.5475464669, colour opponent: 0.5475272347
 a7: max: 0.5475075291, colour player: 0.5475075291, colour opponent: 0.5475075291
 b2: max: 0.5475075291, colour player: 0.5475075291, colour opponent: 0.5475075291
 b3: max: 0.5475075291, colour player: 0.5475075291, colour opponent: 0.5475075291
@@ -701,19 +705,19 @@ e2: max: 0.367744271, colour player: 0.367744271, colour opponent: 0.3611179936
 e3: max: 0.367744271, colour player: 0.367744271, colour opponent: 0.367744271
 e5: max: 0.367744271, colour player: 0.367744271, colour opponent: 0.367744271
 displaying top empty squares:
-['g5', 'f5', 'f6']
+['a4', 'b4', 'c4', 'g5', 'f5', 'f6']
 Printing positive saliencies in order: 
-g5: 1.014484403
-f5: 1.014379213
-f6: 1.0143599807
 d4: 1
-a5: 0.5475075291
-a6: 0.5475075291
-f2: 0.5433227754
-g3: 0.5385365193
-h4: 0.5358429648
-a4: 0.466832746
-b4: 0.466832746
-c4: 0.466832746
+g5: 0.5476516569732243
+f6: 0.5475464669388498
+f5: 0.5475464669388498
+a6: 0.5475075290945326
+a5: 0.5475075290945326
+f2: 0.5433227754438748
+g3: 0.5385365193154186
+h4: 0.5358429647775581
+c4: 0.390625
+b4: 0.390625
+a4: 0.390625
 ------------------------------------------
 threshold: 0.3962829699229587

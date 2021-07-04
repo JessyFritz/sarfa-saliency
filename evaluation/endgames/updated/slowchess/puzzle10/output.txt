@@ -63,6 +63,7 @@ Total Legal Moves : 12
 Q Values: {'c5d7': 0, 'c5b7': 0, 'c5e6': 0, 'c5a6': 0, 'c5e4': 0, 'c5a4': 4.31, 'c5d3': 0, 'c5b3': 0, 'b4a4': 0, 'b4c3': 0, 'b4b3': 0, 'b4a3': 0}
 perturbed reward Q(s',â): 4.31, original reward Q(s,â): 3.53
 saliency for this square with opponent's pawn: 'saliency': 0, 'dP': -0.11502830854307566, 'K': 1.0 
+saliency calculated as max from pawn perturbation for this empty square: 0.3991980780667448
 ------------------------------------------
 perturbing square = a7
 square is empty, so put a pawn from player's color here
@@ -729,6 +730,7 @@ a2: max: 0.4443870348, colour player: 0.4443870348, colour opponent: 0.444387034
 a7: max: 0.4322223304, colour player: 0.4322223304, colour opponent: 0.3346213218
 b2: max: 0.4322223304, colour player: 0.348235449, colour opponent: 0.4322223304
 a3: max: 0.4291479892, colour player: 0.3991980781, colour opponent: 0.4291479892
+a6: max: 0.3991980781, colour player: 0.3991980781, colour opponent: 0.0
 c6: max: 0.3309015344, colour player: 0.3309015344, colour opponent: 0.3309015344
 c7: max: 0.3309015344, colour player: 0.3309015344, colour opponent: 0.3309015344
 d2: max: 0.3309015344, colour player: 0.3309015344, colour opponent: 0.3309015344
@@ -750,20 +752,16 @@ h5: max: 0.0551144939, colour player: 0.0551144939, colour opponent: 0.055114493
 h6: max: 0.0551144939, colour player: 0.0551144939, colour opponent: 0.0551144939
 h7: max: 0.0551144939, colour player: 0.0551144939, colour opponent: 0.0551144939
 displaying top empty squares:
-['f2', 'f3', 'f4']
+['a4', 'f2', 'f3', 'f4']
 Printing positive saliencies in order: 
-f2: 1.1950918298
-f3: 1.1950918298
-f4: 1.1950918298
-a4: 1
-b6: 1
 c5: 1
-e5: 0.8048464501
-d4: 0.8045153225
-g5: 0.8006209531
-d5: 0.2845268436
-e6: 0.1723200891
-f7: 0.0551144939
-g6: 0.0551144939
+b6: 1
+e5: 0.8048464500590972
+d4: 0.8045153225108815
+f4: 0.8044668298356481
+f3: 0.8044668298356481
+f2: 0.8044668298356481
+g5: 0.8006209531108834
+a4: 0.390625
 ------------------------------------------
 threshold: 0.46683274602955005

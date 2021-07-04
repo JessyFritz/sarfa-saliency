@@ -43,6 +43,7 @@ Total Legal Moves : 18
 Q Values: {'b5b8': -0.33, 'b5b7': 0.53, 'b5b6': -11.85, 'b5h5': -9.16, 'b5g5': -11.87, 'b5f5': -10.63, 'b5e5': -10.11, 'b5d5': 0.81, 'b5c5': 0.0, 'b5a5': -9.89, 'b5b4': -40, 'b5b3': 0.0, 'b5b2': -0.16, 'b5b1': -0.16, 'f4e4': 0.59, 'f4g3': 0.78, 'f4e3': 0.59, 'g4g5': 1.07}
 perturbed reward Q(s',â): 1.07, original reward Q(s,â): 0.98
 saliency for this square with opponent's pawn: 'saliency': 0, 'dP': -0.007010304854998317, 'K': 0.9972003346708429 
+saliency calculated as max from pawn perturbation for this empty square: 0.03766576905748286
 ------------------------------------------
 perturbing square = a4
 querying engine with perturbed position
@@ -96,6 +97,7 @@ Total Legal Moves : 18
 Q Values: {'b5b8': 40, 'b5b7': 40, 'b5b6': 40, 'b5h5': 13.02, 'b5g5': 12.7, 'b5f5': 5.03, 'b5e5': 5.56, 'b5d5': 26.73, 'b5c5': 28.1, 'b5a5': 28.1, 'b5b4': 1.4, 'b5b3': 26.73, 'b5b2': 40, 'b5b1': 40, 'f4e4': 14.82, 'f4g3': 15.11, 'f4e3': 14.88, 'g4g5': 40}
 perturbed reward Q(s',â): 40, original reward Q(s,â): 0.98
 saliency for this square with opponent's pawn: 'saliency': 0, 'dP': -0.0029380000411004803, 'K': 0.06826998940068774 
+saliency calculated as max from pawn perturbation for this empty square: 0.0
 ------------------------------------------
 perturbing square = a8
 can not put a pawn on this square - so skipped
@@ -163,6 +165,7 @@ Total Legal Moves : 16
 Q Values: {'b5b8': 40, 'b5b7': 40, 'b5b6': 40, 'b5h5': 13.22, 'b5g5': 13.06, 'b5f5': 12.29, 'b5e5': 13.06, 'b5d5': 28.1, 'b5c5': 28.1, 'b5a5': 36.14, 'b5b4': 1.45, 'b5b3': 40, 'f4e4': 40, 'f4g3': 15.15, 'f4e3': 21.56, 'g4g5': 40}
 perturbed reward Q(s',â): 40, original reward Q(s,â): 0.98
 saliency for this square with opponent's pawn: 'saliency': 0, 'dP': -0.00235492377747043, 'K': 0.0929865075597168 
+saliency calculated as max from pawn perturbation for this empty square: 0.0
 ------------------------------------------
 perturbing square = b4
 square is empty, so put a pawn from player's color here
@@ -809,6 +812,7 @@ Total Legal Moves : 18
 Q Values: {'b5b8': 1.17, 'b5b7': 2.37, 'b5b6': -11.03, 'b5h5': 2.35, 'b5g5': -13.02, 'b5f5': 2.55, 'b5e5': -7.1, 'b5d5': 2.55, 'b5c5': 2.55, 'b5a5': -7.09, 'b5b4': -40, 'b5b3': 1.17, 'b5b2': 1.17, 'b5b1': 1.17, 'f4e4': 3.15, 'f4g3': 2.41, 'f4e3': 2.41, 'g4g5': 3.21}
 perturbed reward Q(s',â): 3.21, original reward Q(s,â): 0.98
 saliency for this square with opponent's pawn: 'saliency': 0, 'dP': -0.009701310716439482, 'K': 0.7588418757844836 
+saliency calculated as max from pawn perturbation for this empty square: 0.0
 ------------------------------------------
 perturbing square = h4
 square is empty, so put a pawn from player's color here
@@ -825,6 +829,7 @@ Total Legal Moves : 17
 Q Values: {'b5b8': 1.17, 'b5b7': 2.37, 'b5b6': -11.03, 'b5h5': 2.35, 'b5g5': -13.02, 'b5f5': 2.55, 'b5e5': -7.1, 'b5d5': 2.55, 'b5c5': 2.55, 'b5a5': -7.09, 'b5b4': -40, 'b5b3': 1.17, 'b5b2': 1.17, 'b5b1': 1.17, 'f4e4': 3.15, 'f4e3': 2.41, 'g4g5': 3.21}
 perturbed reward Q(s',â): 3.21, original reward Q(s,â): 0.98
 saliency for this square with opponent's pawn: 'saliency': 0, 'dP': -0.02435830866711547, 'K': 0.7374221312720532 
+saliency calculated as max from pawn perturbation for this empty square: 0.0
 ------------------------------------------
 perturbing square = h5
 square is empty, so put a pawn from player's color here
@@ -904,7 +909,7 @@ c6: max: 0.0968132896, colour player: 0.0968132896, colour opponent: 0.091146096
 c7: max: 0.0834160156, colour player: 0.0834160156, colour opponent: 0.0834160156
 d2: max: 0.0834160156, colour player: 0.0834160156, colour opponent: 0.0834160156
 d3: max: 0.0834160156, colour player: 0.0834160156, colour opponent: 0.0834160156
-d6: max: 0.0834160156, colour player: 0, colour opponent: 0.0834160156
+d6: max: 0.0834160156, colour player: 0.0747869861, colour opponent: 0.0834160156
 d7: max: 0.0834160156, colour player: 0.0834160156, colour opponent: 0.0834160156
 e2: max: 0.0834160156, colour player: 0.0834160156, colour opponent: 0.0834160156
 e6: max: 0.0834160156, colour player: 0.0834160156, colour opponent: 0.0834160156
@@ -913,24 +918,21 @@ h6: max: 0.0827446638, colour player: 0.0683979107, colour opponent: 0.082744663
 f5: max: 0.0697741969, colour player: 0.0697741969, colour opponent: 0.0336280223
 h5: max: 0.0683979098, colour player: 0.0481842658, colour opponent: 0.0683979098
 b4: max: 0.0401545696, colour player: 0.0385657029, colour opponent: 0.0401545696
-b2: max: 0.0344634967, colour player: 0, colour opponent: 0.0344634967
+a3: max: 0.0376657691, colour player: 0.0376657691, colour opponent: 0.0
+b2: max: 0.0344634967, colour player: 0.0, colour opponent: 0.0344634967
 h7: max: 0.0321799654, colour player: 0.0306649376, colour opponent: 0.0321799654
 g7: max: 0.0239106197, colour player: 0.0015882745, colour opponent: 0.0239106197
 a2: max: 0.01926974, colour player: 0.0077970421, colour opponent: 0.01926974
 h2: max: 0.017045921, colour player: 0.017045921, colour opponent: 0.017045921
 displaying top empty squares:
-['g2', 'g3', 'b6']
+['g5', 'g2', 'g3', 'b6']
 Printing positive saliencies in order: 
 g4: 1
-b5: 0.5822386141
-g2: 0.5356682943
-g3: 0.5354228248
-b6: 0.5286084412
-f6: 0.5259001887
-g5: 0.390625
-a4: 0.2051298368
-a5: 0.1801307019
-g6: 0.0665072272
-f3: 0.039436041
+b6: 0.7
+g3: 0.7
+g2: 0.7
+g5: 0.7
+b5: 0.5822386141000596
+f6: 0.5259001887124403
 ------------------------------------------
 threshold: 0.390625

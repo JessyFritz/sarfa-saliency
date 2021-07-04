@@ -407,6 +407,7 @@ Total Legal Moves : 13
 Q Values: {'e4e3': 0.9, 'e4d3': 0.9, 'f3g5': -4.94, 'f3e5': -6.22, 'f3h4': -19.08, 'f3d4': -14.79, 'f3h2': 1.46, 'f3d2': 1.34, 'f3g1': 1.12, 'f3e1': 2.67, 'h3h4': 1.13, 'b3b4': 0.33, 'a3a4': 0.89}
 perturbed reward Q(s',â): 2.67, original reward Q(s,â): 2.18
 saliency for this square with opponent's pawn: 'saliency': 0, 'dP': -0.0938057595791153, 'K': 0.9632458018251276 
+saliency calculated as max from pawn perturbation for this empty square: 0.0
 ------------------------------------------
 perturbing square = e8
 can not put a pawn on this square - so skipped
@@ -427,6 +428,7 @@ Total Legal Moves : 13
 Q Values: {'e4e3': 0.86, 'e4d3': 0.88, 'f3g5': -4.94, 'f3e5': -6.22, 'f3h4': -19.08, 'f3d4': -14.79, 'f3h2': 1.41, 'f3d2': 1.39, 'f3g1': 1.14, 'f3e1': 2.79, 'h3h4': 1.05, 'b3b4': 0.35, 'a3a4': 0.89}
 perturbed reward Q(s',â): 2.79, original reward Q(s,â): 2.18
 saliency for this square with opponent's pawn: 'saliency': 0, 'dP': -0.12584975105847218, 'K': 0.9648411396547204 
+saliency calculated as max from pawn perturbation for this empty square: 0.0
 ------------------------------------------
 perturbing square = f3
 not pseudo legal
@@ -677,24 +679,14 @@ f7: max: 0.1072003818, colour player: 0.1072003818, colour opponent: 0.107200381
 g2: max: 0.1072003818, colour player: 0.1072003818, colour opponent: 0.1072003818
 g3: max: 0.1072003818, colour player: 0.1072003818, colour opponent: 0.1072003818
 h2: max: 0.0830011311, colour player: 0.0830011311, colour opponent: 0.0773305028
-a2: max: 0.0331602952, colour player: 0, colour opponent: 0.0331602952
+a2: max: 0.0331602952, colour player: 0.0, colour opponent: 0.0331602952
 displaying top empty squares:
-['b4', 'b5', 'b6']
+['e1', 'b4', 'b5', 'b6']
 Printing positive saliencies in order: 
 f3: 1
-b4: 0.7054567473
-b5: 0.6985570869
-b6: 0.6983411053
-e1: 0.390625
-b3: 0.3228025591
-c4: 0.3005501124
-h3: 0.2463645794
-a3: 0.2139832471
-c5: 0.1403308175
-g5: 0.1272261222
-a5: 0.1130481069
-h6: 0.1064812504
-g7: 0.0772350682
-g4: 0.0617010779
+b6: 0.7
+b5: 0.7
+b4: 0.7
+e1: 0.7
 ------------------------------------------
 threshold: 0.390625

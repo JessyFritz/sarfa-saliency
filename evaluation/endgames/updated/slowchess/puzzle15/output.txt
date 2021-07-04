@@ -84,6 +84,7 @@ Total Legal Moves : 20
 Q Values: {'d3e5': 0, 'd3b4': 0, 'd3f2': 0, 'd3b2': 0, 'd3e1': 0, 'd3c1': 0, 'e2f3': 0, 'e2f2': 0, 'e2d2': 0, 'e2f1': 0, 'e2e1': 0, 'e2d1': 0, 'c5c6': 0, 'g4g5': 6.19, 'f4f5': 0, 'e3e4': 0, 'h2h3': 0, 'a2a3': 0, 'h2h4': 0, 'a2a4': 0}
 perturbed reward Q(s',â): 6.19, original reward Q(s,â): 0.3
 saliency for this square with opponent's pawn: 'saliency': 0, 'dP': -0.8961806878203743, 'K': 1.0 
+saliency calculated as max from pawn perturbation for this empty square: 0.0
 ------------------------------------------
 perturbing square = a8
 can not put a pawn on this square - so skipped
@@ -104,6 +105,7 @@ Total Legal Moves : 20
 Q Values: {'d3e5': 0, 'd3b4': 0, 'd3f2': 0, 'd3b2': 0, 'd3e1': 0, 'd3c1': 0, 'e2f3': 0, 'e2f2': 0, 'e2d2': 0, 'e2f1': 0, 'e2e1': 0, 'e2d1': 0, 'c5c6': 0, 'g4g5': 6.26, 'f4f5': 0, 'e3e4': 0, 'h2h3': 0, 'a2a3': 0, 'h2h4': 0, 'a2a4': 0}
 perturbed reward Q(s',â): 6.26, original reward Q(s,â): 0.3
 saliency for this square with opponent's pawn: 'saliency': 0, 'dP': -0.8986262159209455, 'K': 1.0 
+saliency calculated as max from pawn perturbation for this empty square: 0.0
 ------------------------------------------
 perturbing square = b3
 square is empty, so put a pawn from player's color here
@@ -118,6 +120,7 @@ Total Legal Moves : 20
 Q Values: {'d3e5': 0, 'd3b4': 0, 'd3f2': 0, 'd3b2': 0, 'd3e1': 0, 'd3c1': 0, 'e2f3': 0, 'e2f2': 0, 'e2d2': 0, 'e2f1': 0, 'e2e1': 0, 'e2d1': 0, 'c5c6': 0, 'g4g5': 6.22, 'f4f5': 0, 'e3e4': 0, 'h2h3': 0, 'a2a3': 0, 'h2h4': 0, 'a2a4': 0}
 perturbed reward Q(s',â): 6.22, original reward Q(s,â): 0.3
 saliency for this square with opponent's pawn: 'saliency': 0, 'dP': -0.8972482391360892, 'K': 1.0 
+saliency calculated as max from pawn perturbation for this empty square: 0.0
 ------------------------------------------
 perturbing square = b4
 square is empty, so put a pawn from player's color here
@@ -132,6 +135,7 @@ Total Legal Moves : 20
 Q Values: {'d3e5': 0, 'd3b4': 0, 'd3f2': 0, 'd3b2': 0, 'd3e1': 0, 'd3c1': 0, 'e2f3': 0, 'e2f2': 0, 'e2d2': 0, 'e2f1': 0, 'e2e1': 0, 'e2d1': 0, 'c5c6': 0, 'g4g5': 6.73, 'f4f5': 0, 'e3e4': 0, 'h2h3': 0, 'a2a3': 0, 'h2h4': 0, 'a2a4': 0}
 perturbed reward Q(s',â): 6.73, original reward Q(s,â): 0.3
 saliency for this square with opponent's pawn: 'saliency': 0, 'dP': -0.9114749679330069, 'K': 1.0 
+saliency calculated as max from pawn perturbation for this empty square: 0.0
 ------------------------------------------
 perturbing square = b5
 querying engine with perturbed position
@@ -630,9 +634,9 @@ gained new board control over:
 {'f6': 0.4865986119736988}
 considered salient:
 d7: max: 0.1032550476, colour player: 0.1030110587, colour opponent: 0.1032550476
-b6: max: 0.1024537241, colour player: 0, colour opponent: 0.1024537241
+b6: max: 0.1024537241, colour player: 0.0, colour opponent: 0.1024537241
 b7: max: 0.1020464717, colour player: 0.1020464717, colour opponent: 0.1015064751
-d6: max: 0.1020347401, colour player: 0, colour opponent: 0.1020347401
+d6: max: 0.1020347401, colour player: 0.0224374693, colour opponent: 0.1020347401
 g7: max: 0.1014432211, colour player: 0.1014432211, colour opponent: 0.0981753856
 f7: max: 0.1009365275, colour player: 0.095973612, colour opponent: 0.1009365275
 g2: max: 0.1009365275, colour player: 0.1009365275, colour opponent: 0.0954530793
@@ -655,24 +659,13 @@ c6: max: 0.0222333293, colour player: 0.0222333293, colour opponent: 0.021999503
 a4: max: 0.021839032, colour player: 0.0216305264, colour opponent: 0.021839032
 a3: max: 0.0153691565, colour player: 0.0153691565, colour opponent: 0.0152744501
 displaying top empty squares:
-['d7', 'b6', 'b7']
+['g5', 'd7', 'b6', 'b7']
 Printing positive saliencies in order: 
 g4: 1
-d7: 0.4938800476
-b6: 0.4930787241
-b7: 0.4926714717
-f6: 0.486598612
-g5: 0.390625
-g6: 0.1006422309
-e6: 0.0986812008
-d5: 0.0965660659
-h7: 0.0900580382
-b8: 0.0888744339
-d4: 0.0277632669
-e3: 0.0223934178
-f4: 0.0220883599
-c5: 0.0220728232
-h2: 0.0174280348
-a2: 0.0156177132
+b7: 0.7
+b6: 0.7
+d7: 0.7
+g5: 0.7
+f6: 0.4865986119736988
 ------------------------------------------
 threshold: 0.390625

@@ -319,6 +319,7 @@ Total Legal Moves : 20
 Q Values: {'c6d7': 0, 'c6d5': 0, 'c6b5': 0, 'e5f6': -7.93, 'e5e6': -6.98, 'e5f5': -7.32, 'e5f4': -7.15, 'h3h4': -14.78, 'h3g3': -52.28, 'h3f3': -7.81, 'h3e3': -52.28, 'h3d3': -11.55, 'h3c3': -59.07, 'h3b3': -6.16, 'h3a3': -23.83, 'h3h2': -8.99, 'h3h1': -8.93, 'b7b6': -67.62, 'e4e3': -8.03, 'b7b5': -13.48}
 perturbed reward Q(s',â): 0, original reward Q(s,â): 3.31
 saliency for this square with opponent's pawn: 'saliency': 0, 'dP': -0.05919146575554107, 'K': 0.1527383332741066 
+saliency calculated as max from pawn perturbation for this empty square: 0.0
 ------------------------------------------
 perturbing square = d8
 querying engine with perturbed position
@@ -654,7 +655,7 @@ b6: max: 0.3338226356, colour player: 0.3338226356, colour opponent: 0.331159850
 b4: max: 0.3333276439, colour player: 0.3333276439, colour opponent: 0.3103871205
 b3: max: 0.3310534554, colour player: 0.3310534554, colour opponent: 0.3239884133
 b5: max: 0.3215746367, colour player: 0.2984205055, colour opponent: 0.3215746367
-f3: max: 0.3082977967, colour player: 0, colour opponent: 0.3082977967
+f3: max: 0.3082977967, colour player: 0.291125021, colour opponent: 0.3082977967
 a7: max: 0.2981382138, colour player: 0.2855217895, colour opponent: 0.2981382138
 h6: max: 0.2979977123, colour player: 0.2979977123, colour opponent: 0.2852876644
 h7: max: 0.2955675428, colour player: 0.2947983786, colour opponent: 0.2955675428
@@ -680,24 +681,14 @@ h2: max: 0.0469347542, colour player: 0.0452429652, colour opponent: 0.046934754
 c7: max: 0.0418647737, colour player: 0.0418647737, colour opponent: 0.0414695961
 d6: max: 0.0415709223, colour player: 0.0412560101, colour opponent: 0.0415709223
 d2: max: 0.0410999678, colour player: 0.0410862399, colour opponent: 0.0410999678
-d3: max: 0.0408810792, colour player: 0, colour opponent: 0.0408810792
+d3: max: 0.0410862399, colour player: 0.0410862399, colour opponent: 0.0408810792
 displaying top empty squares:
-['b6', 'b4', 'b3']
+['d5', 'b6', 'b4', 'b3']
 Printing positive saliencies in order: 
 c6: 1
-b6: 0.7244476356
-b4: 0.7239526439
-b3: 0.7216784554
-d5: 0.390625
-d8: 0.3574626438
-h4: 0.3364157354
-b2: 0.3318675297
-f2: 0.3177998729
-a3: 0.3122730318
-h5: 0.2987514778
-a4: 0.2983231092
-e4: 0.2797034647
-h3: 0.2574651354
-b7: 0.2314061241
+b3: 0.7
+b4: 0.7
+b6: 0.7
+d5: 0.7
 ------------------------------------------
 threshold: 0.390625

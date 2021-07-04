@@ -31,6 +31,7 @@ Total Legal Moves : 17
 Q Values: {'e5f7': -6.43, 'e5d7': -1.96, 'e5g6': -5.97, 'e5c6': -1.32, 'e5c4': -1.83, 'e5d3': -1.82, 'f2g3': -1.41, 'f2g2': -1.96, 'f2g1': -1.99, 'f2f1': -1.6, 'f2e1': -1.33, 'h4h5': -2.04, 'g4g5': -1.12, 'f3f4': -2.36, 'b3b4': -3.42, 'e2e3': -1.65, 'e2e4': -1.51}
 perturbed reward Q(s',â): -1.12, original reward Q(s,â): 0.63
 saliency for this square with opponent's pawn: 'saliency': 0, 'dP': -0.023403437259233315, 'K': 0.9377755694629506 
+saliency calculated as max from pawn perturbation for this empty square: 0.01946143554279791
 ------------------------------------------
 perturbing square = a4
 square is empty, so put a pawn from player's color here
@@ -127,6 +128,7 @@ Total Legal Moves : 18
 Q Values: {'e5f7': -6.52, 'e5d7': -2.57, 'e5g6': -6.83, 'e5c6': -1.31, 'e5c4': -1.73, 'e5d3': -1.65, 'f2g3': -2.69, 'f2g2': -2.71, 'f2g1': -2.53, 'f2f1': -2.1, 'f2e1': -1.38, 'h4h5': -2.23, 'g4g5': -1.17, 'f3f4': -1.97, 'e2e3': -1.56, 'a2a3': -1.48, 'e2e4': -1.65, 'a2a4': -1.61}
 perturbed reward Q(s',â): -1.17, original reward Q(s,â): 0.63
 saliency for this square with opponent's pawn: 'saliency': 0, 'dP': -0.018638231928738383, 'K': 0.9532461647693641 
+saliency calculated as max from pawn perturbation for this empty square: 0.0
 ------------------------------------------
 perturbing square = b5
 square is empty, so put a pawn from player's color here
@@ -506,6 +508,7 @@ Total Legal Moves : 18
 Q Values: {'e5f7': -4.0, 'e5d7': 1.68, 'e5g6': -2.14, 'e5c6': 2.92, 'e5c4': 1.82, 'e5d3': 1.97, 'f2g3': 1.07, 'f2g2': 1.29, 'f2g1': 0.91, 'f2e1': 1.84, 'h4h5': 1.03, 'g4g5': 2.92, 'f3f4': 1.56, 'b3b4': 0.65, 'e2e3': 2.2, 'a2a3': 1.88, 'e2e4': 2.47, 'a2a4': 2.07}
 perturbed reward Q(s',â): 2.92, original reward Q(s,â): 0.63
 saliency for this square with opponent's pawn: 'saliency': 0, 'dP': -0.06316702495489217, 'K': 0.9524498304624003 
+saliency calculated as max from pawn perturbation for this empty square: 0.0
 ------------------------------------------
 perturbing square = g3
 square is empty, so put a pawn from player's color here
@@ -632,11 +635,11 @@ h3: max: 0.1240506241, colour player: 0.1092304311, colour opponent: 0.124050624
 h2: max: 0.1222982024, colour player: 0.1190486167, colour opponent: 0.1222982024
 h5: max: 0.117318667, colour player: 0.0986337485, colour opponent: 0.117318667
 f5: max: 0.0911617634, colour player: 0.0911617634, colour opponent: 0.0750710056
+f6: max: 0.0911617634, colour player: 0.0911617634, colour opponent: 0.0851978837
 b2: max: 0.0870466305, colour player: 0.0790974122, colour opponent: 0.0870466305
-f6: max: 0.0851978837, colour player: 0, colour opponent: 0.0851978837
 a6: max: 0.0828992921, colour player: 0.0828992921, colour opponent: 0.0584490897
 e4: max: 0.0799894184, colour player: 0.0799894184, colour opponent: 0.0658388223
-c6: max: 0.0783183973, colour player: 0, colour opponent: 0.0783183973
+c6: max: 0.0783183973, colour player: 0.0, colour opponent: 0.0783183973
 b7: max: 0.076424018, colour player: 0.0737172606, colour opponent: 0.076424018
 c7: max: 0.0738349459, colour player: 0.0738349459, colour opponent: 0.0579707544
 f4: max: 0.0687552206, colour player: 0.0687552206, colour opponent: 0.0595232328
@@ -652,25 +655,16 @@ c3: max: 0.0422038794, colour player: 0.0422038794, colour opponent: 0.027755662
 d2: max: 0.0419572009, colour player: 0.0241083668, colour opponent: 0.0419572009
 d7: max: 0.04181683, colour player: 0.0170129745, colour opponent: 0.04181683
 a4: max: 0.0333985324, colour player: 0.0311971667, colour opponent: 0.0333985324
-d6: max: 0.002454215, colour player: 0, colour opponent: 0.002454215
+a3: max: 0.0194614355, colour player: 0.0194614355, colour opponent: 0.0
+d6: max: 0.002454215, colour player: 0.0, colour opponent: 0.002454215
 displaying top empty squares:
-['e6', 'h3', 'h2']
+['g5', 'e6', 'h3', 'h2']
 Printing positive saliencies in order: 
 g4: 1
-e6: 0.525393669
-h3: 0.5146756241
-h2: 0.5129232024
-h6: 0.4354625906
-g5: 0.390625
-g6: 0.1075884972
-h4: 0.0941941322
-b6: 0.0707993742
-a7: 0.0632181875
-f3: 0.0565854302
-e7: 0.0556211642
-d5: 0.0392020403
-e2: 0.0374982329
-b3: 0.0078005416
-a2: 0.0011006596
+h2: 0.7
+h3: 0.7
+e6: 0.7
+g5: 0.7
+h6: 0.4354625906398317
 ------------------------------------------
 threshold: 0.390625

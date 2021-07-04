@@ -340,6 +340,7 @@ Total Legal Moves : 35
 Q Values: {'g8h8': -2.63, 'g8f8': -2.34, 'g8g7': -2.18, 'c8f8': -2.53, 'c8e8': -2.64, 'c8d8': -8.05, 'c8b8': -2.7, 'c8a8': -1.09, 'c8c7': -2.25, 'c8c6': -2.36, 'c8c5': -8.15, 'c8c4': -7.92, 'c8c3': -2.46, 'c8c2': -1.5, 'c8c1': -8.15, 'b4b8': -2.46, 'b4b7': -2.33, 'b4b6': -2.33, 'b4b5': -8.09, 'b4h4': -8.09, 'b4g4': -2.83, 'b4f4': -8.04, 'b4e4': -1.52, 'b4d4': -8.01, 'b4c4': -7.85, 'b4a4': -7.78, 'b4b3': -7.46, 'h7h6': -2.3, 'f7f6': -2.5, 'e7e6': -2.36, 'g6g5': -3.23, 'a5a4': -0.46, 'h7h5': -2.43, 'f7f5': -2.53, 'e7e5': -2.66}
 perturbed reward Q(s',â): -0.46, original reward Q(s,â): 0.93
 saliency for this square with opponent's pawn: 'saliency': 0, 'dP': -0.008202562273257191, 'K': 0.5677795408644136 
+saliency calculated as max from pawn perturbation for this empty square: 0.022411190310615184
 ------------------------------------------
 perturbing square = d8
 can not put a pawn on this square - so skipped
@@ -709,27 +710,15 @@ e4: max: 0.0624916991, colour player: 0.0624916991, colour opponent: 0.047247807
 a7: max: 0.0611293839, colour player: 0.052222512, colour opponent: 0.0611293839
 a6: max: 0.0598491885, colour player: 0.0518494539, colour opponent: 0.0598491885
 e6: max: 0.0525210874, colour player: 0.0211183744, colour opponent: 0.0525210874
+d7: max: 0.0224111903, colour player: 0.0224111903, colour opponent: 0.0
 displaying top empty squares:
-['a3', 'd4', 'd2']
+['a4', 'a3', 'd4', 'd2']
 Printing positive saliencies in order: 
 a5: 1
-a3: 0.6783968839
-b4: 0.6668454655
-d4: 0.6062026612
-d2: 0.5956322506
-a4: 0.390625
-a2: 0.291464458
-d5: 0.2651624544
-a1: 0.248844447
-b3: 0.2107866356
-c8: 0.1573899228
-f2: 0.1561840729
-e7: 0.1194056193
-g3: 0.0910126471
-h7: 0.0742443317
-e2: 0.0621227118
-f7: 0.0619776645
-h2: 0.0511195111
-g6: 0.0459029138
+d2: 0.7
+d4: 0.7
+a3: 0.7
+a4: 0.7
+b4: 0.6668454654515865
 ------------------------------------------
 threshold: 0.390625

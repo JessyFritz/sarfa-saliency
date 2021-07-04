@@ -85,6 +85,7 @@ Total Legal Moves : 24
 Q Values: {'d8h8': 6.01, 'd8g8': 6.65, 'd8f8': 6.4, 'd8e8': 6.73, 'd8c8': 6.01, 'd8b8': 6.4, 'd8a8': 7.01, 'd8d7': 6.54, 'd8d6': 6.74, 'd8d5': 6.7, 'd8d4': -2.65, 'd8d3': 7.11, 'd8d2': 9.41, 'd8d1': 8.34, 'g6g7': 6.3, 'g6f7': 6.25, 'g6h6': 6.64, 'g6f6': 7.28, 'g6h5': 8.17, 'g6g5': 9.18, 'h7h6': 5.99, 'f5f4': 10.27, 'e4e3': 6.29, 'h7h5': 6.36}
 perturbed reward Q(s',â): 9.41, original reward Q(s,â): -0.62
 saliency for this square with opponent's pawn: 'saliency': 0, 'dP': -0.07308831665630224, 'K': 0.542666443934072 
+saliency calculated as max from pawn perturbation for this empty square: 0.0
 ------------------------------------------
 perturbing square = a8
 can not put a pawn on this square - so skipped
@@ -453,6 +454,7 @@ Total Legal Moves : 22
 Q Values: {'d8h8': 0.0, 'd8g8': 0.0, 'd8f8': 0.0, 'd8e8': 0.0, 'd8c8': 0.0, 'd8b8': 0.83, 'd8a8': -10.11, 'd8d7': 0.64, 'd8d6': 1.02, 'd8d5': 0.42, 'd8d4': -14.36, 'd8d3': 0.71, 'd8d2': 1.6, 'd8d1': 1.38, 'g6g7': 0.0, 'g6f7': 0.0, 'g6h6': 0.69, 'g6f6': 0.6, 'g6h5': 1.39, 'h7h6': 0.27, 'e4e3': 2.1, 'h7h5': 0.89}
 perturbed reward Q(s',â): 1.6, original reward Q(s,â): -0.62
 saliency for this square with opponent's pawn: 'saliency': 0, 'dP': -0.00977595076966814, 'K': 0.8566266002691347 
+saliency calculated as max from pawn perturbation for this empty square: 0.012227557769021173
 ------------------------------------------
 perturbing square = f5
 querying engine with perturbed position
@@ -676,7 +678,7 @@ e7: max: 0.1450270248, colour player: 0.1450270248, colour opponent: 0.141869686
 e6: max: 0.1413749165, colour player: 0.1413749165, colour opponent: 0.1413130686
 e5: max: 0.1376310731, colour player: 0.1376310731, colour opponent: 0.1374550378
 f7: max: 0.1225325924, colour player: 0.1165405196, colour opponent: 0.1225325924
-g2: max: 0.1191205494, colour player: 0, colour opponent: 0.1191205494
+g2: max: 0.1191205494, colour player: 0.1165405196, colour opponent: 0.1191205494
 g4: max: 0.118597958, colour player: 0.118597958, colour opponent: 0.1157334749
 g3: max: 0.117997098, colour player: 0.117997098, colour opponent: 0.1168815521
 g7: max: 0.1175528334, colour player: 0.115445578, colour opponent: 0.1175528334
@@ -691,6 +693,7 @@ b7: max: 0.0831218777, colour player: 0.0831218777, colour opponent: 0.079584370
 c2: max: 0.0792593341, colour player: 0.0792593341, colour opponent: 0.0790743603
 c6: max: 0.0785364615, colour player: 0.0785364615, colour opponent: 0.0755552077
 c7: max: 0.0778591648, colour player: 0.0778591648, colour opponent: 0.0767608716
+e2: max: 0.0778591648, colour player: 0.0778591648, colour opponent: 0.0345435889
 c5: max: 0.0777126508, colour player: 0.0776487313, colour opponent: 0.0777126508
 c4: max: 0.0758736975, colour player: 0.0734501792, colour opponent: 0.0758736975
 a4: max: 0.0723603299, colour player: 0.0702392127, colour opponent: 0.0723603299
@@ -699,28 +702,20 @@ a5: max: 0.0681774862, colour player: 0.0657718162, colour opponent: 0.068177486
 a3: max: 0.0653249978, colour player: 0.0563561034, colour opponent: 0.0653249978
 f3: max: 0.0374921312, colour player: 0.0374921312, colour opponent: 0.0293884251
 e3: max: 0.0349052841, colour player: 0.0349052841, colour opponent: 0.0349052841
-e2: max: 0.0345435889, colour player: 0, colour opponent: 0.0345435889
+f4: max: 0.0122275578, colour player: 0.0122275578, colour opponent: 0.0
 displaying top empty squares:
-['e7', 'e6', 'e5']
+['d6', 'd7', 'd5', 'd4', 'd3', 'd2', 'e7', 'e6', 'e5']
 Printing positive saliencies in order: 
-b6: 1
 d8: 1
-e7: 0.5356520248
-e6: 0.5319999165
-e5: 0.5282560731
-d2: 0.390625
-d3: 0.390625
-d4: 0.390625
-d5: 0.390625
-d6: 0.390625
-d7: 0.390625
-e4: 0.1069685895
-b2: 0.0892236347
-h2: 0.0815444876
-a2: 0.0677611438
-c3: 0.0672618377
-f5: 0.0441982299
-f2: 0.0381976095
-h7: 0.0024545609
+b6: 1
+e5: 0.7
+e6: 0.7
+e7: 0.7
+d7: 0.7
+d6: 0.7
+d5: 0.7
+d4: 0.7
+d3: 0.7
+d2: 0.7
 ------------------------------------------
 threshold: 0.390625

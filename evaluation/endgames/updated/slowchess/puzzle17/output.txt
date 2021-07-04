@@ -428,6 +428,7 @@ Total Legal Moves : 13
 Q Values: {'e4e3': 0, 'e4d3': 0, 'f3g5': 0, 'f3e5': 0, 'f3h4': 0, 'f3d4': 0, 'f3h2': 0, 'f3d2': 0, 'f3g1': 0, 'f3e1': 3.94, 'h3h4': 0, 'b3b4': 0, 'a3a4': 0}
 perturbed reward Q(s',â): 3.94, original reward Q(s,â): 2.86
 saliency for this square with opponent's pawn: 'saliency': 0, 'dP': -0.21809193240606495, 'K': 1.0 
+saliency calculated as max from pawn perturbation for this empty square: 0.05685522559730784
 ------------------------------------------
 perturbing square = f3
 not pseudo legal
@@ -549,6 +550,7 @@ Total Legal Moves : 13
 Q Values: {'e4e3': 0, 'e4d3': 0, 'f3g5': 0, 'f3e5': 0, 'f3h4': 0, 'f3d4': 0, 'f3h2': 0, 'f3d2': 0, 'f3g1': 0, 'f3e1': 11.98, 'h3h4': 0, 'b3b4': 0, 'a3a4': 0}
 perturbed reward Q(s',â): 11.98, original reward Q(s,â): 2.86
 saliency for this square with opponent's pawn: 'saliency': 0, 'dP': -0.4072356499488877, 'K': 1.0 
+saliency calculated as max from pawn perturbation for this empty square: 0.0
 ------------------------------------------
 perturbing square = g7
 querying engine with perturbed position
@@ -678,23 +680,19 @@ d2: max: 0.1606553843, colour player: 0.1597875325, colour opponent: 0.160655384
 d6: max: 0.1593646065, colour player: 0.1489222575, colour opponent: 0.1593646065
 e2: max: 0.15878472, colour player: 0.15878472, colour opponent: 0.1553921191
 h2: max: 0.0746059547, colour player: 0.0746059547, colour opponent: 0.0605880339
+f2: max: 0.0568552256, colour player: 0.0568552256, colour opponent: 0.0
 displaying top empty squares:
-['h5', 'a4', 'h4']
+['e1', 'h5', 'a4', 'h4']
 Printing positive saliencies in order: 
-h5: 1.0712110112
-a4: 1.0657330136
-h4: 1.0656755401
 f3: 1
-g4: 0.6912868244
-a3: 0.6750505401
-h3: 0.6749313867
-c4: 0.5709482993
-b3: 0.4346844998
+g4: 0.6912868243619577
+h5: 0.6805860111939275
+a4: 0.67510801361366
+h4: 0.6750505401498398
+a3: 0.6750505401498398
+h3: 0.6749313867161859
+c4: 0.5709482993236414
+b3: 0.4346844998266954
 e1: 0.390625
-e5: 0.3773921688
-c5: 0.1803033974
-a5: 0.1726016555
-h6: 0.1652799167
-g7: 0.1050936152
 ------------------------------------------
 threshold: 0.4184418012476279

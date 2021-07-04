@@ -46,6 +46,7 @@ Total Legal Moves : 12
 Q Values: {'e4e3': 0.26, 'e4d3': 0.33, 'f3g5': -9.39, 'f3e5': -8.63, 'f3h4': -17.44, 'f3d4': -20.92, 'f3h2': 0.47, 'f3d2': 0.49, 'f3g1': 0.49, 'f3e1': 0.49, 'h3h4': 0.0, 'b3b4': -9.08}
 perturbed reward Q(s',â): 0.49, original reward Q(s,â): 2.01
 saliency for this square with opponent's pawn: 'saliency': 0, 'dP': -0.020759931570661916, 'K': 0.9429388248402847 
+saliency calculated as max from pawn perturbation for this empty square: 0.0
 ------------------------------------------
 perturbing square = a5
 querying engine with perturbed position
@@ -601,6 +602,7 @@ Total Legal Moves : 12
 Q Values: {'e4e3': 0.0, 'e4d3': 0.0, 'f3g5': -8.59, 'f3e5': -9.47, 'f3h4': -24.06, 'f3d4': -15.97, 'f3h2': 0.0, 'f3d2': 0.0, 'f3g1': 0.0, 'f3e1': 0.0, 'b3b4': -3.94, 'a3a4': 0.0}
 perturbed reward Q(s',â): 0.0, original reward Q(s,â): 2.01
 saliency for this square with opponent's pawn: 'saliency': 0, 'dP': -0.0029526601919361295, 'K': 0.9740575814406921 
+saliency calculated as max from pawn perturbation for this empty square: 0.0
 ------------------------------------------
 perturbing square = h5
 square is empty, so put a pawn from player's color here
@@ -666,7 +668,7 @@ c3: max: 0.1764991535, colour player: 0.1760567287, colour opponent: 0.176499153
 e7: max: 0.1706995501, colour player: 0.1671597442, colour opponent: 0.1706995501
 h7: max: 0.1678982945, colour player: 0.1678982945, colour opponent: 0.163986551
 f2: max: 0.1320617773, colour player: 0.1320617773, colour opponent: 0.1233392473
-a6: max: 0.0904520675, colour player: 0, colour opponent: 0.0904520675
+a6: max: 0.0904520675, colour player: 0.0, colour opponent: 0.0904520675
 b2: max: 0.0876339688, colour player: 0.0876339688, colour opponent: 0.0761645123
 h2: max: 0.081492974, colour player: 0.081492974, colour opponent: 0.0655536398
 g6: max: 0.0733663061, colour player: 0.0733663061, colour opponent: 0.0187904972
@@ -675,25 +677,16 @@ h5: max: 0.0293876227, colour player: 0.0293702792, colour opponent: 0.029387622
 f4: max: 0.0267358797, colour player: 0.0266308809, colour opponent: 0.0267358797
 f6: max: 0.0265043574, colour player: 0.0265043574, colour opponent: 0.0256961556
 f7: max: 0.0263735468, colour player: 0.0263735468, colour opponent: 0.0253682542
-a2: max: 0.0262632313, colour player: 0, colour opponent: 0.0262632313
+a2: max: 0.0262632313, colour player: 0.0, colour opponent: 0.0262632313
 g2: max: 0.0260255439, colour player: 0.0260255439, colour opponent: 0.0257821039
 g3: max: 0.0257882261, colour player: 0.0252287692, colour opponent: 0.0257882261
 displaying top empty squares:
-['d2', 'd4', 'e3']
+['g1', 'd2', 'd4', 'e3']
 Printing positive saliencies in order: 
 f3: 1
-d2: 0.5725341167
-d4: 0.5722844038
-e3: 0.5717834784
-g1: 0.390625
-c4: 0.1883915435
-c5: 0.181972054
-b3: 0.1771174501
-h6: 0.1641872552
-g5: 0.1436630146
-g4: 0.1324287344
-g7: 0.0754354956
-a5: 0.0601739042
-e5: 0.0191805102
+e3: 0.7
+d4: 0.7
+d2: 0.7
+g1: 0.7
 ------------------------------------------
 threshold: 0.390625
