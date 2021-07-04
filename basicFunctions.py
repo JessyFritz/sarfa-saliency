@@ -47,8 +47,7 @@ def generate_heatmap(board, evaluation, bestmove, directory, puzzle, file):
     heatmap = np.flipud(heatmap)
 
     # Saliency map overlaid on board
-    svg = svg_custom.board(board, arrows=[
-        svg_custom.Arrow(tail=bestmove.from_square, head=bestmove.to_square, color='#e6e600')])
+    svg = svg_custom.board(board, arrows=[svg_custom.Arrow(tail=bestmove.from_square, head=bestmove.to_square, color='#e6e600')])
 
     with open('svg_custom/board.svg', 'w+') as f:
         f.write(svg)
@@ -76,7 +75,6 @@ def generate_heatmap(board, evaluation, bestmove, directory, puzzle, file):
                     board_array[box_i, box_j, 0] = 256 - 0.8 * 256 * heatmap[i, j] / (np.max(heatmap) + 1e-10)
                     board_array[box_i, box_j, 1] = 256 - 0.84 * 256 * heatmap[i, j] / (np.max(heatmap) + 1e-10)
                     board_array[box_i, box_j, 2] = 256 - 0.19 * 256 * heatmap[i, j] / (np.max(heatmap) + 1e-10)
-
     cv2.imwrite(path, board_array)
 
 
@@ -117,25 +115,26 @@ def raiseSaliency(answer, saliencySquares, num, file):
         file : output file
     """
 
-    sortedKeys = sorted(saliencySquares, key=lambda x: saliencySquares[x]['sal'], reverse=True)[:num]
+    sortedKeys = sorted(saliencySquares, key=lambda x: saliencySquares[x]['sal'], reverse=True)
+    if len(sortedKeys) > num:
+        sortedKeys = sortedKeys[0:num]
     th = (100 / 256)
-    i = 0
+
     for key in saliencySquares:
-        if sortedKeys.__contains__(key) and saliencySquares[key]['sal'] > th:
-            i += 1
-    if i >= num: # don't increase saliency
-        for key in saliencySquares:
-            if sortedKeys.__contains__(key):
-                answer[key]['saliency'] = saliencySquares[key]['sal']
-            else:
-                answer[key]['saliency'] = 0
-    else:
-        for key in saliencySquares:
-            if sortedKeys.__contains__(key) and saliencySquares[key]['sal'] > 0:
-                if saliencySquares[key]['sal'] + th < 1:
-                    answer[key]['saliency'] = saliencySquares[key]['sal'] + th
-            else:
-                answer[key]['saliency'] = 0
+        if sortedKeys.__contains__(key):
+            answer[key]['saliency'] = saliencySquares[key]['sal']
+        else:
+            answer[key]['saliency'] = 0
+
+    minSal = 1
+    for key in sortedKeys:
+        if float(saliencySquares[key]['sal']) < minSal:
+            minSal = float(saliencySquares[key]['sal'])
+    if minSal < th:  # increase saliency
+        for key in sortedKeys:
+            answer[key]['saliency'] = float(answer[key]['saliency']) + (th - minSal)
+            if answer[key]['saliency'] > 1:
+                answer[key]['saliency'] = 1
     file.write("{}\n".format(sortedKeys))
 
 
@@ -149,8 +148,13 @@ def printSaliency(answer, saliencySquares, file):
     """
 
     sortedKeys = sorted(saliencySquares, key=lambda x: saliencySquares[x]['sal'], reverse=True)
-    for squarestring in sortedKeys:
-        file.write("{}: max: {}, colour player: {}, colour opponent: {}\n".format(squarestring, round(answer[squarestring]['saliency'],10), round(saliencySquares[squarestring]['sal1'],10), round(saliencySquares[squarestring]['sal2'],10)))
+    if float(answer[sortedKeys[0]]['saliency']) > 0:
+        for squarestring in sortedKeys:
+            if float(answer[squarestring]['saliency']) <= 0:
+                break
+            file.write("{}: max: {}, colour player: {}, colour opponent: {}\n".format(squarestring, answer[squarestring]['saliency'], saliencySquares[squarestring]['sal1'], saliencySquares[squarestring]['sal2']))
+    else:
+        file.write("None\n")
 
 
 def get_moves_squares(board, moveFrom, moveTo):
