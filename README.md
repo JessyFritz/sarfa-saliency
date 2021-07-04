@@ -1,13 +1,13 @@
 # Interpreting Chess Evaluation Functions
 
 ### SARFA
-Link to the original SARFA paper - [SARFA paper](https://arxiv.org/abs/1912.12191) 
+Link to the original SARFA paper - [SARFA paper](https://arxiv.org/abs/1912.12191)
 
 Link to the SARFA project https://github.com/nikaashpuri/sarfa-saliency
 
 ### My Contributions
-All executions and evaluations can be called from the [databaseHandler](databaseHandler.py).
-1. [Original SARFA implementation](chess_saliency_original.py) evaluation on Windows with 
+All executions and evaluations can be called from the [main.py](main.py).
+1. [Original SARFA implementation](chess_saliency_original.py) evaluation on Windows with
    - different chess engines (see [engines](engines) folder)
      - Fruit 2.2.1
      - Komodo 12.1.1
@@ -24,10 +24,10 @@ All executions and evaluations can be called from the [databaseHandler](database
        positions in PGN notation can be found [here](chess_saliency_databases\endgames\endgames.pgn)  
        engines' executed puzzles can be found [here](evaluation\endgames)
 2. Improvement suggestions
-   - increasing saliency based on Δp and K  
-     implemented in [chess_saliency_combination.py](chess_saliency_combination.py)
    - introducing chess specific cases  
      implemented in [chess_saliency_chessSpecific.py](chess_saliency_chessSpecific.py)
+   - increasing saliency based on Δp and K  
+     implemented in [chess_saliency_combination.py](chess_saliency_combination.py)
    - adaptation for Leela  
      implemented in [chess_saliency_leela.py](chess_saliency_leela.py)
 3. Chess Saliency Map Graphical User Interface
