@@ -1300,6 +1300,7 @@ def markEmptySquares(num):
             }
 
             if dirPath == "evaluation/updated":
+                path = "chess_saliency_databases\chess-saliency-dataset-v1.json"
                 with open(path, "r") as jsonFile:
                     database = json.load(jsonFile)
 
@@ -1312,11 +1313,17 @@ def markEmptySquares(num):
                     missing = 0
                 else:
                     for sq in missing:
+                        if sq in evaluation["answer"][puzzleNr]:
+                            sal = evaluation["answer"][puzzleNr][sq]['saliency']
+                        elif sq in above:
+                            sal = above[sq]
+                        elif sq in below:
+                            sal = below[sq]
+                        else:
+                            sal = 0
                         details[sq] = {sq: {
                             "int": answer[sq]["int"],
-                            "saliency": evaluation["answer"][puzzleNr][sq]['saliency'],
-                            "dP": evaluation["answer"][puzzleNr][sq]['dP'],
-                            "K": evaluation["answer"][puzzleNr][sq]['K'],
+                            "saliency": sal
                         }}
 
                 data[puzzleNr] = {
