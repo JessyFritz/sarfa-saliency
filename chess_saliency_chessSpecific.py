@@ -31,12 +31,15 @@ async def return_bestmove(board, eval_time=5, directory='svg_custom', puzzle='bo
         evaluation = await engine.analyse(board, chess.engine.Limit(time=eval_time), multipv=engine.options["MultiPV"].max)
     else:
         evaluation = await engine.analyse(board, chess.engine.Limit(time=eval_time), multipv=100)
-    if "pv" in evaluation[0]:
-        bestmove = evaluation[0]["pv"][0]
-    elif len(evaluation) > 1 and "pv" in evaluation[1]:
-        bestmove = evaluation[1]
-    else:
-        bestmove = evaluation[0]
+    #print(evaluation)
+    i = 0
+    while i < len(evaluation):
+        if evaluation[i].__contains__("pv"):
+            bestmove = evaluation[i]["pv"][0]
+            break
+        i += 1
+        if i == len(evaluation):
+            bestmove = evaluation[0]
     svg_w_arrow = svg_custom.board(board, arrows=[svg_custom.Arrow(tail=bestmove.from_square, head=bestmove.to_square, color='#e6e600')])
     svg_to_png(svg_w_arrow, directory, puzzle)
     return evaluation, bestmove
