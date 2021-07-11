@@ -19,10 +19,10 @@ All executions and evaluations can be called from the [main.py](main.py).
    - different puzzle types (see [databases](chess_saliency_databases) folder)
      - strategic vs tacical positions: Bratko-Kopec Test  
        positions in FEN notation with solution moves and ground truth analysis can be found [here](chess_saliency_databases\bratko-kopec)  
-       engines' executed puzzles can be found [here](tree\master\evaluation\bratko-kopec)
+       engines' executed puzzles can be found [here](https://github.com/JessyFritz/sarfa-saliency/tree/master/evaluation/bratko-kopec)
      - endgames  
-       positions in PGN notation can be found [here](tree\master\chess_saliency_databases\endgames\endgames.pgn)  
-       engines' executed puzzles can be found [here](tree\master\evaluation\endgames)
+       positions in PGN notation can be found [here](https://github.com/JessyFritz/sarfa-saliency/tree/master/chess_saliency_databases/endgames/endgames.pgn)  
+       engines' executed puzzles can be found [here](https://github.com/JessyFritz/sarfa-saliency/tree/master/evaluation/endgames)
 2. Improvement suggestions
    - introducing chess specific cases  
      implemented in [chess_saliency_chessSpecific.py](chess_saliency_chessSpecific.py)
