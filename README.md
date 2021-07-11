@@ -18,7 +18,7 @@ All executions and evaluations can be called from the [main.py](main.py).
      - Stockfish 12  
    - different puzzle types (see [databases](chess_saliency_databases) folder)
      - strategic vs tacical positions: Bratko-Kopec Test  
-       positions in FEN notation with solution moves and ground truth analysis can be found [here](chess_saliency_databases\bratko-kopec)  
+       positions in FEN notation with solution moves and ground truth analysis can be found [here](https://github.com/JessyFritz/sarfa-saliency/tree/master/chess_saliency_databases/bratko-kopec)  
        engines' executed puzzles can be found [here](https://github.com/JessyFritz/sarfa-saliency/tree/master/evaluation/bratko-kopec)
      - endgames  
        positions in PGN notation can be found [here](https://github.com/JessyFritz/sarfa-saliency/tree/master/chess_saliency_databases/endgames/endgames.pgn)  
