@@ -5,15 +5,12 @@ import svg_custom.svg_custom as svg_custom
 import numpy as np
 
 def svg_to_png(img, directory='svg_custom', puzzle='board'):
-    """
-    Converts given svg image to png
-    Input :
-        img : image in .svg format
-        directory : destination folder
-        puzzle : name of puzzle
-    Output :
-        svg_custom/board.png or given directory/puzzle
-    written by SARFA authors
+    """ Converts given svg image to png. Written by SARFA authors.
+
+    :param img: image in .svg format
+    :param directory: destination folder
+    :param puzzle: name of puzzle
+    :return: svg_custom/board.png or given directory/puzzle
     """
 
     with open('svg_custom/board.svg', 'w+') as f:
@@ -22,17 +19,15 @@ def svg_to_png(img, directory='svg_custom', puzzle='board'):
     cairosvg.svg2png(url='svg_custom/board.svg', write_to=path)
 
 
-def generate_heatmap(board, evaluation, bestmove, directory, puzzle, file):
-    """
-    Generates heatmap for saliency evaluation of best move
-    Input :
-        board : chess.Board()
-        evaluation : dictionary with saliency information per square
-        bestmove : original best move (chess.Move())
-        directory : destination folder
-        puzzle : name of puzzle
-        file : output file
-    written by SARFA authors
+def generate_heatmap(board, evaluation, bestmove, directory, puzzle, file=None):
+    """ Generates heatmap for saliency evaluation of best move. Written by SARFA authors.
+
+    :param board: chess.Board()
+    :param evaluation: dictionary with saliency information per square
+    :param bestmove: original best move (chess.Move())
+    :param directory: destination folder
+    :param puzzle: name of puzzle
+    :param file: output file
     """
 
     if file is None:
@@ -78,13 +73,12 @@ def generate_heatmap(board, evaluation, bestmove, directory, puzzle, file):
     cv2.imwrite(path, board_array)
 
 
-def sortbySaliency(answer, number, file):
-    """
-    Sorts a dictionary after their saliency values
-    Input :
-        answer : dictionary
-        number : specifies how many elements should be sorted
-        file : output file
+def sortbySaliency(answer, number, file=None):
+    """ Sorts a dictionary after their saliency values.
+
+    :param answer: dictionary with saliency information per square
+    :param number: specifies how many elements should be sorted
+    :param file: output file
     """
 
     sortedKeys = sorted(answer, key=lambda x: answer[x]['saliency'], reverse=True)
@@ -92,7 +86,8 @@ def sortbySaliency(answer, number, file):
     above = {}
     below = {}
     th = (100 / 256)
-    file.write("Printing positive saliencies in order: \n")
+    if file is not None:
+        file.write("Printing positive saliencies in order: \n")
     for key in sortedKeys:
         if count == number or answer[key]['saliency'] <= 0:
             break
@@ -100,19 +95,19 @@ def sortbySaliency(answer, number, file):
             above[key] = answer[key]['saliency']
         else:
             below[key] = answer[key]['saliency']
-        file.write("{}: {}\n".format(key, round(answer[key]['saliency'], 10)))
+        if file is not None:
+            file.write("{}: {}\n".format(key, answer[key]['saliency']))
         count += 1
     return above, below
 
 
-def raiseSaliency(answer, saliencySquares, num, file):
-    """
-    increases saliency values in first dictionary according to another dictionary
-    Input :
-        answer : dictionary
-        saliencySquares : squares whose salencies should be raised
-        num : specifies how many salencies should be raised
-        file : output file
+def raiseSaliency(answer, saliencySquares, num, file=None):
+    """ Increases saliency values in first dictionary according to given square keys.
+
+    :param answer: dictionary with saliency information per square
+    :param saliencySquares: squares whose salencies should be raised
+    :param num: specifies how many salencies should be raised
+    :param file: output file
     """
 
     sortedKeys = sorted(saliencySquares, key=lambda x: saliencySquares[x]['sal'], reverse=True)
@@ -133,18 +128,18 @@ def raiseSaliency(answer, saliencySquares, num, file):
     if minSal < th:  # increase saliency
         for key in sortedKeys:
             answer[key]['saliency'] = float(answer[key]['saliency']) + (th - minSal)
-            if answer[key]['saliency'] > 1:
-                answer[key]['saliency'] = 1
-    file.write("{}\n".format(sortedKeys))
+            if answer[key]['saliency'] > 0.8:
+                answer[key]['saliency'] = 0.8
+    if file is not None:
+        file.write("{}\n".format(sortedKeys))
 
 
 def printSaliency(answer, saliencySquares, file):
-    """
-    print saliency values in first dictionary according to another dictionary
-    Input :
-        answer : dictionary
-        saliencySquares : squares whose salencies should be printed
-        file : output file
+    """ Prints saliency values in first dictionary according to given square keys.
+
+    :param answer: dictionary with saliency information per square
+    :param saliencySquares: squares whose salencies should be printed
+    :param file: output file
     """
 
     sortedKeys = sorted(saliencySquares, key=lambda x: saliencySquares[x]['sal'], reverse=True)
@@ -158,12 +153,11 @@ def printSaliency(answer, saliencySquares, file):
 
 
 def get_moves_squares(board, moveFrom, moveTo):
-    """
-    define all squares included in a given best move
-    Input :
-        board : chess.Board()
-        moveFrom : move starting position
-        moveTo : move ending position
+    """ Defines all squares included in a given best move.
+
+    :param board: chess.Board()
+    :param moveFrom: move starting position
+    :param moveTo: move ending position
     """
 
     original_move_Squares = {chess.SQUARE_NAMES[moveTo]}

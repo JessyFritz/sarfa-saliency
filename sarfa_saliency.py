@@ -9,21 +9,26 @@ from scipy.stats import entropy
 
 
 def your_softmax(x):
-    """Compute softmax values for each sets of scores in x."""
+    """ Compute softmax values for each sets of scores in x. Written by SARFA authors.
+
+    :param x: score set
+    """
+
     e_x = np.exp(x - np.max(x))
     return e_x / e_x.sum()
 
 
 def cross_entropy(dictP, dictQ, original_action):
-    """
-    This function calculates normalized cross entropy (KL divergence) of Q-values of state Q wrt state P.
-    Input :
-        dictP : Q-value dictionary of perturbed state
-        dictQ : Q-value dictionary of original state
-    Output : p = policy[:best_move+1]
-             p = np.append(p, policy[best_move+1:])
+    """ This function calculates normalized cross entropy (KL divergence) of Q-values of state Q wrt state P. Written by SARFA authors.
+
+    :param dictP: Q-value dictionary of perturbed state
+    :param dictQ: Q-value dictionary of original state
+    :param original_action: best move
+    :return: p = policy[:best_move+1],
+             p = np.append(p, policy[best_move+1:]),
              K: normalized cross entropy
     """
+
     Q_p = [] # values of moves in dictP^dictQ wrt P
     Q_q = [] # values of moves in dictP^dictQ wrt Q
     for move in dictP:
@@ -43,6 +48,15 @@ def cross_entropy(dictP, dictQ, original_action):
 
 
 def computeSaliencyUsingSarfa(original_action, dict_q_vals_before_perturbation, dict_q_vals_after_perturbation, file=None, text=None):
+    """ Calculate the harmonic mean (saliency) over the specificity and relevance scores. Written by SARFA authors.
+
+    :param original_action: best move
+    :param dict_q_vals_before_perturbation: initial q-values from engine
+    :param dict_q_vals_after_perturbation: q-values from engine after board perturbation
+    :param file: output file
+    :param text:
+    :return:
+    """
     answer = 0
 
     # probability of original move in perturbed state
@@ -73,7 +87,7 @@ def computeSaliencyUsingSarfa(original_action, dict_q_vals_before_perturbation, 
     if probability_action_perturbed_state < probability_action_original_state: # harmonic mean
         answer = 2*dP*K/(dP + K)
 
-    QmaxAnswer = computeSaliencyUsingQMaxChange(original_action, dict_q_vals_before_perturbation, dict_q_vals_after_perturbation)
+    QmaxAnswer = computeSaliencyUsingQMaxChange(original_action, dict_q_vals_after_perturbation)
     action_gap_before_perturbation, action_gap_after_perturbation = computeSaliencyUsingActionGap(dict_q_vals_before_perturbation, dict_q_vals_after_perturbation)
 
     if file is None and text is None:
@@ -82,7 +96,12 @@ def computeSaliencyUsingSarfa(original_action, dict_q_vals_before_perturbation, 
     return answer, dP, K, QmaxAnswer, action_gap_before_perturbation, action_gap_after_perturbation
 
 
-def computeSaliencyUsingQMaxChange(original_action, dict_q_vals_before_perturbation, dict_q_vals_after_perturbation):
+def computeSaliencyUsingQMaxChange(original_action, dict_q_vals_after_perturbation):
+    """ Compute the saliency using the QMaxChange. Written by SARFA authors.
+
+    :param original_action: best move
+    :param dict_q_vals_after_perturbation: q-values from engine after board perturbation
+    """
     answer = 0
 
     best_action = None
@@ -103,6 +122,12 @@ def computeSaliencyUsingQMaxChange(original_action, dict_q_vals_before_perturbat
 
 
 def computeSaliencyUsingActionGap(dict_q_vals_before_perturbation, dict_q_vals_after_perturbation):
+    """ Compute the saliency using the Action Gap. Written by SARFA authors.
+
+    :param dict_q_vals_before_perturbation: initial q-values from engine
+    :param dict_q_vals_after_perturbation: q-values from engine after board perturbation
+    """
+
     if len(dict_q_vals_before_perturbation) > 1 and len(dict_q_vals_after_perturbation) > 1:
         q_vals_before_perturbation = sorted(dict_q_vals_before_perturbation.values())
         q_vals_after_perturbation = sorted(dict_q_vals_after_perturbation.values())

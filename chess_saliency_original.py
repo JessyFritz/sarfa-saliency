@@ -15,15 +15,13 @@ threshold = (100 / 256)
 
 
 async def return_bestmove(board, eval_time=5, directory='svg_custom', puzzle='board'):
-    """
-    Returns best move for a given chess position
-    Input :
-        board : chess.Board
-        eval_time : evaluation time
-        directory : destination folder
-        puzzle : name of puzzle
-    Output :
-        bestmove : chess.Move
+    """ Returns best move for a given chess position.
+
+    :param board: chess.Board
+    :param eval_time: evaluation time
+    :param directory: destination folder
+    :param puzzle: name of puzzle
+    :return: bestmove: chess.Move
     """
 
     if engine.options["MultiPV"].max < 100:
@@ -37,17 +35,15 @@ async def return_bestmove(board, eval_time=5, directory='svg_custom', puzzle='bo
 
 
 async def computeSaliency(enginePath='engines/stockfish-11-win/stockfish-11-win/Windows/stockfish_20011801_32bit.exe', FEN="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", directory ='svg_custom', puzzle='board', givenMove=None, file=None):
-    """
-    Function returns saliency map for given board position
-    Input :
-        enginePath : path containing engine's executable file
-        FEN : Board position encoded in a FEN
-        directory : destination folder
-        puzzle : name of puzzle
-        givenMove : guarantees that bestmove is equal to givenMove
-        file : output file
-    Output:
-        answer : Saliency for each location on the board
+    """ Computes saliency map for given board position. Written by SARFA authors.
+
+    :param enginePath: path containing engine's executable file
+    :param FEN: Board position encoded in a FEN
+    :param directory: destination folder
+    :param puzzle: name of puzzle
+    :param givenMove: guarantees that bestmove is equal to givenMove
+    :param file: output file
+    :return: Saliency map
     """
 
     global engine
@@ -216,16 +212,15 @@ async def computeSaliency(enginePath='engines/stockfish-11-win/stockfish-11-win/
 
 
 async def get_dict_q_vals(board, legal_moves, eval_time, color, file, info=None):
-    """
-    This function returns a dictionary of Q-values for every move.
-    Input :
-        board : chess.Board()
-        legal_moves : List of legal moves of original state
-        eval_time : evaluation time
-        file : output file
-        info : None or given engine evaluation
-    Output:
-        q_vals_dict : Dictionary of move with respective Q-value
+    """ Returns a dictionary of Q-values for every move.
+
+    :param board: chess.Board()
+    :param legal_moves: List of legal moves of original state
+    :param eval_time: evaluation time
+    :param color: currently played color
+    :param file: output file
+    :param info: None or given engine evaluation
+    :return: q_vals_dict : Dictionary of move with respective Q-value
         evaluation.bestmove : chess.Move() - Best move in perturbed state
     """
 
@@ -252,8 +247,7 @@ async def get_dict_q_vals(board, legal_moves, eval_time, color, file, info=None)
             move_string = str(info[move_id]['pv'][0])  # move representation (e.g. 'c5b6')
 
             if info[move_id]["score"].pov(color).score() is None:  # move has no centipawn evaluation value
-                mate_in_moves = float(
-                    ''.join(filter(lambda i: i.isdigit(), str(info[move_id]["score"].pov(color)))))
+                mate_in_moves = float(''.join(filter(lambda i: i.isdigit(), str(info[move_id]["score"].pov(color)))))
                 if mate_in_moves > 0:
                     # white will win in some number of moves
                     move_score = 40

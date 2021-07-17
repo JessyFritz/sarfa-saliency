@@ -6,13 +6,13 @@ import numpy
 
 import sarfa_saliency
 from basicFunctions import get_moves_squares
+from chess_saliency_chessSpecific import givenQValues_computeSaliency
 
 
 def evaluateBratkoKopec(directory="evaluation/bratko-kopec/original"):
-    """
-    evaluates the bratko-kopec test & assigns scores to engines
-    Input :
-        directory : path where different engines' outputs are stored
+    """Evaluates bratko-kopec test in the given directory based on the ground-truth in the chess_saliency_databases folder and assings the correct score from the test.
+
+    :param directory: path where different engines' outputs are stored
     """
 
     folders = list(filter(lambda x: os.path.isdir(os.path.join(directory, x)), os.listdir(directory)))
@@ -103,26 +103,35 @@ def evaluateBratkoKopec(directory="evaluation/bratko-kopec/original"):
 
                 if qValues[moves[1]] == 0 and qValues[moves[3]] == 0:
                     moves = [moves[0]]
-                first = -100
-                second = -100
-                third = -100
-                fourth = -100
+                first = None
+                second = None
+                third = None
+                fourth = None
                 j = 0
+
+                if str(data[engine][puzzleNr]["move"]) not in str(moves[0]):
+                    x = 1
+                    while x < len(moves):
+                        if str(data[engine][puzzleNr]["move"]) in moves[x]:
+                            del moves[x]
+                            break
+                        x += 1
+                    moves.insert(0, "\'{}\'".format(data[engine][puzzleNr]["move"]))
                 while j < len(moves):
-                    if qValues[moves[j]] >= first:
+                    if first is None:
                         first = qValues[moves[j]]
-                    elif qValues[moves[j]] >= second:
-                        if second == -100 and j > 3:
+                    elif second is None:
+                        if j > 3:
                             moves = moves[0:j]
                             break
                         second = qValues[moves[j]]
-                    elif qValues[moves[j]] >= third:
-                        if third == -100 and j > 3:
+                    elif third is None:
+                        if j > 3:
                             moves = moves[0:j]
                             break
                         third = qValues[moves[j]]
-                    elif qValues[moves[j]] >= fourth:
-                        if fourth == -100 and j > 3:
+                    elif fourth is None:
+                        if j > 3:
                             moves = moves[0:j]
                             break
                         fourth = qValues[moves[j]]
@@ -360,11 +369,517 @@ def evaluateBratkoKopec(directory="evaluation/bratko-kopec/original"):
     print("F1 mean: {} %, precision mean: {} %, recall mean: {} %".format(round(mF / len(folders), 2), round(mP / len(folders), 2), round(mR / len(folders), 2)))
 
 
-def convertToPosition(directory="evaluation/bratko-kopec/original/output.txt"):
+async def evaluateBratkoKopec_allPuzzles(directory="evaluation/bratko-kopec/original", mode="All"):
+    """Evaluates all bratko-kopec puzzles in the given directory based on the ground-truth in the chess_saliency_databases folder.
+
+    :param directory: path where different engines' outputs are stored
+    :param mode: options "All"/"Right"/"Wrong" implemented: "All" - evaluate all puzzles (wrong moves with adapted maps and right moves), "Right" - only evaluate puzzles with right moves (should yield highest preciison and recall), "Wrong" - only evaluate puzzles with initial wrong moves, but calculate maps for a solution move
     """
-    sorts the engines' evaluation based on the puzzle order they appear in http://www.kopecchess.com/bktest/Bktest.html
-    Input :
-        directory : path where different engines' output file is stored
+
+    folders = list(filter(lambda x: os.path.isdir(os.path.join(directory, x)), os.listdir(directory)))
+    print(folders)
+    if len(folders) == 0:
+        directory, file = os.path.split(directory)
+        directory += '/'
+        folders.append(file)
+
+    if mode != "Right":
+        files = directory.split("/")
+        pathDir = ""
+        i = 0
+        while i < len(files) - 1:
+            pathDir += files[i] + "/"
+            i += 1
+        pathDir += "{}_correctedMoves".format(files[i])
+        print(pathDir)
+        if not os.path.exists(pathDir):
+            os.makedirs(pathDir)
+            print("created directory")
+
+    outputF = open("{}/output.txt".format(directory), "a")
+    outputF.truncate(0)
+
+    jsonDatabaseFolder = "chess_saliency_databases/bratko-kopec"
+    jsonFiles = list(filter(lambda x: os.path.isdir(os.path.join(jsonDatabaseFolder, x)), os.listdir(jsonDatabaseFolder)))
+    if len(jsonFiles) == 0:
+        jsonDatabaseFolder, engine = os.path.split(jsonDatabaseFolder)
+        jsonFiles = [engine]
+
+    evaluation = {f: {} for f in folders}
+
+    for engine in folders: # iterate engines
+        print(engine)
+        outputF.write("engine: {}\n".format(engine))
+        evaluation[engine]["salient positional"] = 0          # number of salient marked squares for positional puzzles where engine executed solution move
+        evaluation[engine]["salient tactical"] = 0            # number of salient marked squares for tactical puzzles where engine executed solution move
+        evaluation[engine]["missing"] = 0                     # number of missing salient (false negative) squares for puzzles where engine executed solution move
+        evaluation[engine]["precision"] = 0                   # precision over puzzles where engine executed solution move
+        evaluation[engine]["recall"] = 0                      # recall over puzzles where engine executed solution move
+        evaluation[engine]["precision positional"] = 0        # precision over positional puzzles where engine executed solution move
+        evaluation[engine]["recall positional"] = 0           # recall over positional puzzles where engine executed solution move
+        evaluation[engine]["precision tactical"] = 0          # precision over tactical puzzles where engine executed solution move
+        evaluation[engine]["recall tactical"] = 0             # recall over tactical puzzles where engine executed solution move
+        evaluation[engine]["precision positional piece"] = [] # precision over non-empty squares on positional puzzles where engine executed solution move
+        evaluation[engine]["recall positional piece"] = []    # recall over non-empty squares on positional puzzles where engine executed solution move
+        evaluation[engine]["precision tactical piece"] = []   # precision over non-empty squares on tactical puzzles where engine executed solution move
+        evaluation[engine]["recall tactical piece"] = []      # recall over non-empty squares on tactical puzzles where engine executed solution move
+        evaluation[engine]["precision positional empty"] = [] # precision over empty squares on positional puzzles where engine executed solution move
+        evaluation[engine]["recall positional empty"] = []    # recall over empty squares on positional puzzles where engine executed solution move
+        evaluation[engine]["precision tactical empty"] = []   # precision over empty squares on tactical puzzles where engine executed solution move
+        evaluation[engine]["recall tactical empty"] = []      # recall over empty squares on tactical puzzles where engine executed solution move
+        evaluation[engine]["wrong move positional"] = 0       # times that engine executed wrong move for positional puzzles
+        evaluation[engine]["wrong move tactical"] = 0         # times that engine executed wrong move for tactical puzzles
+
+        if mode != "Right":
+            if not os.path.exists(pathDir+"/"+engine):
+                os.makedirs(pathDir+"/"+engine)
+                print("created directory")
+
+        for jsonF in jsonFiles: # positional or tactical folder
+            print(jsonF)
+            outputF.write("{}\n".format(jsonF))
+            with open("{}/{}/bratko-kopec.json".format(jsonDatabaseFolder, jsonF), "r") as jsonFile: # open positional or tactical test solution
+                database = json.load(jsonFile)
+
+            path = "{}/{}/{}/data.json".format(directory, engine, jsonF) # open engine's evaluation
+            with open(path, "r") as jsonFile:
+                data = json.load(jsonFile)
+
+            backupIndex = 0
+            nr = 1
+
+            for puzzle in database: # iterate puzzles
+                puzzleNr = "puzzle" + str(nr)
+                print(puzzleNr)
+                board = chess.Board(puzzle["fen"])
+
+                miss = 0
+                salEmpty = 0
+                missEmpty = 0
+                precision = 0
+                recall = 0
+                if data[puzzleNr]["move"] in puzzle["best move"]:
+                    if mode == "All" or mode == "Right":
+                        gTarray = puzzle["groundTruth"]
+                        if gTarray is not None:  # calculate precision and recall
+                            print("   {} squares should be salient".format(len(gTarray)))
+
+                            gTarrayEmpty = []
+                            sal = len(data[puzzleNr]["sorted saliencies"]["above threshold"])
+                            for m in data[puzzleNr]["sorted saliencies"]["above threshold"]:  # analyse all empty squares
+                                if board.piece_type_at(chess.SQUARES[chess.parse_square(m)]) is None:
+                                    salEmpty += 1
+                            for m in gTarray:
+                                if board.piece_type_at(chess.SQUARES[chess.parse_square(m)]) is None:
+                                    gTarrayEmpty.append(m)
+                            for sq in data[puzzleNr]["sorted saliencies"]["above threshold"]:
+                                if sq in gTarray:
+                                    miss += 1
+                                if sq in gTarrayEmpty:
+                                    missEmpty += 1
+                            miss = len(gTarray) - miss
+                            missEmpty = len(gTarrayEmpty) - missEmpty
+
+                            if sal > 0:
+                                precision = (len(gTarray) - miss) / sal * 100
+                                recall = (len(gTarray) - miss) / len(gTarray) * 100
+                                print("   {}: salient: {}, missing: {}, precision: {} %, recall: {} %".format(engine, sal,miss,round(precision,2),round(recall,2)))
+                            if miss > 0:
+                                print("      above threshold: ")
+                                for m in data[puzzleNr]["sorted saliencies"]["above threshold"]:
+                                    if m in gTarray:
+                                        print("      {}: {}".format(m, data[puzzleNr]["sorted saliencies"][
+                                            "above threshold"][m]))
+                                print("      below threshold: ")
+                                for m in data[puzzleNr]["sorted saliencies"]["below threshold"]:
+                                    if m in gTarray:
+                                        print("      {}: {}".format(m, data[puzzleNr]["sorted saliencies"][
+                                            "below threshold"][m]))
+
+                            evaluation[engine]["precision"] += precision
+                            evaluation[engine]["precision {}".format(jsonF)] += precision
+                            evaluation[engine]["recall"] += recall
+                            evaluation[engine]["recall {}".format(jsonF)] += recall
+
+                            print("   {} piece squares should be salient".format(
+                                len(gTarray) - len(gTarrayEmpty)))  # only non empty squares
+                            if (sal - salEmpty) > 0:
+                                precision = ((len(gTarray) - len(gTarrayEmpty)) - (miss - missEmpty)) / (sal - salEmpty) * 100
+                                recall = ((len(gTarray) - len(gTarrayEmpty)) - (miss - missEmpty)) / (
+                                            len(gTarray) - len(gTarrayEmpty)) * 100
+                                print("   {} piece squares: salient: {}, missing: {}, precision: {} %, recall: {} %".format(
+                                        engine, sal - salEmpty, miss - missEmpty, round(precision, 2), round(recall, 2)))
+                                evaluation[engine]["precision {} piece".format(jsonF)].append(precision)
+                                evaluation[engine]["recall {} piece".format(jsonF)].append(recall)
+                            if len(gTarrayEmpty) > 0:
+                                print("   {} empty squares should be salient".format(
+                                    len(gTarrayEmpty)))  # only empty squares
+                                if salEmpty > 0:
+                                    precision = (len(gTarrayEmpty) - missEmpty) / salEmpty * 100
+                                    recall = (len(gTarrayEmpty) - missEmpty) / len(gTarrayEmpty) * 100
+                                    print("   {} empty squares: salient: {}, missing: {}, precision: {} %, recall: {} %".format(
+                                            engine, salEmpty, missEmpty, round(precision, 2), round(recall, 2)))
+                                else:
+                                    precision = 0
+                                    recall = 0
+                                    print("   {} empty squares: salient: {}, missing: {}, precision: {} %, recall: {} %".format(engine, salEmpty, missEmpty, 0, 0))
+                                evaluation[engine]["precision {} empty".format(jsonF)].append(precision)
+                                evaluation[engine]["recall {} empty".format(jsonF)].append(recall)
+                else:
+                    print("wrong move")
+                    evaluation[engine]["wrong move {}".format(jsonF)] += 1
+                    if mode == "Wrong" or mode == "All":
+                        if not os.path.exists(pathDir + "/" + engine + "/" + jsonF):
+                            os.makedirs(pathDir + "/" + engine + "/" + jsonF)
+                            print("created directory")
+
+                        path = directory + "/" + engine + "/" + jsonF + "/" + "output.txt"
+                        with open(path, "r") as file:
+                            output = file.readlines()
+
+                        i = backupIndex
+                        qValuesEngine = dict()
+
+                        while output[i].startswith(puzzleNr) is False:
+                            i += 1
+
+                        while i < len(output):
+                            if output[i].startswith(puzzleNr) and len(output[i]) < 15:
+                                beforeP = None
+                                board = chess.Board(data[puzzleNr]["fen"])
+                                stop = int(puzzleNr.replace("puzzle", ""))
+                            elif output[i].startswith("puzzle{}".format(stop+1)) and len(output[i]) < 15:
+                                backupIndex = i
+                                break
+                            elif output[i].startswith("Q Values: {") and beforeP is None:
+                                beforeP = output[i].replace("Q Values: {", "").split(",")
+                                beforePdict = dict()
+                                for x in beforeP:
+                                    key = ""
+                                    value = ""
+                                    import re
+                                    m = re.search(r"[a-h][1-8][a-h][1-8]", x)
+                                    if m is not None:
+                                        index = m.span()
+                                        key = x[index[0]:index[1]]
+                                    m = re.findall(r"[-+]?\d*\.\d+|\d+", x)
+                                    if len(m) > 2:
+                                        value = m[2]
+                                    beforePdict[key] = float(value)
+                                print(beforePdict)
+                            elif output[i].startswith("perturbing square = "):
+                                sq = output[i].replace("perturbing square = ", "")
+                                sq = sq.replace("\n", "")
+                                qValuesEngine[sq] = dict()
+                            elif output[i].startswith("querying engine with perturbed position"):
+                                while output[i].startswith("------------------------------------------") is False:
+                                    if output[i].startswith("Q Values: {"):
+                                        afterP = output[i].replace("Q Values: {", "").split(",")
+                                        afterPdict = dict()
+                                        for x in afterP:
+                                            key = ""
+                                            value = ""
+                                            import re
+                                            m = re.search(r"[a-h][1-8][a-h][1-8]", x)
+                                            if m is not None:
+                                                index = m.span()
+                                                key = x[index[0]:index[1]]
+                                            m = re.findall(r"[-+]?\d*\.\d+|\d+", x)
+                                            if len(m) > 2:
+                                                value = m[2]
+                                            afterPdict[key] = float(value)
+                                        break
+                                    i += 1
+                                qValuesEngine[sq]["regular"] = afterPdict
+                            elif output[i].startswith("new pawn saliency for this square"):
+                                y = i
+                                while output[y].startswith("------------------------------------------") is False:
+                                    if output[y].startswith("Q Values: {"):
+                                        afterP = output[y].replace("Q Values: {", "").split(",")
+                                        afterPdict = dict()
+                                        for x in afterP:
+                                            key = ""
+                                            value = ""
+                                            m = re.search(r"[a-h][1-8][a-h][1-8]", x)
+                                            if m is not None:
+                                                index = m.span()
+                                                key = x[index[0]:index[1]]
+                                            m = re.findall(r"[-+]?\d*\.\d+|\d+", x)
+                                            if len(m) > 2:
+                                                value = m[2]
+                                            afterPdict[key] = float(value)
+                                        break
+                                    y -= 1
+                                    qValuesEngine[sq]["pawn"] = afterPdict
+                            elif output[i].startswith("square is empty, so put a pawn from player's color here"):
+                                afterP1 = None
+                                afterP2 = None
+                                while output[i].startswith("------------------------------------------") is False:
+                                    if output[i].startswith("Q Values: {") and afterP1 is None:
+                                        afterP1 = output[i].replace("Q Values: {", "").split(",")
+                                        afterP1dict = dict()
+                                        for x in afterP1:
+                                            key = ""
+                                            value = ""
+                                            m = re.search(r"[a-h][1-8][a-h][1-8]", x)
+                                            if m is not None:
+                                                index = m.span()
+                                                key = x[index[0]:index[1]]
+                                            m = re.findall(r"[-+]?\d*\.\d+|\d+", x)
+                                            if len(m) > 2:
+                                                value = m[2]
+                                            afterP1dict[key] = float(value)
+                                    elif output[i].startswith("Q Values: {") and afterP2 is None:
+                                        afterP2 = output[i].replace("Q Values: {", "").split(",")
+                                        afterP2dict = dict()
+                                        for x in afterP2:
+                                            key = ""
+                                            value = ""
+                                            m = re.search(r"[a-h][1-8][a-h][1-8]", x)
+                                            if m is not None:
+                                                index = m.span()
+                                                key = x[index[0]:index[1]]
+                                            m = re.findall(r"[-+]?\d*\.\d+|\d+", x)
+                                            if len(m) > 2:
+                                                value = m[2]
+                                            afterP2dict[key] = float(value)
+                                        break
+                                    i += 1
+                                qValuesEngine[sq] = {
+                                    "player" : afterP1dict,
+                                    "opponent" : afterP2dict
+                                }
+                            i += 1
+                        print("starting SARFA")
+                        ss = puzzle["best move"][0][0:2]
+                        ds = puzzle["best move"][0][2:4]
+                        move = chess.Move(chess.SQUARES[chess.parse_square(ss)], chess.SQUARES[chess.parse_square(ds)])
+                        aboveThreshold = await givenQValues_computeSaliency(board, move, beforePdict, qValuesEngine, pathDir + "/" + engine + "/" + jsonF, puzzleNr)
+
+                        gTarray = puzzle["groundTruth"]
+                        if gTarray is not None:  # calculate precision and recall
+                            print("   {} squares should be salient".format(len(gTarray)))
+
+                            gTarrayEmpty = []
+                            sal = len(aboveThreshold)
+                            for m in aboveThreshold:  # analyse all empty squares
+                                if board.piece_type_at(chess.SQUARES[chess.parse_square(m)]) is None:
+                                    salEmpty += 1
+                            for m in gTarray:
+                                if board.piece_type_at(chess.SQUARES[chess.parse_square(m)]) is None:
+                                    gTarrayEmpty.append(m)
+                            for sq in aboveThreshold:
+                                if sq in gTarray:
+                                    miss += 1
+                                if sq in gTarrayEmpty:
+                                    missEmpty += 1
+                            miss = len(gTarray) - miss
+                            missEmpty = len(gTarrayEmpty) - missEmpty
+
+                            if sal > 0:
+                                precision = (len(gTarray) - miss) / sal * 100
+                                recall = (len(gTarray) - miss) / len(gTarray) * 100
+                                print("   {}: salient: {}, missing: {}, precision: {} %, recall: {} %".format(engine, sal, miss, round(precision, 2), round(recall, 2)))
+                            if miss > 0:
+                                print("      above threshold: ")
+                                for m in aboveThreshold:
+                                    if m in gTarray:
+                                        print("      {}: {}".format(m, aboveThreshold[m]))
+
+                            evaluation[engine]["precision"] += precision
+                            evaluation[engine]["precision {}".format(jsonF)] += precision
+                            evaluation[engine]["recall"] += recall
+                            evaluation[engine]["recall {}".format(jsonF)] += recall
+
+                            print("   {} piece squares should be salient".format(
+                                len(gTarray) - len(gTarrayEmpty)))  # only non empty squares
+                            if (sal - salEmpty) > 0:
+                                precision = ((len(gTarray) - len(gTarrayEmpty)) - (miss - missEmpty)) / (sal - salEmpty) * 100
+                                recall = ((len(gTarray) - len(gTarrayEmpty)) - (miss - missEmpty)) / (
+                                        len(gTarray) - len(gTarrayEmpty)) * 100
+                                print("   {} piece squares: salient: {}, missing: {}, precision: {} %, recall: {} %".format(
+                                    engine, sal - salEmpty, miss - missEmpty, round(precision, 2), round(recall, 2)))
+                                evaluation[engine]["precision {} piece".format(jsonF)].append(precision)
+                                evaluation[engine]["recall {} piece".format(jsonF)].append(recall)
+                            if len(gTarrayEmpty) > 0:
+                                print("   {} empty squares should be salient".format(
+                                    len(gTarrayEmpty)))  # only empty squares
+                                if salEmpty > 0:
+                                    precision = (len(gTarrayEmpty) - missEmpty) / salEmpty * 100
+                                    recall = (len(gTarrayEmpty) - missEmpty) / len(gTarrayEmpty) * 100
+                                    print("   {} empty squares: salient: {}, missing: {}, precision: {} %, recall: {} %".format(engine, salEmpty, missEmpty, round(precision, 2), round(recall, 2)))
+                                else:
+                                    precision = 0
+                                    recall = 0
+                                    print("   {} empty squares: salient: {}, missing: {}, precision: {} %, recall: {} %".format(engine, salEmpty, missEmpty, 0, 0))
+                                evaluation[engine]["precision {} empty".format(jsonF)].append(precision)
+                                evaluation[engine]["recall {} empty".format(jsonF)].append(recall)
+                nr += 1
+
+
+        if mode == "All":
+            print("{}\'s averages are calculated over all {} puzzles".format(engine, (nr - 1) * 2))
+            evaluation[engine]["precision"] = round(evaluation[engine]["precision"] / ((nr - 1) * 2), 2)  # calculate mean of all precision values
+            evaluation[engine]["recall"] = round(evaluation[engine]["recall"] / ((nr - 1) * 2), 2)        # calculate mean of all recall values
+            evaluation[engine]["precision positional"] = round(evaluation[engine]["precision positional"] / (nr - 1), 2)
+            evaluation[engine]["recall positional"] = round(evaluation[engine]["recall positional"] / (nr - 1), 2)
+            evaluation[engine]["precision tactical"] = round(evaluation[engine]["precision tactical"] / (nr - 1), 2)
+            evaluation[engine]["recall tactical"] = round(evaluation[engine]["recall tactical"] / (nr - 1), 2)
+        elif mode == "Right":
+            print("{}\'s averages are calculated over {} puzzles".format(engine, ((nr - 1) * 2) - (evaluation[engine]["wrong move positional"] + evaluation[engine]["wrong move tactical"])))
+            evaluation[engine]["precision"] = round(evaluation[engine]["precision"] / (((nr - 1) * 2) - (evaluation[engine]["wrong move positional"] + evaluation[engine]["wrong move tactical"])), 2)  # calculate mean of all precision values
+            evaluation[engine]["recall"] = round(evaluation[engine]["recall"] / (((nr - 1) * 2) - (evaluation[engine]["wrong move positional"] + evaluation[engine]["wrong move tactical"])), 2)  # calculate mean of all recall values
+            evaluation[engine]["precision positional"] = round(evaluation[engine]["precision positional"] / (nr - 1 - evaluation[engine]["wrong move positional"]), 2)
+            evaluation[engine]["recall positional"] = round(evaluation[engine]["recall positional"] / (nr - 1 - evaluation[engine]["wrong move positional"]), 2)
+            evaluation[engine]["precision tactical"] = round(evaluation[engine]["precision tactical"] / (nr - 1 - evaluation[engine]["wrong move tactical"]), 2)
+            evaluation[engine]["recall tactical"] = round(evaluation[engine]["recall tactical"] / (nr - 1 - evaluation[engine]["wrong move tactical"]), 2)
+        elif mode == "Wrong":
+            print("{}\'s averages are calculated over {} puzzles".format(engine, evaluation[engine]["wrong move positional"] + evaluation[engine]["wrong move tactical"]))
+            if (evaluation[engine]["wrong move positional"] + evaluation[engine]["wrong move tactical"]) > 0:
+                evaluation[engine]["precision"] = round(evaluation[engine]["precision"] / (evaluation[engine]["wrong move positional"] + evaluation[engine]["wrong move tactical"]), 2)  # calculate mean of all precision values
+                evaluation[engine]["recall"] = round(evaluation[engine]["recall"] / (evaluation[engine]["wrong move positional"] + evaluation[engine]["wrong move tactical"]), 2)  # calculate mean of all recall values
+            if evaluation[engine]["wrong move positional"] > 0:
+                evaluation[engine]["precision positional"] = round(evaluation[engine]["precision positional"] / evaluation[engine]["wrong move positional"], 2)
+                evaluation[engine]["recall positional"] = round(evaluation[engine]["recall positional"] / evaluation[engine]["wrong move positional"], 2)
+            if evaluation[engine]["wrong move tactical"] > 0:
+                evaluation[engine]["precision tactical"] = round(evaluation[engine]["precision tactical"] / evaluation[engine]["wrong move tactical"], 2)
+                evaluation[engine]["recall tactical"] = round(evaluation[engine]["recall tactical"] / evaluation[engine]["wrong move tactical"], 2)
+
+        type1 = ["precision", "recall"]
+        type2 = ["positional", "tactical"]
+        for a in type1:
+            for b in type2:
+                if len(evaluation[engine]["{} {} empty".format(a, b)]) > 0:
+                    x = 0
+                    for m in evaluation[engine]["{} {} empty".format(a, b)]:
+                        x += m
+                    evaluation[engine]["{} {} empty".format(a, b)] = round(x/len(evaluation[engine]["{} {} empty".format(a, b)]),2)
+                else:
+                    evaluation[engine]["{} {} empty".format(a, b)] = 0
+                if len(evaluation[engine]["{} {} piece".format(a, b)]) > 0:
+                    x = 0
+                    for m in evaluation[engine]["{} {} piece".format(a, b)]:
+                        x += m
+                    evaluation[engine]["{} {} piece".format(a, b)] = round( x / len(evaluation[engine]["{} {} piece".format(a, b)]), 2)
+                else:
+                    evaluation[engine]["{} {} piece".format(a, b)] = 0
+        outputF.write('------------------------------------------\n')
+        print('------------------------------------------')
+
+    outputF.close()
+
+    if mode == "Right":
+        keys = list(evaluation)
+        print(keys)
+        for engine in keys:
+            if evaluation[engine]["wrong move positional"] == 12 and evaluation[engine]["wrong move tactical"] == 12:
+                print("engine {} deleted".format(engine))
+                folders.remove(engine)
+                del evaluation[engine]
+    elif mode == "Wrong":
+        keys = list(evaluation)
+        for engine in keys:
+            if evaluation[engine]["wrong move positional"] == 0 and evaluation[engine]["wrong move tactical"] == 0:
+                print("engine {} deleted".format(engine))
+                folders.remove(engine)
+                del evaluation[engine]
+
+    for t in type2: # Positional, Tactical Overall
+        print("Engines sorted by {} F1:".format(t.capitalize()))
+        keys = list(evaluation)
+        copy = evaluation.copy()
+        for engine in keys:
+            if (evaluation[engine]["precision {}".format(t)] + evaluation[engine]["recall {}".format(t)]) == 0:
+                del copy[engine]
+                print("engine {} has {} {} wrong moves (precision {}, recall {})".format(engine, evaluation[engine]["wrong move {}".format(t)], t, evaluation[engine]["precision {}".format(t)], evaluation[engine]["recall {}".format(t)]))
+        sortedKeys = sorted(copy, key=lambda x: round(2*evaluation[x]["precision {}".format(t)]*evaluation[x]["recall {}".format(t)]/(evaluation[x]["precision {}".format(t)]+evaluation[x]["recall {}".format(t)]),2),reverse=True) # sort engines according to their positional score
+        rank = 1
+        mF = 0
+        mP = 0
+        mR = 0
+        avgMarkedSquares = 0
+        for key in sortedKeys:
+            avgSq = round(evaluation[key]["salient {}".format(t)]/(12-evaluation[key]["wrong move {}".format(t)]), 2)
+            avgMarkedSquares += avgSq
+            print("{}. {}:{} {} wrong moves: {}, {} F1: {} %, {} precision: {} %, {} recall: {} %".format(rank, key, " "*(11-len(key)), t, evaluation[key]["wrong move {}".format(t)], t, round(2*evaluation[key]["precision {}".format(t)]*evaluation[key]["recall {}".format(t)]/(evaluation[key]["precision {}".format(t)]+evaluation[key]["recall {}".format(t)]),2), t, "%.2f" %(evaluation[key]["precision {}".format(t)]), t, evaluation[key]["recall {}".format(t)]))
+            rank += 1
+            mF += round(2 * evaluation[key]["precision {}".format(t)] * evaluation[key]["recall {}".format(t)] / (evaluation[key]["precision {}".format(t)] + evaluation[key]["recall {}".format(t)]), 2)
+            mP += evaluation[key]["precision {}".format(t)]
+            mR += evaluation[key]["recall {}".format(t)]
+        print("F1 mean: {} %, precision mean: {} %, recall mean: {} %, average marked squares: {}".format(round(mF/len(folders),2), round(mP/len(folders),2), round(mR/len(folders),2), round(avgMarkedSquares/len(folders), 2)))
+        print('------------------------------------------')
+
+    for t in type2:  # Positional, Tactical Analysis For Non-Empty Square
+        print("Engines sorted by {} Non-Empty Squares:".format(t.capitalize()))
+        keys = list(evaluation)
+        copy = evaluation.copy()
+        for engine in keys:
+            if (evaluation[engine]["precision {} piece".format(t)] + evaluation[engine]["recall {} piece".format(t)]) == 0:
+                del copy[engine]
+                print("engine {} has {} {} wrong moves (precision {}, recall {})".format(engine, evaluation[engine]["wrong move {}".format(t)], t, evaluation[engine]["precision {}".format(t)], evaluation[engine]["recall {}".format(t)]))
+        sortedKeys = sorted(copy, key=lambda x: 2 * (evaluation[x]["precision {} piece".format(t)] * evaluation[x]["recall {} piece".format(t)] / (evaluation[x]["precision {} piece".format(t)] + evaluation[x]["recall {} piece".format(t)])), reverse=True)  # sort engines according to the F1 mean
+        rank = 1
+        mF = 0
+        mP = 0
+        mR = 0
+        for key in sortedKeys:
+            print("{}. {}:{} non-empty Squares {} F1: {} %, non-empty Squares {} precision: {} %, non-empty Squares {} recall: {} %".format(
+                    rank, key, " " * (11 - len(key)), t,
+                    round(2 * evaluation[key]["precision {} piece".format(t)] * evaluation[key]["recall {} piece".format(t)] / (
+                            evaluation[key]["precision {} piece".format(t)] + evaluation[key]["recall {} piece".format(t)]), 2), t,
+                               "%.2f" % (evaluation[key]["precision {} piece".format(t)]), t, "%.2f" % evaluation[key]["recall {} piece".format(t)]))
+            rank += 1
+            mF += round(2 * evaluation[key]["precision {} piece".format(t)] * evaluation[key]["recall {} piece".format(t)] / (
+                    evaluation[key]["precision {} piece".format(t)] + evaluation[key]["recall {} piece".format(t)]), 2)
+            mP += evaluation[key]["precision {} piece".format(t)]
+            mR += evaluation[key]["recall {} piece".format(t)]
+        print("F1 mean: {} %, precision mean: {} %, recall mean: {} %".format(round(mF / len(folders), 2), round(mP / len(folders), 2), round(mR / len(folders), 2)))
+        print('------------------------------------------')
+
+    for t in type2:  # Positional, Tactical Analysis For Empty Square
+        print("Engines sorted by {} Empty Squares:".format(t.capitalize()))
+        keys = list(evaluation)
+        copy = evaluation.copy()
+        for engine in keys:
+            if (evaluation[engine]["precision {} empty".format(t)] + evaluation[engine]["recall {} empty".format(t)]) == 0:
+                del copy[engine]
+                print("engine {} has {} {} wrong moves (precision {}, recall {})".format(engine, evaluation[engine]["wrong move {}".format(t)], t, evaluation[engine]["precision {}".format(t)], evaluation[engine]["recall {}".format(t)]))
+        sortedKeys = sorted(copy, key=lambda x: 2 * ( evaluation[x]["precision {} empty".format(t)] * evaluation[x]["recall {} empty".format(t)] / (
+                    evaluation[x]["precision {} empty".format(t)] + evaluation[x]["recall {} empty".format(t)]+1)), reverse=True)  # sort engines according to the F1 mean
+        rank = 1
+        mF = 0
+        mP = 0
+        mR = 0
+        for key in sortedKeys:
+            f = round(2 * evaluation[key]["precision {} empty".format(t)] * evaluation[key]["recall {} empty".format(t)] / (evaluation[key]["precision {} empty".format(t)] + evaluation[key]["recall {} empty".format(t)]), 2)
+            print("{}. {}:{} empty Squares {} F1: {} %, empty Squares {} precision: {} %, empty Squares {} recall: {} %".format(
+                    rank, key, " " * (11 - len(key)), t, f, t, "%.2f" % (evaluation[key]["precision {} empty".format(t)]), t, "%.2f" % evaluation[key]["recall {} empty".format(t)]))
+            rank += 1
+            mF += f
+            mP += evaluation[key]["precision {} empty".format(t)]
+            mR += evaluation[key]["recall {} empty".format(t)]
+        print("F1 mean: {} %, precision mean: {} %, recall mean: {} %".format(round(mF / len(folders), 2), round(mP / len(folders), 2), round(mR / len(folders), 2)))
+        print('------------------------------------------')
+
+    print("Engines sorted by F1 mean:")
+    sortedKeys = sorted(evaluation, key=lambda x: 2*((evaluation[x]["precision"]*evaluation[x]["recall"])/(evaluation[x]["precision"]+evaluation[x]["recall"])),reverse=True)  # sort engines according to the F1 mean
+    rank = 1
+    mF = 0
+    mP = 0
+    mR = 0
+    for key in sortedKeys:
+        print("{}. {}:{} F1: {} %, precision: {} %, recall: {} %".format(rank, key, " "*(11-len(key)), round(2*((evaluation[key]["precision"]*evaluation[key]["recall"])/(evaluation[key]["precision"]+evaluation[key]["recall"])),2), evaluation[key]["precision"], evaluation[key]["recall"]))
+        rank += 1
+        mF += round(2*((evaluation[key]["precision"]*evaluation[key]["recall"])/(evaluation[key]["precision"]+evaluation[key]["recall"])),2)
+        mP += evaluation[key]["precision"]
+        mR += evaluation[key]["recall"]
+    print("F1 mean: {} %, precision mean: {} %, recall mean: {} %".format(round(mF / len(folders), 2), round(mP / len(folders), 2), round(mR / len(folders), 2)))
+
+
+def convertToPosition(directory="evaluation/bratko-kopec/original/output.txt"):
+    """ Sorts the engines' evaluation based on the puzzle order they appear in http://www.kopecchess.com/bktest/Bktest.html.
+
+    :param directory: path where different engines' output file is stored
     """
 
     if os.path.exists(directory) is False:
@@ -436,12 +951,11 @@ def convertToPosition(directory="evaluation/bratko-kopec/original/output.txt"):
 
 
 def singleEngine_bratkoKopec_groundTruthEvaluation(directory1="evaluation/bratko-kopec/original/stockfish", directory2="evaluation/bratko-kopec/updated/stockfish"):
-    """
-    evaluates the bratko-kopec puzzles for a single engine with the original and updated code
-    Input :
-        directory1 : path where first engine's outputs are stored
-        directory2 : path where second engine's outputs are stored
-        subset : give subset of puzzles if not all should be evaluated
+    """ Evaluates the bratko-kopec puzzles for a single engine with the original and updated SARFA implementation.
+
+    :param directory1: path where first engine's outputs are stored
+    :param directory2: path where second engine's outputs are stored
+    :return:
     """
 
     folders = []
@@ -577,10 +1091,9 @@ def singleEngine_bratkoKopec_groundTruthEvaluation(directory1="evaluation/bratko
 
 
 def bratkoKopec_calculateImprovements_emptySquares(directory="evaluation/bratko-kopec/updated/"):
-    """
-    searches for improvements over all engines' ground-truths empty squares
-    Input :
-        directory : path where evaluation of engines is written
+    """ Searches for improvements over all engines' ground-truths empty squares.
+
+    :param directory: path where evaluation of engines is written
     """
 
     import re
@@ -803,10 +1316,9 @@ def bratkoKopec_calculateImprovements_emptySquares(directory="evaluation/bratko-
 
 
 def bratkoKopec_calculateImprovements_TopEmptySquares(directory="evaluation/bratko-kopec/updated/"):
-    """
-    analyses the best amount of marked empty squares based on our bratko-kopec ground-truth
-    Input :
-        directory : path where evaluation of engines is written
+    """ Analyses the best amount of marked empty squares based on our bratko-kopec ground-truth.
+
+    :param directory: path where evaluation of engines is written
     """
 
     import re
@@ -1068,11 +1580,11 @@ def bratkoKopec_calculateImprovements_TopEmptySquares(directory="evaluation/brat
 
 
 def bratkoKopec_markEmptySquares(num):
+    """ Changes updated bratko-kopec directory saliency maps with user specified number of empty squares.
+
+    :param num: number of empty squares
     """
-    change updated bratko-kopec directory saliency maps with user specific number of empty squares
-    Input :
-        num : number of empty squares
-    """
+
     for engine in list(filter(lambda x: os.path.isdir(os.path.join("evaluation/bratko-kopec/updated/", x)), os.listdir("evaluation/bratko-kopec/updated/"))):
         for t in ["positional", "tactical"]:
             evaluation = dict()

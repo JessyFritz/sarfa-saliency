@@ -4,31 +4,30 @@ import chess_saliency_original as original_saliency
 import chess_saliency_combination as updated_saliency
 import chess_saliency_chessSpecific as specific_saliency
 import chess_saliency_leela as leela_saliency
+import databaseHandler as db
+from evaluation_bratkoKopec import evaluateBratkoKopec, convertToPosition, \
+    singleEngine_bratkoKopec_groundTruthEvaluation, \
+    bratkoKopec_calculateImprovements_emptySquares, bratkoKopec_calculateImprovements_TopEmptySquares, \
+    bratkoKopec_markEmptySquares, evaluateBratkoKopec_allPuzzles
+from evaluation_endgames import evaluate, singleEngine_endgames_groundTruthEvaluation, endgames_markEmptySquares, \
+    endgames_calculateImprovements_TopEmptySquares, evaluateEndgames_allPuzzles
+from evaluation_sarfaDataset import groundTruthEvaluation, missingGroundTruth, singleEngine_groundTruthEvaluation, \
+    calculateImprovements_threshold, calculateImprovements_negative, calculateImprovements_positive, markEmptySquares
 
 updated_saliency.enableEmptySquares = True #enable empty squares
 specific_saliency.enableEmptySquares = True
 leela_saliency.enableEmptySquares = True
 
-from evaluation_bratkoKopec import evaluateBratkoKopec, convertToPosition, singleEngine_bratkoKopec_groundTruthEvaluation, \
-    bratkoKopec_calculateImprovements_emptySquares, bratkoKopec_calculateImprovements_TopEmptySquares, bratkoKopec_markEmptySquares
-from evaluation_endgames import evaluate, singleEngine_endgames_groundTruthEvaluation, endgames_markEmptySquares, \
-    endgames_calculateImprovements_TopEmptySquares
-from evaluation_sarfaDataset import groundTruthEvaluation, missingGroundTruth, singleEngine_groundTruthEvaluation, \
-    calculateImprovements_threshold, calculateImprovements_negative, calculateImprovements_positive
-
-import databaseHandler as db
-
 #**************************************************** run & evaluate sarfa dataset's 102 puzzles ****************************************************
 
 #db.runAll_engines("SARFA")
-#db.runAll_engines("SARFA", updated_saliency)
-db.runAll_engines("SARFA", specific_saliency)
+#db.runAll_engines("SARFA", specific_saliency)
 
-'''subset = groundTruthEvaluation() # evaluate all 102 puzzles
-groundTruthEvaluation(subset=subset)''' # evaluate only 69 puzzles with correct move
+#groundTruthEvaluation() # evaluate all 102 puzzles
+#groundTruthEvaluation(subset=groundTruthEvaluation()) # evaluate only puzzles with correct move
 #missingGroundTruth()
-'''subset = groundTruthEvaluation(directory="evaluation/updated/")
-groundTruthEvaluation(directory="evaluation/updated/",subset=subset)'''
+#groundTruthEvaluation(directory="evaluation/updated/")
+#groundTruthEvaluation(directory="evaluation/updated/",subset=groundTruthEvaluation(directory="evaluation/updated/"))
 
 #singleEngine_groundTruthEvaluation(subset=True)
 #singleEngine_groundTruthEvaluation(directory1="evaluation/original/leela", directory2="evaluation/updated/leela",subset=True)
@@ -54,10 +53,10 @@ groundTruthEvaluation(directory="evaluation/updated/",subset=subset)'''
 
 #evaluateBratkoKopec()
 #evaluateBratkoKopec("evaluation/bratko-kopec/updated")
-#convertToPosition()
+'''asyncio.set_event_loop_policy(chess.engine.EventLoopPolicy())
+asyncio.run(evaluateBratkoKopec_allPuzzles("evaluation/bratko-kopec/updated", mode="Wrong"))'''
 
-#evaluateBratkoKopec()
-#evaluateBratkoKopec("evaluation/bratko-kopec/updated")
+#convertToPosition()
 
 #singleEngine_bratkoKopec_groundTruthEvaluation()
 #singleEngine_bratkoKopec_groundTruthEvaluation(directory1="evaluation/bratko-kopec/original/leela", directory2="evaluation/bratko-kopec/updated/leela")
@@ -82,6 +81,8 @@ groundTruthEvaluation(directory="evaluation/updated/",subset=subset)'''
 
 #evaluate()
 #evaluate("evaluation/endgames/updated/")
+'''asyncio.set_event_loop_policy(chess.engine.EventLoopPolicy())
+asyncio.run(evaluateEndgames_allPuzzles("evaluation/endgames/updated", mode="Wrong"))'''
 
 #singleEngine_endgames_groundTruthEvaluation()
 #singleEngine_endgames_groundTruthEvaluation(directory1="evaluation/endgames/original/leela", directory2="evaluation/endgames/updated/leela")
@@ -107,6 +108,7 @@ groundTruthEvaluation(directory="evaluation/updated/",subset=subset)'''
 
 #********************************************************** basic analyisis functions ***************************************************************
 
+#subset = groundTruthEvaluation()
 #db.getMean(variable="dP", subset=subset)
 #db.getMean(variable="K", subset=subset)
 #db.getMean(variable="saliency", subset=subset)
@@ -122,22 +124,18 @@ groundTruthEvaluation(directory="evaluation/updated/",subset=subset)'''
 
 #************************************************** evaluate features for updated implementation ***************************************************
 
-'''db.evaluateFeature("evaluation/endgames/updated/leela",feature="pawn promotion on this square")
-db.evaluateFeature("evaluation/endgames/updated/leela",feature="opponent is in check after best move")
-db.evaluateFeature("evaluation/endgames/updated/leela",feature="saliency calculated as max from pawn perturbation")
-db.evaluateFeature("evaluation/endgames/updated/leela",feature="king is salient because of check")
-db.evaluateFeature("evaluation/endgames/updated/leela",feature="already pawn here")
-db.evaluateFeature("evaluation/endgames/updated/leela",feature="new pawn saliency for this square")
-db.evaluateFeature("evaluation/endgames/updated/leela",feature="opponent is in check after best move")
-db.evaluateFeature("evaluation/endgames/updated/leela",feature="saliency is in best positive range")
-db.evaluateFeature("evaluation/endgames/updated/leela",feature="saliency is not in best positive range")
-db.evaluateFeature("evaluation/endgames/updated/leela",feature="saliency is in best negative range")
-db.evaluateFeature("evaluation/endgames/updated/leela",feature="guards best move")
-db.evaluateFeature("evaluation/endgames/updated/leela",feature="piece is no longer blocked - salient square")
-db.evaluateFeature("evaluation/endgames/updated/leela",feature="is under attack - salient square")'''
+'''db.evaluateFeature("evaluation/updated/leela",feature="is under attack")
+db.evaluateFeature("evaluation/updated/leela",feature="pawn promotion on this square")
+db.evaluateFeature("evaluation/updated/leela",feature="opponent is in check after best move")
+db.evaluateFeature("evaluation/updated/leela",feature="saliency calculated as max from pawn perturbation")
+db.evaluateFeature("evaluation/updated/leela",feature="king is salient because of check")
+db.evaluateFeature("evaluation/updated/leela",feature="already pawn here")
+db.evaluateFeature("evaluation/updated/leela",feature="new pawn saliency for this square")
+db.evaluateFeature("evaluation/updated/leela",feature="guards best move")
+db.evaluateFeature("evaluation/updated/leela",feature="piece is no longer blocked")'''
 
 
 #*************************************************************** try it out yourself ****************************************************************
 
-#asyncio.set_event_loop_policy(chess.engine.EventLoopPolicy())
-#asyncio.run(specific_saliency.computeSaliency('engines/stockfish_12_win_x64_bmi2/stockfish_20090216_x64_bmi2.exe',"7k/pp4pp/2n5/8/8/P7/1P4PP/2K1B3 b - - 0 1"))
+'''asyncio.set_event_loop_policy(chess.engine.EventLoopPolicy())
+asyncio.run(specific_saliency.computeSaliency('engines/stockfish_12_win_x64_bmi2/stockfish_20090216_x64_bmi2.exe'))'''

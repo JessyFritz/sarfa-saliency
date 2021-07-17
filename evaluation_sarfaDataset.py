@@ -3,7 +3,6 @@ import os
 import re
 import chess
 import numpy
-
 import sarfa_saliency
 from basicFunctions import get_moves_squares
 
@@ -11,11 +10,10 @@ datasetBestMoves = ["c3d5","f5h6","g3g8","b6d5","c4f4","d5e7","c3d5","f3h5","d5d
 
 
 def groundTruthEvaluation(directory="evaluation/original/", subset=None):
-    """
-    evaluates the SARFA database's puzzles per engine based on missing ground truth
-    Input :
-        directory : path where different engine outputs are stored
-        subset : give subset of puzzles if not all should be evaluated
+    """ Evaluates the SARFA database's puzzles in the given directory based on the ground-truth in the chess_saliency_databases folder.
+
+    :param directory: path where different engine outputs are stored
+    :param subset: path where different engine outputs are stored
     """
 
     folders = list(filter(lambda x: os.path.isdir(os.path.join(directory, x)), os.listdir(directory)))
@@ -155,9 +153,17 @@ def groundTruthEvaluation(directory="evaluation/original/", subset=None):
     print("Evaluation:")
     sortedKeys = sorted(evaluation, key=lambda x: 2*((evaluation[x]["precision"]*evaluation[x]["recall"])/(evaluation[x]["precision"]+evaluation[x]["recall"])), reverse=True) # sort engines according to their precision
     rank = 1
+    mF = 0
+    mP = 0
+    mR = 0
     for key in sortedKeys:
+        mF += 2*(evaluation[key]["precision"]*evaluation[key]["recall"])/(evaluation[key]["precision"]+evaluation[key]["recall"])
+        mP += evaluation[key]["precision"]
+        mR += evaluation[key]["recall"]
         print("{}. {}:{} F1: {} %, {}".format(rank, key, " "*(11-len(key)), "%.2f" %(round(2*((evaluation[key]["precision"]*evaluation[key]["recall"])/(evaluation[key]["precision"]+evaluation[key]["recall"])),2)), evaluation[key]))
         rank += 1
+    print("F1 mean: {} %, precision mean: {} %, recall mean: {} %".format(round(mF / len(folders), 2), round(mP / len(folders), 2), round(mR / len(folders), 2)))
+
     if subset is None:
         print("Squares missed by all engines: ", allMiss)
         #print("Puzzles with right best move by all engines: ", rightMoves)
@@ -167,12 +173,11 @@ def groundTruthEvaluation(directory="evaluation/original/", subset=None):
 
 
 def singleEngine_groundTruthEvaluation(directory1="evaluation/original/stockfish", directory2="evaluation/updated/stockfish", subset=False):
-    """
-    evaluates the SARFA database's puzzles for a single engine with the original and updated code
-    Input :
-        directory1 : path where first engine's outputs are stored
-        directory2 : path where second engine's outputs are stored
-        subset : give subset of puzzles if not all should be evaluated
+    """ Evaluates the SARFA database's puzzles for a single engine with the original and updated SARFA implementation.
+
+    :param directory1: path where first engine's outputs are stored
+    :param directory2: path where second engine's outputs are stored
+    :param subset: give subset of puzzles if not all should be evaluated
     """
 
     folders = []
@@ -323,14 +328,13 @@ def singleEngine_groundTruthEvaluation(directory1="evaluation/original/stockfish
 
 
 def missingGroundTruth(directory="evaluation/original/stockfish", variable=None, criteria=None, symbol=">"):
-    """
-    prints given engine's missing ground truth into console
-    optionally searches after a given variable and criteria in the missing ground-truth
-    Input :
-        directory : path where evaluation of engine is written
-        variable : aspect to check, f.e. "dP" or "K"
-        criteria : value of variable, f.e. 0.5
-        symbol : greater or smaller, f.e. ">"
+    """ Prints given engine's missing ground truth into console.
+    Optionally searches after a given variable and criteria in the missing ground-truth.
+
+    :param directory: path where evaluation of engine is written
+    :param variable: aspect to check, f.e. "dP" or "K"
+    :param criteria: value of variable, f.e. 0.5
+    :param symbol: greater or smaller, f.e. ">"
     """
 
     if not os.path.exists(directory):
@@ -387,10 +391,9 @@ def missingGroundTruth(directory="evaluation/original/stockfish", variable=None,
 
 
 def calculateImprovements_threshold(directory="evaluation/original/"):
-    """
-    searches for improvements over all engines' missing ground-truths
-    Input :
-        directory : path where evaluation of engines is written
+    """ Searches for improvements over all engines' missing ground-truths.
+
+    :param directory: path where evaluation of engines is written
     """
 
     folders = list(filter(lambda x: os.path.isdir(os.path.join(directory, x)), os.listdir(directory)))
@@ -485,10 +488,10 @@ def calculateImprovements_threshold(directory="evaluation/original/"):
 
 
 def calculateImprovements_positive(directory="evaluation/original/", feature=None):
-    """
-    calculates best occurrence (in precison and recall) of dP and K over the (true and false) positive class
-    Input :
-        directory : path where evaluation of engines is written
+    """ Calculates best occurrence (in precison and recall) of dP and K over the (true and false) positive class. Optional analysis over a given feature.
+
+    :param directory: path where evaluation of engines is written
+    :param feature: message from chess_saliency (f.e. "guards best move")
     """
 
     folders = list(filter(lambda x: os.path.isdir(os.path.join(directory, x)), os.listdir(directory)))
@@ -534,6 +537,7 @@ def calculateImprovements_positive(directory="evaluation/original/", feature=Non
 
         featureOccurrence = False
         i = 0
+        last = "puzzle1"
         # parse all available square data below threshold from output file into dictionary
         while i < len(output[engine]):
             if output[engine][i].startswith("puzzle") and len(output[engine][i]) < 15:
@@ -542,39 +546,75 @@ def calculateImprovements_positive(directory="evaluation/original/", feature=Non
                 evaluation[engine]["answer"][puzzleNr]["above"] = dict()
                 evaluation[engine]["answer"][puzzleNr]["below"] = dict()
             elif output[engine][i].startswith("assigned new best move to engine"):
-                while output[engine][i].startswith("saliency for this square = ") is False:
+                while output[engine][i].startswith("threshold:") is False:
                     i += 1
+                    if i > len(output[engine][i]):
+                        break
             elif output[engine][i].startswith("perturbing square = "):
+                if featureOccurrence == True:
+                    j = i
+                    while output[engine][j].startswith("saliency for this square") is False:
+                        j -= 1
+                    if output[engine][j].startswith("saliency for this square") and sq in \
+                            data[engine][last]["sorted saliencies"]["above threshold"] and (
+                            feature is None or (feature is not None and featureOccurrence)):
+                        if sq in data[engine][last]["saliency ground truth"]:
+                            evaluation[engine]["total"] += 1
+                        variables = str(output[engine][j]).split(',')
+                        evaluation[engine]["answer"][last]["above"][sq] = dict()
+                        for x in variables:
+                            if x.__contains__("\'{}\': ".format('saliency')):
+                                evaluation[engine]["answer"][last]["above"][sq]['saliency'] = x.replace("\'{}\': ".format('saliency'), "")
+                            elif x.__contains__("\'{}\': ".format('K')):
+                                evaluation[engine]["answer"][last]["above"][sq]['K'] = x.replace("\'{}\': ".format('K'), "")
+                            elif x.__contains__("\'{}\': ".format('dP')):
+                                evaluation[engine]["answer"][last]["above"][sq]['dP'] = x.replace("\'{}\': ".format('dP'), "")
+                    elif output[engine][j].last("saliency for this square = ") and sq in \
+                            data[engine][puzzleNr]["sorted saliencies"]["below threshold"] and (
+                            feature is None or (feature is not None and featureOccurrence)):
+                        variables = str(output[engine][j]).split(',')
+                        evaluation[engine]["answer"][last]["below"][sq] = dict()
+                        for x in variables:
+                            if x.__contains__("\'{}\': ".format('saliency')):
+                                evaluation[engine]["answer"][last]["below"][sq]['saliency'] = x.replace("\'{}\': ".format('saliency'), "")
+                            elif x.__contains__("\'{}\': ".format('K')):
+                                evaluation[engine]["answer"][last]["below"][sq]['K'] = x.replace("\'{}\': ".format('K'), "")
+                            elif x.__contains__("\'{}\': ".format('dP')):
+                                evaluation[engine]["answer"][last]["below"][sq]['dP'] = x.replace("\'{}\': ".format('dP'), "")
                 sq = output[engine][i].replace("perturbing square = ", "")
                 sq = sq.replace("\n", "")
                 featureOccurrence = False
             elif feature is not None and output[engine][i].__contains__(feature):
                 featureOccurrence = True
-            elif output[engine][i].startswith("saliency for this square = ") and sq in data[engine][puzzleNr]["sorted saliencies"]["above threshold"] and (feature is None or (feature is not None and featureOccurrence)):
+                last = puzzleNr
+            elif output[engine][i].startswith("saliency for this square") and sq in data[engine][puzzleNr]["sorted saliencies"]["above threshold"] and (feature is None or (feature is not None and featureOccurrence)):
                 if sq in data[engine][puzzleNr]["saliency ground truth"]:
                     evaluation[engine]["total"] += 1
                 variables = str(output[engine][i]).split(',')
                 evaluation[engine]["answer"][puzzleNr]["above"][sq] = dict()
                 for x in variables:
                     if x.__contains__("\'{}\': ".format('saliency')):
-                        evaluation[engine]["answer"][puzzleNr]["above"][sq]['saliency'] = x.replace(
-                            "\'{}\': ".format('saliency'), "")
+                        evaluation[engine]["answer"][puzzleNr]["above"][sq]['saliency'] = x.replace("\'{}\': ".format('saliency'), "")
                     elif x.__contains__("\'{}\': ".format('K')):
                         evaluation[engine]["answer"][puzzleNr]["above"][sq]['K'] = x.replace("\'{}\': ".format('K'), "")
                     elif x.__contains__("\'{}\': ".format('dP')):
                         evaluation[engine]["answer"][puzzleNr]["above"][sq]['dP'] = x.replace("\'{}\': ".format('dP'), "")
+                featureOccurrence = False
             elif output[engine][i].startswith("saliency for this square = ") and sq in data[engine][puzzleNr]["sorted saliencies"]["below threshold"] and (feature is None or (feature is not None and featureOccurrence)):
+                print("here")
                 variables = str(output[engine][i]).split(',')
                 evaluation[engine]["answer"][puzzleNr]["below"][sq] = dict()
                 for x in variables:
                     if x.__contains__("\'{}\': ".format('saliency')):
-                        evaluation[engine]["answer"][puzzleNr]["below"][sq]['saliency'] = x.replace(
-                            "\'{}\': ".format('saliency'), "")
+                        evaluation[engine]["answer"][puzzleNr]["below"][sq]['saliency'] = x.replace("\'{}\': ".format('saliency'), "")
                     elif x.__contains__("\'{}\': ".format('K')):
                         evaluation[engine]["answer"][puzzleNr]["below"][sq]['K'] = x.replace("\'{}\': ".format('K'), "")
                     elif x.__contains__("\'{}\': ".format('dP')):
                         evaluation[engine]["answer"][puzzleNr]["below"][sq]['dP'] = x.replace("\'{}\': ".format('dP'), "")
+                featureOccurrence = False
             i += 1
+
+        print(evaluation[engine])
 
         count_True = 0
         count_False = 0
@@ -670,11 +710,14 @@ def calculateImprovements_positive(directory="evaluation/original/", feature=Non
     print("-----------------------------------------------------------------------")
     if feature is not None:
         for engine in folders:
-            print("best F1 mean for feature \"{}\" with engine {}:{} F1: {} %, precision: {} %, recall: {} % true positive: {}, false positive: {}), (dp {} - {}, K {} - {})".format(
-                    feature, engine, " " * (11 - len(engine)), evaluation[engine]["best F1 mean"],
-                    round(evaluation[engine]["best tP"] / (evaluation[engine]["best tP"] + evaluation[engine]["best fP"]) * 100, 2), round(evaluation[engine]["best tP"] / evaluation[engine]["total"] * 100, 2), evaluation[engine]["best tP"],
-                    evaluation[engine]["best fP"], evaluation[engine]["above dP"], evaluation[engine]["below dP"],
-                    evaluation[engine]["above K"], evaluation[engine]["below K"]))
+            if (evaluation[engine]["best tP"] + evaluation[engine]["best fP"]) > 0:
+                print("best F1 mean for feature \"{}\" with engine {}:{} F1: {} %, precision: {} %, recall: {} % true positive: {}, false positive: {}), (dp {} - {}, K {} - {})".format(
+                        feature, engine, " " * (11 - len(engine)), evaluation[engine]["best F1 mean"],
+                        round(evaluation[engine]["best tP"] / (evaluation[engine]["best tP"] + evaluation[engine]["best fP"]) * 100, 2), round(evaluation[engine]["best tP"] / evaluation[engine]["total"] * 100, 2), evaluation[engine]["best tP"],
+                        evaluation[engine]["best fP"], evaluation[engine]["above dP"], evaluation[engine]["below dP"],
+                        evaluation[engine]["above K"], evaluation[engine]["below K"]))
+            else:
+                print("engine {} has no feature \"{}\"".format(engine, feature))
     else:
         for engine in folders:
             print("best F1 mean for engine {}:{} F1: {} %, precision: {} %, recall: {} % (true positive: {}, false positive: {}), (dp {} - {}, K {} - {})".format(engine, " " * (11 - len(engine)), evaluation[engine]["best F1 mean"],
@@ -693,10 +736,10 @@ def calculateImprovements_positive(directory="evaluation/original/", feature=Non
 
 
 def calculateImprovements_negative(directory="evaluation/original/", feature=None):
-    """
-    calculates best occurrence (in precison and recall) of dP and K over the (true and false) negative class
-    Input :
-        directory : path where evaluation of engines is written
+    """ Calculates best occurrence (in precison and recall) of dP and K over the (true and false) negative class. Optional analysis over a given feature.
+
+    :param directory: path where evaluation of engines is written
+    :param feature: message from chess_saliency (f.e. "guards best move")
     """
 
     folders = list(filter(lambda x: os.path.isdir(os.path.join(directory, x)), os.listdir(directory)))
@@ -735,6 +778,7 @@ def calculateImprovements_negative(directory="evaluation/original/", feature=Non
 
         featureOccurrence = False
         i = 0
+        last = "puzzle1"
         # parse all available square data below threshold from output file into dictionary
         while i < len(output[engine]):
             if output[engine][i].startswith("puzzle") and len(output[engine][i]) < 15:
@@ -746,11 +790,28 @@ def calculateImprovements_negative(directory="evaluation/original/", feature=Non
                     i += 1
                 evaluation[engine]["total"] -= len(data[engine][puzzleNr]["missing ground truth"]["details"])
             elif output[engine][i].startswith("perturbing square = "):
+                if featureOccurrence == True:
+                    j = i
+                    while output[engine][j].startswith("saliency for this square") is False:
+                        j -= 1
+                    if output[engine][i].startswith("saliency for this square = ") and sq not in data[engine][last]["sorted saliencies"]["above threshold"] and (
+                            feature is None or (feature is not None and featureOccurrence)):
+                        variables = str(output[engine][i]).split(',')
+                        evaluation[engine]["answer"][last][sq] = dict()
+                        for x in variables:
+                            if x.__contains__("\'{}\': ".format('saliency')):
+                                evaluation[engine]["answer"][last][sq]['saliency'] = x.replace(
+                                    "\'{}\': ".format('saliency'), "")
+                            elif x.__contains__("\'{}\': ".format('K')):
+                                evaluation[engine]["answer"][last][sq]['K'] = x.replace("\'{}\': ".format('K'), "")
+                            elif x.__contains__("\'{}\': ".format('dP')):
+                                evaluation[engine]["answer"][last][sq]['dP'] = x.replace("\'{}\': ".format('dP'),"")
                 sq = output[engine][i].replace("perturbing square = ","")
                 sq = sq.replace("\n","")
                 featureOccurrence = False
             elif feature is not None and output[engine][i].__contains__(feature):
                 featureOccurrence = True
+                last = puzzleNr
             elif output[engine][i].startswith("saliency for this square = ") and sq not in data[engine][puzzleNr]["sorted saliencies"]["above threshold"] and (feature is None or (feature is not None and featureOccurrence is False)):
                 variables = str(output[engine][i]).split(',')
                 evaluation[engine]["answer"][puzzleNr][sq] = dict()
@@ -818,16 +879,15 @@ def calculateImprovements_negative(directory="evaluation/original/", feature=Non
 
 
 def checkImprovementForOtherEngines(directory, evaluation, data, below_dP=1, above_dP=0, below_K=1, above_K=0):
-    """
-    tries an improvement proposal for all engines
-    Input :
-        directory : path where evaluation of engine is written
-        evaluation : dictionary containing all squares
-        data : dictionary containing all engines' data files
-        below_dP : improved dP below this value
-        above_dP : improved dP above this value
-        below_K : improved K below this value
-        above_K : improved K above this value
+    """ Tries an given improvement proposal for all engines.
+
+    :param directory: path where evaluation of engine is written
+    :param evaluation: dictionary containing all squares
+    :param data: dictionary containing all engines' data files
+    :param below_dP: improved dP below this value
+    :param above_dP: improved dP above this value
+    :param below_K: improved K below this value
+    :param above_K: improved K above this value
     """
 
     folders = list(filter(lambda x: os.path.isdir(os.path.join(directory, x)), os.listdir(directory)))
@@ -870,11 +930,11 @@ def checkImprovementForOtherEngines(directory, evaluation, data, below_dP=1, abo
 
 
 def markEmptySquares(num):
+    """ Changes updated SARFA directory saliency maps with user specified number of empty squares.
+
+    :param num: number of empty squares
     """
-    change updated SARFA directory saliency maps with user specific number of empty squares
-    Input :
-        num : number of empty squares
-    """
+
     dirPath = "evaluation/updated"
     for engine in list(filter(lambda x: os.path.isdir(os.path.join(dirPath, x)), os.listdir(dirPath))):
         evaluation = dict()
@@ -889,6 +949,8 @@ def markEmptySquares(num):
         evaluation = dict()
         evaluation["answer"] = dict()  # engine's square data
         indices = dict()
+
+        print(engine)
 
         i = 0
         # parse all available square data below threshold from output file into dictionary

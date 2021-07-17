@@ -4,19 +4,18 @@ import os
 import re
 import chess
 import chess.pgn
+import chess_saliency_original as original_saliency
 
 datasetBestMoves = ["c3d5","f5h6","g3g8","b6d5","c4f4","d5e7","c3d5","f3h5","d5d6","e4c4","f6h8","h3h7","b2g7","a1a2","b1f5","g5g6","f5f8","f6e8","d6e7","d4d7","e4h7","g1g6","f3e5","e2e7","b6g6","e1e6","c1c6","e5d6","c1g5","c6b7","g1g7","f5e6","g4f6","b7b8","d1d7","d3h7","g3g7","e1c1","d2h6","b2a1","b6c7","d1e1","d1d7","d2d4","e4f6","h5h6","d4e4","e4e6","h5h6","e7e5","f1f5","a1b2","h4e4","d6f5","c1h6","f3g5","b3c4","e5e6","g4g6","f3d5","d7e7","h4h5","d3d4","d1d5","f4e6","e2d4","f1f8","h5h6","f4f7","g5g6","g1g6","e3g4","c7e7","c3b5","d5g8","h6h7","d2c2","c4e6","f1f7","a7a8","e5g6","f1f2","b3f7","b3d1","d6d7","d5f6","f3f8","b1g6","d5f7","e1e6","e4e5","d1d7","b3d4","h3h4","d3h7","f7g7","e5g7","d6f8","g7g6","c4c5","c6c8","b7b4"]
 
-import chess_saliency_original as original_saliency
-
 
 def runDatabase(path, engineLocation="engines/stockfish-11-win/stockfish-11-win/Windows/stockfish_20011801_32bit.exe", saliency=None):
-    """
-    runs a given json database with a given engine against a given saliency implementation
-    Input :
-        path : path from content root which contains json file with puzzles in FEN notation
-        engineLocation : engine's executable file
-        saliency : None or chess_saliency implementation
+    """ Runs a given json database with a given engine against a given saliency implementation.
+
+    :param path: path from content root which contains json file with puzzles in FEN notation
+    :param engineLocation: engine's executable file
+    :param saliency: None or chess_saliency implementation
+    :return:
     """
 
     if saliency is None:
@@ -44,14 +43,13 @@ def runDatabase(path, engineLocation="engines/stockfish-11-win/stockfish-11-win/
 
 
 def newGameDatabase(fen='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1', moveNr='move1', directory="evaluation/games/original/stockfish", engineLocation="engines/stockfish-11-win/stockfish-11-win/Windows/stockfish_20011801_32bit.exe", saliency=None):
-    """
-    plays a whole game by itself starting from a given fen notation
-    Input :
-        fen : starting position in Forsyth–Edwards Notation
-        moveNr : name of inital puzzle
-        directory : path from content root to which the output will be written
-        engineLocation : engine's executable file
-        saliency : None or chess_saliency implementation
+    """ Plays a whole game by itself starting from a given fen notation.
+
+    :param fen: starting position in Forsyth–Edwards Notation
+    :param moveNr: name of inital puzzle
+    :param directory: path from content root to which the output will be written
+    :param engineLocation: engine's executable file
+    :param saliency: None or chess_saliency implementation
     """
 
     if saliency is None:
@@ -130,54 +128,53 @@ def newGameDatabase(fen='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 
 
 
 def runSarfaDataset(directory, engineLocation, saliency=None):
-   """
-   runs the sarfa database puzzles with a given engine and evaluates missing squares from ground truth
-   Input :
-        directory : path to which the evaluation will be written
-        engineLocation : engine's executable file
-        saliency: None or chess_saliency implementation
-   """
+    """ Runs the SARFA database puzzles with a given engine and evaluates missing squares from ground truth.
 
-   if saliency is None:
-       saliency = original_saliency
+    :param directory: path to which the evaluation will be written
+    :param engineLocation: engine's executable file
+    :param saliency: None or chess_saliency implementation
+    """
 
-   if not os.path.exists(directory):
-       os.makedirs(directory)
-       print("created directory")
-   path = "{}/data.json".format(directory)
-   with open(path, 'w+') as jsonFile:
-       jsonFile.write('{}')
+    if saliency is None:
+        saliency = original_saliency
 
-   file = open("{}/output.txt".format(directory), "a")  # append mode
-   file.truncate(0)
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+        print("created directory")
+    path = "{}/data.json".format(directory)
+    with open(path, 'w+') as jsonFile:
+        jsonFile.write('{}')
 
-   with open('chess_saliency_databases/chess-saliency-dataset-v1.json', "r") as jsonFile:
-       data = json.load(jsonFile)
-   data = data['puzzles']
+    file = open("{}/output.txt".format(directory), "a")  # append mode
+    file.truncate(0)
 
-   nr = 1
-   for puzzle in data: # run all puzzles from database
-       puzzleNr = "puzzle" + str(nr)
-       print(puzzleNr)
-       file.write("{}\n".format(puzzleNr))
-       board = chess.Board(puzzle['fen'])
-       asyncio.set_event_loop_policy(chess.engine.EventLoopPolicy())
-       evaluation, aboveThreshold, belowThreshold, original_move, _, _ = asyncio.run(saliency.computeSaliency(engineLocation, chess.Board.fen(board), directory, puzzleNr, datasetBestMoves[nr - 1], file))
+    with open('chess_saliency_databases/chess-saliency-dataset-v1.json', "r") as jsonFile:
+        data = json.load(jsonFile)
+    data = data['puzzles']
 
-       missing = []
-       for square in puzzle['saliencyGroundTruth']:
-           if square not in aboveThreshold:
-               missing.append(square)
-       details = dict()
-       if len(missing) == 0:
-           file.write("puzzle marked all squares from ground truth as salient\n")
-           file.write('------------===============------------===============\n\n')
-           missing = 0
-       else:
+    nr = 1
+    for puzzle in data: # run all puzzles from database
+        puzzleNr = "puzzle" + str(nr)
+        print(puzzleNr)
+        file.write("{}\n".format(puzzleNr))
+        board = chess.Board(puzzle['fen'])
+        asyncio.set_event_loop_policy(chess.engine.EventLoopPolicy())
+        evaluation, aboveThreshold, belowThreshold, original_move, _, _ = asyncio.run(saliency.computeSaliency(engineLocation, chess.Board.fen(board), directory, puzzleNr, datasetBestMoves[nr - 1], file))
+
+        missing = []
+        for square in puzzle['saliencyGroundTruth']:
+            if square not in aboveThreshold:
+                missing.append(square)
+        details = dict()
+        if len(missing) == 0:
+            file.write("puzzle marked all squares from ground truth as salient\n")
+            file.write('------------===============------------===============\n\n')
+            missing = 0
+        else:
            for square in missing:
                details[square] = evaluation[square]
 
-       y = {puzzleNr: {
+        y = {puzzleNr: {
            "fen": puzzle['fen'],
            "best move": str(original_move),
            "sorted saliencies": {
@@ -189,26 +186,25 @@ def runSarfaDataset(directory, engineLocation, saliency=None):
                "squares": missing,
                "details": details
            }
-       }}
+        }}
 
-       with open(path, "r+") as jsonFile:
-           data = json.load(jsonFile)
-           data.update(y)
-           jsonFile.seek(0)
-           json.dump(data, jsonFile, indent=4)
-       nr += 1
-   file.close()
+        with open(path, "r+") as jsonFile:
+            data = json.load(jsonFile)
+            data.update(y)
+            jsonFile.seek(0)
+            json.dump(data, jsonFile, indent=4)
+        nr += 1
+    file.close()
 
 
 def evaluateFeature(directory="evaluation/updated/leela", feature="different best move", variable=None, criteria=None, symbol=">"):
-    """
-    evaluates a given feature inside a given directory with optional improvement proposals
-    Input :
-        directory : path where engine's evaluation is written
-        feature : feature to evaluate
-        variable : aspect to check, f.e. "dP" or "K"
-        criteria : value of variable, f.e. 0.5
-        symbol : greater or smaller, f.e. ">"
+    """ Evaluates a given feature inside a given directory with optional improvement proposals.
+
+    :param directory: path where engine's evaluation is written
+    :param feature: feature to evaluate
+    :param variable: aspect to check, f.e. "dP" or "K"
+    :param criteria: value of variable, f.e. 0.5
+    :param symbol: greater or smaller, f.e. ">"
     """
 
     if not os.path.exists(directory):
@@ -261,11 +257,9 @@ def evaluateFeature(directory="evaluation/updated/leela", feature="different bes
                     i += 1
             if sq is None or sq == sqData:
                 j = idx
-                if bool(re.search(r'\d', line)):
-                    square = line.replace(" {}".format(feature), "")
-                    square = square.replace("\n", "")
-                    if len(square) > 2:
-                        square = square.split(" ")[1]
+                sqs = re.search(r"[a-h][1-8]", line)
+                if sqs is not None:
+                    square = sqs.group(0)
                     while output[j].__contains__("perturbing square = {}".format(square)) is False:
                         j -= 1
                     sq = square
@@ -369,12 +363,11 @@ def evaluateFeature(directory="evaluation/updated/leela", feature="different bes
 
 
 def getMean(directory="evaluation/original/", variable="perturbed reward", subset=None):
-    """
-    calculates mean variable over a given directory
-    Input :
-        directory : path where different engines' outputs are stored
-        variable : calculate average over this
-        subset : average only over given subset
+    """ Calculates mean variable over a given directory. Optional only over a given subset.
+
+    :param directory: path where different engines' outputs are stored
+    :param variable: calculate average over this
+    :param subset: average only over given subset
     """
 
     folders = list(filter(lambda x: os.path.isdir(os.path.join(directory, x)), os.listdir(directory)))
@@ -418,12 +411,11 @@ def getMean(directory="evaluation/original/", variable="perturbed reward", subse
 
 
 def getMinMax(directory="evaluation/original/", variable="reward Q(s',â)", mode="max"):
-    """
-    searches for minimum or maximum variable inside a given directory
-    Input :
-        directory : path where different engines' outputs are stored
-        variable : search min or max from this
-        mode : min or max
+    """ Searches for minimum or maximum variable inside a given directory.
+
+    :param directory: path where different engines' outputs are stored
+    :param variable: search min or max from this
+    :param mode: min or max
     """
 
     folders = list(filter(lambda x: os.path.isdir(os.path.join(directory, x)), os.listdir(directory)))
@@ -468,11 +460,10 @@ def getMinMax(directory="evaluation/original/", variable="reward Q(s',â)", mode
 
 
 def getQValues(directory="evaluation/original/", puzzle="puzzle1"):
-    """
-    prints overview of different engines' q-values for a given puzzle number
-    Input :
-        directory : path where different engines' outputs are stored
-        puzzle: puzzle to analyse q-values from
+    """ Prints overview of different engines' q-values for a given puzzle number.
+
+    :param directory: path where different engines' outputs are stored
+    :param puzzle: puzzle to analyse q-values from
     """
 
     folders = list(filter(lambda x: os.path.isdir(os.path.join(directory, x)), os.listdir(directory)))
@@ -516,13 +507,12 @@ def getQValues(directory="evaluation/original/", puzzle="puzzle1"):
 
 
 def runPGNFolder(directory="chess_saliency_databases/positional", destination="evaluation/chess/positional/original/stockfish", engineLocation="engines/stockfish-11-win/stockfish-11-win/Windows/stockfish_20011801_32bit.exe", saliency=None):
-    """
-    runs a pgn database folder with a given engine
-    Input :
-       directory : path from content root which contains pgn files
-       destination : path from content root where output should be written
-       engineLocation : engine's executable file
-       saliency : None or chess_saliency implementation
+    """ Runs a pgn database folder with a given engine.
+
+    :param directory: path from content root which contains pgn files
+    :param destination: path from content root where output should be written
+    :param engineLocation: engine's executable file
+    :param saliency: None or chess_saliency implementation
     """
 
     if saliency is None:
@@ -565,14 +555,13 @@ def runPGNFolder(directory="chess_saliency_databases/positional", destination="e
 
 
 def runPGNGame(directory="chess_saliency_databases/positional", destination="evaluation/chess/positional/updated/stockfish", pgnGame=None, engineLocation="engines/stockfish-11-win/stockfish-11-win/Windows/stockfish_20011801_32bit.exe", saliency=None):
-    """
-    runs a single pgn game according to a given directory
-    Input :
-       directory : path from content root which contains pgn files
-       destination : path from content root where output should be written
-       pgnGame : name of pgn file
-       engineLocation : engine's executable file
-       saliency : None or chess_saliency implementation
+    """ Runs a single pgn game according to a given directory.
+
+    :param directory: path from content root which contains pgn files
+    :param destination: path from content root where output should be written
+    :param pgnGame: name of pgn file
+    :param engineLocation: engine's executable file
+    :param saliency: None or chess_saliency implementation
     """
 
     if saliency is None:
@@ -584,7 +573,6 @@ def runPGNGame(directory="chess_saliency_databases/positional", destination="eva
     path = "{}/data.json".format(destination)
     with open(path, 'w+') as jsonFile:
         jsonFile.write('{}')
-
 
     print(pgnGame)
     board = chess.pgn.read_game(open(os.path.join(directory, pgnGame), errors='ignore')).board()
@@ -610,13 +598,12 @@ def runPGNGame(directory="chess_saliency_databases/positional", destination="eva
 
 
 def runPGNMultipleFiles(directory="chess_saliency_databases/endgames/endgames.pgn", destination="evaluation/endgames/original/stockfish", engineLocation="engines/stockfish-11-win/stockfish-11-win/Windows/stockfish_20011801_32bit.exe", saliency=None):
-    """
-    runs a pgn file with multiple games
-    Input :
-       directory : path from content root which contains pgn file
-       destination : path from content root where output should be written
-       engineLocation : engine's executable file
-       saliency : None or chess_saliency implementation
+    """ Runs a pgn file with multiple games
+
+    :param directory: path from content root which contains pgn file
+    :param destination: path from content root where output should be written
+    :param engineLocation:  engine's executable file
+    :param saliency: None or chess_saliency implementation
     """
 
     if saliency is None:
@@ -643,12 +630,11 @@ def runPGNMultipleFiles(directory="chess_saliency_databases/endgames/endgames.pg
 
 
 def runBratkoKopec(destination, engineLocation, saliency=None):
-    """
-    runs the bratko-kopec test with a given engine
-    Input :
-        destination : path to which the evaluation will be written
-        engineLocation : engine's executable file
-        saliency : None or chess_saliency implementation
+    """ Runs the bratko-kopec test with a given engine.
+
+    :param destination: path to which the evaluation will be written
+    :param engineLocation: engine's executable file
+    :param saliency: None or chess_saliency implementation
     """
 
     if not os.path.exists(destination):
@@ -709,13 +695,12 @@ def runBratkoKopec(destination, engineLocation, saliency=None):
 
 
 def run_engine(function, engineLocation, engineName, saliency=None):
-    """
-    run a function with a given engine
-    Input :
-        function : method to use ("SARFA", "bratko", "endgame", "general", "positional")
-        engineLocation : engine's executable file
-        engineName : name of the engine
-        saliency : None or chess_saliency implementation
+    """ Runs a function with a given engine.
+
+    :param function: method to use ("SARFA", "bratko", "endgame", "general", "positional")
+    :param engineLocation: engine's executable file
+    :param engineName: name of the engine
+    :param saliency: None or chess_saliency implementation
     """
 
     folder = "updated"
@@ -738,11 +723,10 @@ def run_engine(function, engineLocation, engineName, saliency=None):
 
 
 def runAll_engines(function, saliency=None):
-    """
-    run a function with all engines
-    Input :
-        function : method to use ("SARFA", "bratko", "endgame", "general", "positional")
-        saliency : None or chess_saliency implementation
+    """ Runs a function with all engines.
+
+    :param function: method to use ("SARFA", "bratko", "endgame", "general", "positional")
+    :param saliency: None or chess_saliency implementation
     """
 
     run_engine(function, 'engines/stockfish_12_win_x64_bmi2/stockfish_20090216_x64_bmi2.exe', "stockfish12", saliency)
@@ -750,6 +734,6 @@ def runAll_engines(function, saliency=None):
     run_engine(function, 'engines/stockfish-11-win/stockfish-11-win/Windows/stockfish_20011801_32bit.exe', "stockfish", saliency)
     run_engine(function, 'engines/octochess-r5190/octochess-windows-sse4-r5190.exe', "octochess", saliency)
     run_engine(function, 'engines/komodo/Windows/komodo-12.1.1-64bit.exe', "komodo", saliency)
+    run_engine(function, 'engines/SlowChessClassic-2.4/slow64.exe', "slowchess", saliency)
     run_engine(function, 'engines/rybka/Rybkav2.3.2a.mp.x64.exe', "rybka", saliency)
     run_engine(function, 'engines/fruit/Fruit2.2.1.exe', "fruit", saliency)
-    run_engine(function, 'engines/SlowChessClassic-2.4/slow64.exe', "slowchess", saliency)
