@@ -26,6 +26,8 @@ def evaluate(directory="evaluation/endgames/original/"):
 
     data = dict()
     evaluation = {f: {} for f in folders}
+    highestSal = 0
+    highestSalEngine = ""
 
     for engine in folders: # iterate engines
         print(engine)
@@ -83,6 +85,9 @@ def evaluate(directory="evaluation/endgames/original/"):
                 while j < len(puzzle["best move"]):
                     if data[engine]["move1"]["move"] in puzzle["best move"][j]:
                         sal = len(data[engine]["move1"]["sorted saliencies"]["above threshold"]) # puzzle's salient squares
+                        if sal > highestSal:
+                            highestSal = sal
+                            highestSalEngine = "{} {}".format(engine, puzzleNr)
                         for sq in data[engine]["move1"]["sorted saliencies"]["above threshold"]:
                             if board.piece_type_at(chess.SQUARES[chess.parse_square(sq)]) is None:
                                 salEmpty += 1
@@ -200,8 +205,6 @@ def evaluate(directory="evaluation/endgames/original/"):
 
             nr += 1
 
-        print(evaluation[engine]["precision"])
-        print(evaluation[engine]["recall"])
         evaluation[engine]["precision"] = round(evaluation[engine]["precision"] / (nr-1-evaluation[engine]["wrong move"]-notGiven),2)  # calculate mean of all precision values
         evaluation[engine]["recall"] = round(evaluation[engine]["recall"] / (nr-1-evaluation[engine]["wrong move"]-notGiven), 2)       # calculate mean of all recall values
         type1 = ["precision", "recall"]
@@ -218,6 +221,7 @@ def evaluate(directory="evaluation/endgames/original/"):
 
     print('------------------------------------------')
     print("Evaluation:")
+    print("highest number of marked squares: {}, {}".format(highestSalEngine, highestSal))
     print("Engines sorted by Result:")
     sortedKeys = sorted(evaluation, key=lambda x: evaluation[x]["expected result"]+evaluation[x]["better result"]-evaluation[x]["worse result"], reverse=True)  # sort engines according to their results
     rank = 1
@@ -332,17 +336,14 @@ async def evaluateEndgames_allPuzzles(directory="evaluation/endgames/original", 
             os.makedirs(pathDir)
             print("created directory")
 
-    outputF = open("{}/output.txt".format(directory), "a")
-    outputF.truncate(0)
-
     with open("chess_saliency_databases\endgames\groundTruth.json", "r") as jsonFile:  # open endgame solutions
         database = json.load(jsonFile)
 
     evaluation = {f: {} for f in folders}
+    highestF1 = 0
 
     for engine in folders: # iterate engines
         print(engine)
-        outputF.write("engine: {}\n".format(engine))
         evaluation[engine]["salient"] = 0  # number of salient marked squares for puzzles where engine executed solution move
         evaluation[engine]["missing"] = 0  # number of missing salient (false negative) squares for puzzles where engine executed solution move
         evaluation[engine]["precision"] = 0  # precision over puzzles where engine executed solution move
@@ -378,7 +379,6 @@ async def evaluateEndgames_allPuzzles(directory="evaluation/endgames/original", 
 
             if len(puzzle["best move"]) == 0:
                 notGiven += 1
-
             else:
                 if data["move1"]["move"] in puzzle["best move"]:
                     j = 0
@@ -428,6 +428,10 @@ async def evaluateEndgames_allPuzzles(directory="evaluation/endgames/original", 
 
                             evaluation[engine]["precision"] += precision
                             evaluation[engine]["recall"] += recall
+                            f1 = 2 * precision * recall / (precision + recall)
+                            if f1 > highestF1:
+                                highestF1 = f1
+                                print("highest F1 so far")
 
                             print("   {} piece squares should be salient".format(
                                 len(gTarray) - len(gTarrayEmpty)))  # only non empty squares
@@ -545,6 +549,7 @@ async def evaluateEndgames_allPuzzles(directory="evaluation/endgames/original", 
                                         for x in afterP1:
                                             key = ""
                                             value = ""
+                                            import re
                                             m = re.search(r"[a-h][1-8][a-h][1-8]", x)
                                             if m is not None:
                                                 index = m.span()
@@ -582,7 +587,7 @@ async def evaluateEndgames_allPuzzles(directory="evaluation/endgames/original", 
                             if not os.path.exists(pathDir + "/" + engine + "/" + puzzleNr):
                                 os.makedirs(pathDir + "/" + engine + "/" + puzzleNr)
                                 print("created directory")
-                        aboveThreshold = await givenQValues_computeSaliency(board, move, beforePdict, qValuesEngine, pathDir + "/" + engine + "/" + puzzleNr, "move1")
+                        aboveThreshold, _ = await givenQValues_computeSaliency(board, move, data["move1"]["fen"], beforePdict, qValuesEngine, pathDir + "/" + engine + "/" + puzzleNr, "move1")
 
                         gTarray = puzzle["groundTruth"]
                         if len(puzzle["best move"]) > 1:
@@ -617,6 +622,10 @@ async def evaluateEndgames_allPuzzles(directory="evaluation/endgames/original", 
 
                             evaluation[engine]["precision"] += precision
                             evaluation[engine]["recall"] += recall
+                            f1 = 2 * precision * recall / (precision + recall)
+                            if f1 > highestF1:
+                                highestF1 = f1
+                                print("highest F1 so far")
 
                             print("   {} piece squares should be salient".format(
                             len(gTarray) - len(gTarrayEmpty)))  # only non empty squares
@@ -647,7 +656,7 @@ async def evaluateEndgames_allPuzzles(directory="evaluation/endgames/original", 
         if mode == "All":
             print("{}\'s averages are calculated over all {} puzzles".format(engine, nr - 1 - notGiven))
             evaluation[engine]["precision"] = round(evaluation[engine]["precision"] / (nr - 1 - notGiven), 2)  # calculate mean of all precision values
-            evaluation[engine]["recall"] = round(evaluation[engine]["recall"] / (nr - 1) - notGiven, 2)        # calculate mean of all recall values
+            evaluation[engine]["recall"] = round(evaluation[engine]["recall"] / (nr - 1 - notGiven), 2)        # calculate mean of all recall values
         elif mode == "Right":
             print("{}\'s averages are calculated over {} puzzles".format(engine, nr - 1 - evaluation[engine]["wrong move"] - notGiven))
             evaluation[engine]["precision"] = round(evaluation[engine]["precision"] / (nr - 1 - evaluation[engine]["wrong move"] - notGiven), 2)  # calculate mean of all precision values
@@ -675,8 +684,6 @@ async def evaluateEndgames_allPuzzles(directory="evaluation/endgames/original", 
             else:
                 evaluation[engine]["{} piece".format(a)] = 0
             print('------------------------------------------')
-
-    outputF.close()
 
     if mode == "Right":
         keys = list(evaluation)
@@ -901,8 +908,7 @@ def endgames_calculateImprovements_TopEmptySquares(directory="evaluation/endgame
     data = dict()
     evaluation = {f: {} for f in folders}
 
-    with open("{}/groundTruth.json".format("chess_saliency_databases/endgames"),
-              "r") as jsonFile:  # open positional or tactical test solution
+    with open("{}/groundTruth.json".format("chess_saliency_databases/endgames"), "r") as jsonFile:  # open positional or tactical test solution
         database = json.load(jsonFile)
 
     for engine in folders:
@@ -914,12 +920,11 @@ def endgames_calculateImprovements_TopEmptySquares(directory="evaluation/endgame
         emptyGT = dict()
         evaluation[engine]["puzzles"] = 0
 
-        for puzzleDir in list(filter(lambda x: os.path.isdir(os.path.join("evaluation/endgames/updated/" + engine, x)),
-                                     os.listdir("evaluation/endgames/updated/" + engine))):
-            path = "evaluation/endgames/updated/" + engine + "/" + puzzleDir + "/data.json"
+        for puzzleDir in list(filter(lambda x: os.path.isdir(os.path.join(directory + engine, x)), os.listdir(directory + engine))):
+            path = directory + engine + "/" + puzzleDir + "/data.json"
             with open(path, "r") as jsonFile:
                 data = json.load(jsonFile)
-            path = "evaluation/endgames/updated/" + engine + "/" + puzzleDir + "/output.txt"
+            path = directory + engine + "/" + puzzleDir + "/output.txt"
             with open(path, "r") as file:
                 output = file.readlines()
 
@@ -1546,3 +1551,170 @@ def endgames_markEmptySquares(num):
             path = "evaluation/endgames/updated/" + engine + "/" + puzzleNr + "/data.json"
             with open(path, "w") as jsonFile:
                 json.dump(data, jsonFile, indent=4)
+
+
+async def rerunEndgames_qValues(directory="evaluation/endgames/updated/"):
+    """Rerun all endgame puzzles in the given directory based on existing q_values (output.txt).
+
+    :param directory: path where different engines' outputs are stored
+    """
+
+    folders = list(filter(lambda x: os.path.isdir(os.path.join(directory, x)), os.listdir(directory)))
+    print(folders)
+    if len(folders) == 0:
+        directory, file = os.path.split(directory)
+        directory += '/'
+        folders.append(file)
+
+    with open("chess_saliency_databases\endgames\groundTruth.json", "r") as jsonFile:  # open endgame solutions
+        database = json.load(jsonFile)
+
+    for engine in folders: # iterate engines
+        print(engine)
+
+        nr = 1
+
+        for puzzle in database: # iterate puzzles
+            puzzleNr = "puzzle" + str(nr)
+            print(puzzleNr)
+
+            path = "{}/{}/{}/data.json".format(directory, engine, puzzleNr)
+            with open(path, "r") as jsonFile:
+                data = json.load(jsonFile)
+
+            board = chess.Board(data["move1"]["fen"])
+
+            path = directory + engine + "/" + puzzleNr + "/" + "output.txt"
+            with open(path, "r") as file:
+                output = file.readlines()
+
+            outputF = open("{}/{}/{}/output.txt".format(directory, engine, puzzleNr), "a")  # append mode
+            outputF.truncate(0)
+
+            qValuesEngine = dict()
+
+            i = 0
+            while output[i].startswith("move1") is False:
+                i += 1
+
+            while i < len(output):
+                if output[i].startswith("move1") and len(output[i]) < 15:
+                    beforeP = None
+                    board = chess.Board(data["move1"]["fen"])
+                elif output[i].startswith("move2") and len(output[i]) < 15:
+                    break
+                elif output[i].startswith("Q Values: {") and beforeP is None:
+                    beforeP = output[i].replace("Q Values: {", "").split(",")
+                    beforePdict = dict()
+                    for x in beforeP:
+                        key = ""
+                        value = ""
+                        import re
+                        m = re.search(r"[a-h][1-8][a-h][1-8]", x)
+                        if m is not None:
+                            index = m.span()
+                            key = x[index[0]:index[1]]
+                        m = re.findall(r"[-+]?\d*\.\d+|\d+", x)
+                        if len(m) > 2:
+                            value = m[2]
+                        beforePdict[key] = float(value)
+                    print(beforePdict)
+                elif output[i].startswith("perturbing square = "):
+                    sq = output[i].replace("perturbing square = ", "")
+                    sq = sq.replace("\n", "")
+                    qValuesEngine[sq] = dict()
+                elif output[i].startswith("querying engine with perturbed position"):
+                    while output[i].startswith("------------------------------------------") is False:
+                        if output[i].startswith("Q Values: {"):
+                            afterP = output[i].replace("Q Values: {", "").split(",")
+                            afterPdict = dict()
+                            for x in afterP:
+                                key = ""
+                                value = ""
+                                import re
+                                m = re.search(r"[a-h][1-8][a-h][1-8]", x)
+                                if m is not None:
+                                    index = m.span()
+                                    key = x[index[0]:index[1]]
+                                m = re.findall(r"[-+]?\d*\.\d+|\d+", x)
+                                if len(m) > 2:
+                                    value = m[2]
+                                afterPdict[key] = float(value)
+                            break
+                        i += 1
+                    qValuesEngine[sq]["regular"] = afterPdict
+                elif output[i].startswith("new pawn saliency for this square"):
+                    y = i
+                    while output[y].startswith("------------------------------------------") is False:
+                        if output[y].startswith("Q Values: {"):
+                            afterP = output[y].replace("Q Values: {", "").split(",")
+                            afterPdict = dict()
+                            for x in afterP:
+                                key = ""
+                                value = ""
+                                m = re.search(r"[a-h][1-8][a-h][1-8]", x)
+                                if m is not None:
+                                    index = m.span()
+                                    key = x[index[0]:index[1]]
+                                m = re.findall(r"[-+]?\d*\.\d+|\d+", x)
+                                if len(m) > 2:
+                                    value = m[2]
+                                afterPdict[key] = float(value)
+                            break
+                        y -= 1
+                        qValuesEngine[sq]["pawn"] = afterPdict
+                elif output[i].startswith("square is empty, so put a pawn from player's color here"):
+                    afterP1 = None
+                    afterP2 = None
+                    while output[i].startswith("------------------------------------------") is False:
+                        if output[i].startswith("Q Values: {") and afterP1 is None:
+                            afterP1 = output[i].replace("Q Values: {", "").split(",")
+                            afterP1dict = dict()
+                            for x in afterP1:
+                                key = ""
+                                value = ""
+                                m = re.search(r"[a-h][1-8][a-h][1-8]", x)
+                                if m is not None:
+                                    index = m.span()
+                                    key = x[index[0]:index[1]]
+                                m = re.findall(r"[-+]?\d*\.\d+|\d+", x)
+                                if len(m) > 2:
+                                    value = m[2]
+                                afterP1dict[key] = float(value)
+                        elif output[i].startswith("Q Values: {") and afterP2 is None:
+                            afterP2 = output[i].replace("Q Values: {", "").split(",")
+                            afterP2dict = dict()
+                            for x in afterP2:
+                                key = ""
+                                value = ""
+                                m = re.search(r"[a-h][1-8][a-h][1-8]", x)
+                                if m is not None:
+                                    index = m.span()
+                                    key = x[index[0]:index[1]]
+                                m = re.findall(r"[-+]?\d*\.\d+|\d+", x)
+                                if len(m) > 2:
+                                    value = m[2]
+                                afterP2dict[key] = float(value)
+                            break
+                        i += 1
+                    qValuesEngine[sq] = {
+                        "player" : afterP1dict,
+                        "opponent" : afterP2dict
+                    }
+                i += 1
+            print("starting SARFA")
+            original_move = data["move1"]["move"]
+            ss = original_move[0:2]
+            ds = original_move[2:4]
+            move = chess.Move(chess.SQUARES[chess.parse_square(ss)], chess.SQUARES[chess.parse_square(ds)])
+            outputF.write("move1\n")
+            aboveThreshold, belowThreshold = await givenQValues_computeSaliency(board, move, data["move1"]["fen"], beforePdict, qValuesEngine, directory + engine + "/" + puzzleNr, "move1", outputF)
+
+            path = directory + engine + "/" + puzzleNr + "/" + "data.json"
+
+            data["move1"]["sorted saliencies"]["above threshold"] = aboveThreshold
+            data["move1"]["sorted saliencies"]["below threshold"] = belowThreshold
+
+            with open(path, "w") as jsonFile:
+                json.dump(data, jsonFile, indent=4)
+            nr += 1

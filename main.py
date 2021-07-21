@@ -8,11 +8,12 @@ import databaseHandler as db
 from evaluation_bratkoKopec import evaluateBratkoKopec, convertToPosition, \
     singleEngine_bratkoKopec_groundTruthEvaluation, \
     bratkoKopec_calculateImprovements_emptySquares, bratkoKopec_calculateImprovements_TopEmptySquares, \
-    bratkoKopec_markEmptySquares, evaluateBratkoKopec_allPuzzles
+    bratkoKopec_markEmptySquares, evaluateBratkoKopec_allPuzzles, rerunBratkoKopec_qValues
 from evaluation_endgames import evaluate, singleEngine_endgames_groundTruthEvaluation, endgames_markEmptySquares, \
-    endgames_calculateImprovements_TopEmptySquares, evaluateEndgames_allPuzzles
+    endgames_calculateImprovements_TopEmptySquares, evaluateEndgames_allPuzzles, rerunEndgames_qValues
 from evaluation_sarfaDataset import groundTruthEvaluation, missingGroundTruth, singleEngine_groundTruthEvaluation, \
-    calculateImprovements_threshold, calculateImprovements_negative, calculateImprovements_positive, markEmptySquares
+    calculateImprovements_threshold, calculateImprovements_negative, calculateImprovements_positive, markEmptySquares, \
+    rerun_qValues
 
 updated_saliency.enableEmptySquares = True #enable empty squares
 specific_saliency.enableEmptySquares = True
@@ -20,9 +21,11 @@ leela_saliency.enableEmptySquares = True
 
 #**************************************************** run & evaluate sarfa dataset's 102 puzzles ****************************************************
 
+#************************** create saliency maps
 #db.runAll_engines("SARFA")
 #db.runAll_engines("SARFA", specific_saliency)
 
+#************************** evaluate saliency maps
 #groundTruthEvaluation() # evaluate all 102 puzzles
 #groundTruthEvaluation(subset=groundTruthEvaluation()) # evaluate only puzzles with correct move
 #missingGroundTruth()
@@ -42,19 +45,24 @@ leela_saliency.enableEmptySquares = True
 #calculateImprovements_negative()
 #calculateImprovements_positive()
 
+#************************** modify saliency maps
 #markEmptySquares(0)
+'''asyncio.set_event_loop_policy(chess.engine.EventLoopPolicy())
+asyncio.run(rerun_qValues())'''
 
 
 #********************************** run & evaluate bratko-kopec test from http://kopecchess.com/bratko-kopec-test/ **********************************
 
+#************************** create saliency maps
 #db.runAll_engines("bratkoKopec")
 #db.runAll_engines("bratkoKopec", updated_saliency)
 #db.runAll_engines("bratkoKopec", specific_saliency)
 
+#************************** evaluate saliency maps
 #evaluateBratkoKopec()
 #evaluateBratkoKopec("evaluation/bratko-kopec/updated")
 '''asyncio.set_event_loop_policy(chess.engine.EventLoopPolicy())
-asyncio.run(evaluateBratkoKopec_allPuzzles("evaluation/bratko-kopec/updated", mode="Wrong"))'''
+asyncio.run(evaluateBratkoKopec_allPuzzles("evaluation/bratko-kopec/updated", mode="All"))'''
 
 #convertToPosition()
 
@@ -70,19 +78,24 @@ asyncio.run(evaluateBratkoKopec_allPuzzles("evaluation/bratko-kopec/updated", mo
 #bratkoKopec_calculateImprovements_emptySquares()
 #bratkoKopec_calculateImprovements_TopEmptySquares()
 
+#************************** modify saliency maps
 #bratkoKopec_markEmptySquares(3)
+'''asyncio.set_event_loop_policy(chess.engine.EventLoopPolicy())
+asyncio.run(rerunBratkoKopec_qValues())'''
 
 
 #****************************** run & evaluate 20 endgame puzzles from https://www.stmintz.com/ccc/index.php?id=476109 ******************************
 
+#************************** create saliency maps
 #db.runAll_engines("endgame")
 #db.runAll_engines("endgame", updated_saliency)
 #db.runAll_engines("endgame", specific_saliency)
 
+#************************** evaluate saliency maps
 #evaluate()
 #evaluate("evaluation/endgames/updated/")
 '''asyncio.set_event_loop_policy(chess.engine.EventLoopPolicy())
-asyncio.run(evaluateEndgames_allPuzzles("evaluation/endgames/updated", mode="Wrong"))'''
+asyncio.run(evaluateEndgames_allPuzzles("evaluation/endgames/updated", mode="All"))'''
 
 #singleEngine_endgames_groundTruthEvaluation()
 #singleEngine_endgames_groundTruthEvaluation(directory1="evaluation/endgames/original/leela", directory2="evaluation/endgames/updated/leela")
@@ -95,7 +108,10 @@ asyncio.run(evaluateEndgames_allPuzzles("evaluation/endgames/updated", mode="Wro
 
 #endgames_calculateImprovements_TopEmptySquares()
 
+#************************** modify saliency maps
 #endgames_markEmptySquares(3)
+'''asyncio.set_event_loop_policy(chess.engine.EventLoopPolicy())
+asyncio.run(rerunEndgames_qValues())'''
 
 
 #****************************************** run some generally problematic maps & more posiitonal puzzles *******************************************

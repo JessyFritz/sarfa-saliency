@@ -33,6 +33,8 @@ def evaluateBratkoKopec(directory="evaluation/bratko-kopec/original"):
 
     data = dict()
     evaluation = {f: {} for f in folders}
+    highestSal = 0
+    highestSalEngine = ""
 
     for engine in folders: # iterate engines
         print(engine)
@@ -163,6 +165,9 @@ def evaluateBratkoKopec(directory="evaluation/bratko-kopec/original"):
                             if j >= 0 and qValues[moves[j]] >= first and str(move) == current: # assign a score of 1/0.5/0.33/0.25 to puzzle
                                 sc = 1
                                 sal = len(data[engine][puzzleNr]["sorted saliencies"]["above threshold"])
+                                if sal > highestSal:
+                                    highestSal = sal
+                                    highestSalEngine = "{} {}".format(engine, puzzleNr)
                                 for m in data[engine][puzzleNr]["sorted saliencies"]["above threshold"]: # analyse all empty squares
                                     if board.piece_type_at(chess.SQUARES[chess.parse_square(m)]) is None:
                                         salEmpty += 1
@@ -271,6 +276,7 @@ def evaluateBratkoKopec(directory="evaluation/bratko-kopec/original"):
     outputF.close()
     print('------------------------------------------')
     print("Evaluation:")
+    print("highest number of marked squares: {}, {}".format(highestSalEngine, highestSal))
     print("Engines sorted by Total Score:")
     sortedKeys = sorted(evaluation, key=lambda x: evaluation[x]["score"], reverse=True) # sort engines according to their score
     rank = 1
@@ -406,6 +412,7 @@ async def evaluateBratkoKopec_allPuzzles(directory="evaluation/bratko-kopec/orig
         jsonFiles = [engine]
 
     evaluation = {f: {} for f in folders}
+    highestF1 = 0
 
     for engine in folders: # iterate engines
         print(engine)
@@ -500,6 +507,10 @@ async def evaluateBratkoKopec_allPuzzles(directory="evaluation/bratko-kopec/orig
                             evaluation[engine]["precision {}".format(jsonF)] += precision
                             evaluation[engine]["recall"] += recall
                             evaluation[engine]["recall {}".format(jsonF)] += recall
+                            f1 = 2*precision*recall/(precision+recall)
+                            if f1 > highestF1:
+                                highestF1 = f1
+                                print("highest F1 so far")
 
                             print("   {} piece squares should be salient".format(
                                 len(gTarray) - len(gTarrayEmpty)))  # only non empty squares
@@ -621,6 +632,7 @@ async def evaluateBratkoKopec_allPuzzles(directory="evaluation/bratko-kopec/orig
                                         for x in afterP1:
                                             key = ""
                                             value = ""
+                                            import re
                                             m = re.search(r"[a-h][1-8][a-h][1-8]", x)
                                             if m is not None:
                                                 index = m.span()
@@ -654,7 +666,7 @@ async def evaluateBratkoKopec_allPuzzles(directory="evaluation/bratko-kopec/orig
                         ss = puzzle["best move"][0][0:2]
                         ds = puzzle["best move"][0][2:4]
                         move = chess.Move(chess.SQUARES[chess.parse_square(ss)], chess.SQUARES[chess.parse_square(ds)])
-                        aboveThreshold = await givenQValues_computeSaliency(board, move, beforePdict, qValuesEngine, pathDir + "/" + engine + "/" + jsonF, puzzleNr)
+                        aboveThreshold, _ = await givenQValues_computeSaliency(board, move, puzzle["fen"], beforePdict, qValuesEngine, pathDir + "/" + engine + "/" + jsonF, puzzleNr)
 
                         gTarray = puzzle["groundTruth"]
                         if gTarray is not None:  # calculate precision and recall
@@ -690,6 +702,10 @@ async def evaluateBratkoKopec_allPuzzles(directory="evaluation/bratko-kopec/orig
                             evaluation[engine]["precision {}".format(jsonF)] += precision
                             evaluation[engine]["recall"] += recall
                             evaluation[engine]["recall {}".format(jsonF)] += recall
+                            f1 = 2 * precision * recall / (precision + recall)
+                            if f1 > highestF1:
+                                highestF1 = f1
+                                print("highest F1 so far")
 
                             print("   {} piece squares should be salient".format(
                                 len(gTarray) - len(gTarrayEmpty)))  # only non empty squares
@@ -1996,3 +2012,181 @@ def bratkoKopec_markEmptySquares(num):
                 path = "evaluation/bratko-kopec/updated/" + engine + "/" + t + "/" + "data.json"
                 with open(path, "w") as jsonFile:
                     json.dump(data, jsonFile, indent=4)
+
+
+async def rerunBratkoKopec_qValues(directory="evaluation/bratko-kopec/updated/"):
+    """Rerun all bratko-kopec puzzles in the given directory based on existing q_values (output.txt).
+
+    :param directory: path where different engines' outputs are stored
+    """
+
+    folders = list(filter(lambda x: os.path.isdir(os.path.join(directory, x)), os.listdir(directory)))
+    print(folders)
+    if len(folders) == 0:
+        directory, file = os.path.split(directory)
+        directory += '/'
+        folders.append(file)
+
+    jsonDatabaseFolder = "chess_saliency_databases/bratko-kopec"
+    jsonFiles = list(filter(lambda x: os.path.isdir(os.path.join(jsonDatabaseFolder, x)), os.listdir(jsonDatabaseFolder)))
+    if len(jsonFiles) == 0:
+        jsonDatabaseFolder, engine = os.path.split(jsonDatabaseFolder)
+        jsonFiles = [engine]
+
+    for engine in folders: # iterate engines
+        print(engine)
+
+        for jsonF in jsonFiles: # positional or tactical folder
+            print(jsonF)
+            with open("{}/{}/bratko-kopec.json".format(jsonDatabaseFolder, jsonF), "r") as jsonFile: # open positional or tactical test solution
+                database = json.load(jsonFile)
+
+            path = "{}/{}/{}/data.json".format(directory, engine, jsonF) # open engine's evaluation
+            with open(path, "r") as jsonFile:
+                data = json.load(jsonFile)
+
+            path = directory + "/" + engine + "/" + jsonF + "/" + "output.txt"
+            with open(path, "r") as file:
+                output = file.readlines()
+
+            outputF = open(directory + "/" + engine + "/" + jsonF + "/" + "output.txt", "a")  # append mode
+            outputF.truncate(0)
+
+            backupIndex = 0
+            nr = 1
+
+            for puzzle in database: # iterate puzzles
+                puzzleNr = "puzzle" + str(nr)
+                print(puzzleNr)
+                board = chess.Board(puzzle["fen"])
+
+                i = backupIndex
+                qValuesEngine = dict()
+
+                while output[i].startswith(puzzleNr) is False:
+                    i += 1
+
+                while i < len(output):
+                    if output[i].startswith(puzzleNr) and len(output[i]) < 15:
+                        beforeP = None
+                        board = chess.Board(data[puzzleNr]["fen"])
+                        stop = int(puzzleNr.replace("puzzle", ""))
+                    elif output[i].startswith("puzzle{}".format(stop+1)) and len(output[i]) < 15:
+                        backupIndex = i
+                        break
+                    elif output[i].startswith("Q Values: {") and beforeP is None:
+                        beforeP = output[i].replace("Q Values: {", "").split(",")
+                        beforePdict = dict()
+                        for x in beforeP:
+                            key = ""
+                            value = ""
+                            import re
+                            m = re.search(r"[a-h][1-8][a-h][1-8]", x)
+                            if m is not None:
+                                index = m.span()
+                                key = x[index[0]:index[1]]
+                            m = re.findall(r"[-+]?\d*\.\d+|\d+", x)
+                            if len(m) > 2:
+                                value = m[2]
+                            beforePdict[key] = float(value)
+                        print(beforePdict)
+                    elif output[i].startswith("perturbing square = "):
+                        sq = output[i].replace("perturbing square = ", "")
+                        sq = sq.replace("\n", "")
+                        qValuesEngine[sq] = dict()
+                    elif output[i].startswith("querying engine with perturbed position"):
+                        while output[i].startswith("------------------------------------------") is False:
+                            if output[i].startswith("Q Values: {"):
+                                afterP = output[i].replace("Q Values: {", "").split(",")
+                                afterPdict = dict()
+                                for x in afterP:
+                                    key = ""
+                                    value = ""
+                                    import re
+                                    m = re.search(r"[a-h][1-8][a-h][1-8]", x)
+                                    if m is not None:
+                                        index = m.span()
+                                        key = x[index[0]:index[1]]
+                                    m = re.findall(r"[-+]?\d*\.\d+|\d+", x)
+                                    if len(m) > 2:
+                                        value = m[2]
+                                    afterPdict[key] = float(value)
+                                break
+                            i += 1
+                        qValuesEngine[sq]["regular"] = afterPdict
+                    elif output[i].startswith("new pawn saliency for this square"):
+                        y = i
+                        while output[y].startswith("------------------------------------------") is False:
+                            if output[y].startswith("Q Values: {"):
+                                afterP = output[y].replace("Q Values: {", "").split(",")
+                                afterPdict = dict()
+                                for x in afterP:
+                                    key = ""
+                                    value = ""
+                                    m = re.search(r"[a-h][1-8][a-h][1-8]", x)
+                                    if m is not None:
+                                        index = m.span()
+                                        key = x[index[0]:index[1]]
+                                    m = re.findall(r"[-+]?\d*\.\d+|\d+", x)
+                                    if len(m) > 2:
+                                        value = m[2]
+                                    afterPdict[key] = float(value)
+                                break
+                            y -= 1
+                            qValuesEngine[sq]["pawn"] = afterPdict
+                    elif output[i].startswith("square is empty, so put a pawn from player's color here"):
+                        afterP1 = None
+                        afterP2 = None
+                        while output[i].startswith("------------------------------------------") is False:
+                            if output[i].startswith("Q Values: {") and afterP1 is None:
+                                afterP1 = output[i].replace("Q Values: {", "").split(",")
+                                afterP1dict = dict()
+                                for x in afterP1:
+                                    key = ""
+                                    value = ""
+                                    import re
+                                    m = re.search(r"[a-h][1-8][a-h][1-8]", x)
+                                    if m is not None:
+                                        index = m.span()
+                                        key = x[index[0]:index[1]]
+                                    m = re.findall(r"[-+]?\d*\.\d+|\d+", x)
+                                    if len(m) > 2:
+                                        value = m[2]
+                                    afterP1dict[key] = float(value)
+                            elif output[i].startswith("Q Values: {") and afterP2 is None:
+                                afterP2 = output[i].replace("Q Values: {", "").split(",")
+                                afterP2dict = dict()
+                                for x in afterP2:
+                                    key = ""
+                                    value = ""
+                                    m = re.search(r"[a-h][1-8][a-h][1-8]", x)
+                                    if m is not None:
+                                        index = m.span()
+                                        key = x[index[0]:index[1]]
+                                    m = re.findall(r"[-+]?\d*\.\d+|\d+", x)
+                                    if len(m) > 2:
+                                        value = m[2]
+                                    afterP2dict[key] = float(value)
+                                break
+                            i += 1
+                        qValuesEngine[sq] = {
+                            "player" : afterP1dict,
+                            "opponent" : afterP2dict
+                        }
+                    i += 1
+                print("starting SARFA")
+                original_move = data[puzzleNr]["move"]
+                ss = original_move[0:2]
+                ds = original_move[2:4]
+                move = chess.Move(chess.SQUARES[chess.parse_square(ss)], chess.SQUARES[chess.parse_square(ds)])
+                outputF.write("{}\n".format(puzzleNr))
+                aboveThreshold, belowThreshold = await givenQValues_computeSaliency(board, move, data[puzzleNr]["fen"], beforePdict, qValuesEngine, directory + "/" + engine + "/" + jsonF, puzzleNr, outputF)
+
+                path = directory + engine + "/" + jsonF + "/" + "data.json"
+
+                data[puzzleNr]["sorted saliencies"]["above threshold"] = aboveThreshold
+                data[puzzleNr]["sorted saliencies"]["below threshold"] = belowThreshold
+
+                with open(path, "w") as jsonFile:
+                    json.dump(data, jsonFile, indent=4)
+                nr += 1
