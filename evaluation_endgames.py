@@ -591,7 +591,7 @@ async def evaluateEndgames_allPuzzles(directory="evaluation/endgames/original", 
                             if not os.path.exists(pathDir + "/" + engine + "/" + puzzleNr):
                                 os.makedirs(pathDir + "/" + engine + "/" + puzzleNr)
                                 print("   created directory")
-                        aboveThreshold, _ = await givenQValues_computeSaliency(board, move, data["move1"]["fen"], beforePdict, qValuesEngine, pathDir + "/" + engine + "/" + puzzleNr, "move1")
+                        aboveThreshold, _ = await givenQValues_computeSaliency(board, move, data["move1"]["fen"], beforePdict, qValuesEngine, False, pathDir + "/" + engine + "/" + puzzleNr, "move1")
 
                         gTarray = puzzle["groundTruth"]
                         if len(puzzle["best move"]) > 1:
@@ -1736,7 +1736,7 @@ async def rerunEndgames_qValues(directory="evaluation/endgames/updated/"):
             ds = original_move[2:4]
             move = chess.Move(chess.SQUARES[chess.parse_square(ss)], chess.SQUARES[chess.parse_square(ds)])
             outputF.write("move1\n")
-            aboveThreshold, belowThreshold = await givenQValues_computeSaliency(board, move, data["move1"]["fen"], beforePdict, qValuesEngine, directory + engine + "/" + puzzleNr, "move1", outputF)
+            aboveThreshold, belowThreshold = await givenQValues_computeSaliency(board, move, data["move1"]["fen"], beforePdict, qValuesEngine, False, directory + engine + "/" + puzzleNr, "move1", outputF)
 
             path = directory + engine + "/" + puzzleNr + "/" + "data.json"
 

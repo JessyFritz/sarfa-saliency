@@ -571,17 +571,23 @@ async def retryEngineAnalysis(enginePath, board, original_action, eval_time, col
     return info
 
 
-async def givenQValues_computeSaliency(board, original_move, FEN, dict_q_values_before_perturbation, after_perturbation, directory, puzzle, file=None):
+async def givenQValues_computeSaliency(board, original_move, FEN, dict_q_values_before_perturbation, after_perturbation, assignedBestMove, directory, puzzle, file=None):
     """ Computes saliency map for given board position, based on an given move and existing q-values.
 
     :param board: board initiated with FEN
     :param original_move: solution move
+    :param FEN: board string in FEN
     :param dict_q_values_before_perturbation: initial q-values from an engine
     :param after_perturbation: dictinary of reiterated q-values from an engine after perturbations
+    :param assignedBestMove: True if assigned new best move
     :param directory: destination folder
     :param puzzle: name of puzzle
+    :param file: output file
     :return: Saliency map
     """
+
+    print(dict_q_values_before_perturbation)
+    print(after_perturbation)
 
     if file is None:
         file = open("svg_custom/output.txt".format(directory), "a")  # append mode
@@ -656,6 +662,9 @@ async def givenQValues_computeSaliency(board, original_move, FEN, dict_q_values_
         'h7': {'int': chess.H7, 'saliency': -2},
         'h8': {'int': chess.H8, 'saliency': -2},
     }
+
+    if assignedBestMove:
+        file.write("assigned new best move to engine\n")
 
     svg_w_arrow = svg_custom.board(board, arrows=[svg_custom.Arrow(tail=original_move.from_square, head=original_move.to_square, color='#e6e600')])
     svg_to_png(svg_w_arrow, directory, puzzle)

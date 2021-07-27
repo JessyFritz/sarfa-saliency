@@ -1453,6 +1453,7 @@ async def rerun_qValues(directory="evaluation/updated/"):
             puzzleNr = "puzzle" + str(nr)
             print(puzzleNr)
             board = chess.Board(puzzle["fen"])
+            assignedBestMove = False
 
             i = backupIndex
             qValuesEngine = dict()
@@ -1468,6 +1469,8 @@ async def rerun_qValues(directory="evaluation/updated/"):
                 elif output[i].startswith("puzzle{}".format(stop+1)) and len(output[i]) < 15:
                     backupIndex = i
                     break
+                elif output[i].startswith("assigned new best move to engine"):
+                    assignedBestMove = True
                 elif output[i].startswith("Q Values: {") and beforeP is None:
                     beforeP = output[i].replace("Q Values: {", "").split(",")
                     beforePdict = dict()
@@ -1488,85 +1491,86 @@ async def rerun_qValues(directory="evaluation/updated/"):
                     sq = output[i].replace("perturbing square = ", "")
                     sq = sq.replace("\n", "")
                     qValuesEngine[sq] = dict()
-                elif output[i].startswith("querying engine with perturbed position"):
-                    while output[i].startswith("------------------------------------------") is False:
-                        if output[i].startswith("Q Values: {"):
-                            afterP = output[i].replace("Q Values: {", "").split(",")
-                            afterPdict = dict()
-                            for x in afterP:
-                                key = ""
-                                value = ""
-                                import re
-                                m = re.search(r"[a-h][1-8][a-h][1-8]", x)
-                                if m is not None:
-                                    index = m.span()
-                                    key = x[index[0]:index[1]]
-                                m = re.findall(r"[-+]?\d*\.\d+|\d+", x)
-                                if len(m) > 2:
-                                    value = m[2]
-                                afterPdict[key] = float(value)
-                            break
-                        i += 1
-                    qValuesEngine[sq]["regular"] = afterPdict
-                elif output[i].startswith("new pawn saliency for this square"):
-                    y = i
-                    while output[y].startswith("------------------------------------------") is False:
-                        if output[y].startswith("Q Values: {"):
-                            afterP = output[y].replace("Q Values: {", "").split(",")
-                            afterPdict = dict()
-                            for x in afterP:
-                                key = ""
-                                value = ""
-                                m = re.search(r"[a-h][1-8][a-h][1-8]", x)
-                                if m is not None:
-                                    index = m.span()
-                                    key = x[index[0]:index[1]]
-                                m = re.findall(r"[-+]?\d*\.\d+|\d+", x)
-                                if len(m) > 2:
-                                    value = m[2]
-                                afterPdict[key] = float(value)
-                            break
-                        y -= 1
-                        qValuesEngine[sq]["pawn"] = afterPdict
-                elif output[i].startswith("square is empty, so put a pawn from player's color here"):
-                    afterP1 = None
-                    afterP2 = None
-                    while output[i].startswith("------------------------------------------") is False:
-                        if output[i].startswith("Q Values: {") and afterP1 is None:
-                            afterP1 = output[i].replace("Q Values: {", "").split(",")
-                            afterP1dict = dict()
-                            for x in afterP1:
-                                key = ""
-                                value = ""
-                                import re
-                                m = re.search(r"[a-h][1-8][a-h][1-8]", x)
-                                if m is not None:
-                                    index = m.span()
-                                    key = x[index[0]:index[1]]
-                                m = re.findall(r"[-+]?\d*\.\d+|\d+", x)
-                                if len(m) > 2:
-                                    value = m[2]
-                                afterP1dict[key] = float(value)
-                        elif output[i].startswith("Q Values: {") and afterP2 is None:
-                            afterP2 = output[i].replace("Q Values: {", "").split(",")
-                            afterP2dict = dict()
-                            for x in afterP2:
-                                key = ""
-                                value = ""
-                                m = re.search(r"[a-h][1-8][a-h][1-8]", x)
-                                if m is not None:
-                                    index = m.span()
-                                    key = x[index[0]:index[1]]
-                                m = re.findall(r"[-+]?\d*\.\d+|\d+", x)
-                                if len(m) > 2:
-                                    value = m[2]
-                                afterP2dict[key] = float(value)
-                            break
-                        i += 1
-                    qValuesEngine[sq] = {
-                        "player" : afterP1dict,
-                        "opponent" : afterP2dict
-                    }
+                    i += 1
+                    if output[i].startswith("square is empty"):
+                        afterP1 = None
+                        afterP2 = None
+                        while output[i].startswith("------------------------------------------") is False:
+                            if output[i].startswith("Q Values: {") and afterP1 is None:
+                                afterP1 = output[i].replace("Q Values: {", "").split(",")
+                                afterP1dict = dict()
+                                for x in afterP1:
+                                    key = ""
+                                    value = ""
+                                    import re
+                                    m = re.search(r"[a-h][1-8][a-h][1-8]", x)
+                                    if m is not None:
+                                        index = m.span()
+                                        key = x[index[0]:index[1]]
+                                    m = re.findall(r"[-+]?\d*\.\d+|\d+", x)
+                                    if len(m) > 2:
+                                        value = m[2]
+                                    afterP1dict[key] = float(value)
+                            elif output[i].startswith("Q Values: {") and afterP2 is None:
+                                afterP2 = output[i].replace("Q Values: {", "").split(",")
+                                afterP2dict = dict()
+                                for x in afterP2:
+                                    key = ""
+                                    value = ""
+                                    m = re.search(r"[a-h][1-8][a-h][1-8]", x)
+                                    if m is not None:
+                                        index = m.span()
+                                        key = x[index[0]:index[1]]
+                                    m = re.findall(r"[-+]?\d*\.\d+|\d+", x)
+                                    if len(m) > 2:
+                                        value = m[2]
+                                    afterP2dict[key] = float(value)
+                                break
+                            i += 1
+                        qValuesEngine[sq] = {
+                            "player": afterP1dict,
+                            "opponent": afterP2dict
+                        }
+                    else:
+                        while output[i].startswith("------------------------------------------") is False:
+                            if output[i].startswith("Q Values: {") and "regular" not in qValuesEngine[sq]:
+                                afterP = output[i].replace("Q Values: {", "").split(",")
+                                afterPdict = dict()
+                                for x in afterP:
+                                    key = ""
+                                    value = ""
+                                    import re
+                                    m = re.search(r"[a-h][1-8][a-h][1-8]", x)
+                                    if m is not None:
+                                        index = m.span()
+                                        key = x[index[0]:index[1]]
+                                    m = re.findall(r"[-+]?\d*\.\d+|\d+", x)
+                                    if len(m) > 2:
+                                        value = m[2]
+                                    afterPdict[key] = float(value)
+                                qValuesEngine[sq]["regular"] = afterPdict
+                            elif output[i].startswith("perturbing this square with pawn"):
+                                y = i
+                                while output[y].startswith("------------------------------------------") is False:
+                                    if output[y].startswith("Q Values: {"):
+                                        afterP = output[y].replace("Q Values: {", "").split(",")
+                                        afterPdict = dict()
+                                        for x in afterP:
+                                            key = ""
+                                            value = ""
+                                            m = re.search(r"[a-h][1-8][a-h][1-8]", x)
+                                            if m is not None:
+                                                index = m.span()
+                                                key = x[index[0]:index[1]]
+                                            m = re.findall(r"[-+]?\d*\.\d+|\d+", x)
+                                            if len(m) > 2:
+                                                value = m[2]
+                                            afterPdict[key] = float(value)
+                                        break
+                                    y += 1
+                                    qValuesEngine[sq]["pawn"] = afterPdict
+                                break
+                            i += 1
                 i += 1
             print("starting SARFA")
             original_move = data[puzzleNr]["best move"]
@@ -1574,7 +1578,7 @@ async def rerun_qValues(directory="evaluation/updated/"):
             ds = original_move[2:4]
             move = chess.Move(chess.SQUARES[chess.parse_square(ss)], chess.SQUARES[chess.parse_square(ds)])
             outputF.write("{}\n".format(puzzleNr))
-            aboveThreshold, belowThreshold = await givenQValues_computeSaliency(board, move, data[puzzleNr]["fen"], beforePdict, qValuesEngine, directory + "/" + engine, puzzleNr, outputF)
+            aboveThreshold, belowThreshold = await givenQValues_computeSaliency(board, move, data[puzzleNr]["fen"], beforePdict, qValuesEngine, assignedBestMove, directory + "/" + engine, puzzleNr, outputF)
 
             path = directory + engine + "/" + "data.json"
 

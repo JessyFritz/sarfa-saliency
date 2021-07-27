@@ -670,7 +670,7 @@ async def evaluateBratkoKopec_allPuzzles(directory="evaluation/bratko-kopec/orig
                         ss = puzzle["best move"][0][0:2]
                         ds = puzzle["best move"][0][2:4]
                         move = chess.Move(chess.SQUARES[chess.parse_square(ss)], chess.SQUARES[chess.parse_square(ds)])
-                        aboveThreshold, _ = await givenQValues_computeSaliency(board, move, puzzle["fen"], beforePdict, qValuesEngine, pathDir + "/" + engine + "/" + jsonF, puzzleNr)
+                        aboveThreshold, _ = await givenQValues_computeSaliency(board, move, puzzle["fen"], beforePdict, qValuesEngine, False, pathDir + "/" + engine + "/" + jsonF, puzzleNr)
 
                         gTarray = puzzle["groundTruth"]
                         if gTarray is not None:  # calculate precision and recall
@@ -2208,7 +2208,7 @@ async def rerunBratkoKopec_qValues(directory="evaluation/bratko-kopec/updated/")
                 ds = original_move[2:4]
                 move = chess.Move(chess.SQUARES[chess.parse_square(ss)], chess.SQUARES[chess.parse_square(ds)])
                 outputF.write("{}\n".format(puzzleNr))
-                aboveThreshold, belowThreshold = await givenQValues_computeSaliency(board, move, data[puzzleNr]["fen"], beforePdict, qValuesEngine, directory + "/" + engine + "/" + jsonF, puzzleNr, outputF)
+                aboveThreshold, belowThreshold = await givenQValues_computeSaliency(board, move, data[puzzleNr]["fen"], beforePdict, qValuesEngine, False, directory + "/" + engine + "/" + jsonF, puzzleNr, outputF)
 
                 path = directory + engine + "/" + jsonF + "/" + "data.json"
 
