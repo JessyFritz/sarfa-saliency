@@ -968,7 +968,6 @@ def markEmptySquares(num):
             if output[i].startswith("************"):
                 puzzleNr = output[i-1].replace("\n", "")
                 evaluation["answer"][puzzleNr] = dict()
-                beforeP = None
                 board = chess.Board(data[puzzleNr]["fen"])
             elif output[i].startswith("perturbing square = "):
                 sq = output[i].replace("perturbing square = ", "")
@@ -1108,45 +1107,6 @@ def markEmptySquares(num):
                         with open(path, "r") as file:
                             output = file.readlines()
                         i += 1
-            elif output[i].startswith("Q Values: {") and beforeP is None:
-                beforeP = output[i].replace("Q Values: {", "").split(",")
-                beforePdict = dict()
-                for x in beforeP:
-                    key = ""
-                    value = ""
-                    m = re.search(r"[a-h][1-8][a-h][1-8]", x)
-                    if m is not None:
-                        index = m.span()
-                        key = x[index[0]:index[1]]
-                    m = re.findall(r"[-+]?\d*\.\d+|\d+", x)
-                    if len(m) > 2:
-                        value = m[2]
-                    beforePdict[key] = float(value)
-            elif output[i].startswith("inserted pawn makes king\'s move illegal\n"):
-                afterP2 = output[i-1].replace("Q Values: {", "").split(",")
-                afterP2dict = dict()
-                for x in afterP2:
-                    key = ""
-                    value = ""
-                    m = re.search(r"[a-h][1-8][a-h][1-8]", x)
-                    if m is not None:
-                        index = m.span()
-                        key = x[index[0]:index[1]]
-                    m = re.findall(r"[-+]?\d*\.\d+|\d+", x)
-                    if len(m) > 2:
-                        value = m[2]
-                    afterP2dict[key] = float(value)
-                move = chess.Move(chess.SQUARES[chess.parse_square(data[puzzleNr]['best move'][0:2])], chess.SQUARES[chess.parse_square(data[puzzleNr]['best move'][2:4])])
-                if board.piece_type_at(chess.SQUARES[move.from_square]) == chess.KING:  # be careful as opponents pawn can make original move illegal
-                    if str(data[puzzleNr]['move']) in afterP2dict:
-                        saliency2, dP2, k2, qmax2, gapBefore2, gapAfter2, text = sarfa_saliency.computeSaliencyUsingSarfa(str(data[puzzleNr]["best move"]), beforePdict, afterP2dict, None)
-                        output.pop(i)
-                        output.insert(i, "{}saliency for this square with opponent\'s pawn: \'saliency\': {}, \'dP\': {}, \'K\': {} \n".format(text, saliency2, dP2, k2))
-                        with open(dirPath + "/"  + engine + "/output.txt", "w") as f:
-                            for line in output:
-                                f.write(line)
-                        with open(dirPath + "/"  + engine + "/output.txt", "r") as file:
-                            output = file.readlines()
             elif output[i].startswith("considered salient:"):
                 sortedKeys = sorted(evaluation["answer"][puzzleNr], key=lambda x: evaluation["answer"][puzzleNr][x]['saliency'], reverse=True)
                 newtext = ""
