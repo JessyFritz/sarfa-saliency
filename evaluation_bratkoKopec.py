@@ -417,23 +417,27 @@ async def evaluateBratkoKopec_allPuzzles(directory="evaluation/bratko-kopec/orig
     for engine in folders: # iterate engines
         print(engine)
         outputF.write("engine: {}\n".format(engine))
-        evaluation[engine]["salient positional"] = 0          # number of salient marked squares for positional puzzles where engine executed solution move
-        evaluation[engine]["salient tactical"] = 0            # number of salient marked squares for tactical puzzles where engine executed solution move
-        evaluation[engine]["missing"] = 0                     # number of missing salient (false negative) squares for puzzles where engine executed solution move
-        evaluation[engine]["precision"] = 0                   # precision over puzzles where engine executed solution move
-        evaluation[engine]["recall"] = 0                      # recall over puzzles where engine executed solution move
-        evaluation[engine]["precision positional"] = 0        # precision over positional puzzles where engine executed solution move
-        evaluation[engine]["recall positional"] = 0           # recall over positional puzzles where engine executed solution move
-        evaluation[engine]["precision tactical"] = 0          # precision over tactical puzzles where engine executed solution move
-        evaluation[engine]["recall tactical"] = 0             # recall over tactical puzzles where engine executed solution move
-        evaluation[engine]["precision positional piece"] = [] # precision over non-empty squares on positional puzzles where engine executed solution move
-        evaluation[engine]["recall positional piece"] = []    # recall over non-empty squares on positional puzzles where engine executed solution move
-        evaluation[engine]["precision tactical piece"] = []   # precision over non-empty squares on tactical puzzles where engine executed solution move
-        evaluation[engine]["recall tactical piece"] = []      # recall over non-empty squares on tactical puzzles where engine executed solution move
-        evaluation[engine]["precision positional empty"] = [] # precision over empty squares on positional puzzles where engine executed solution move
-        evaluation[engine]["recall positional empty"] = []    # recall over empty squares on positional puzzles where engine executed solution move
-        evaluation[engine]["precision tactical empty"] = []   # precision over empty squares on tactical puzzles where engine executed solution move
-        evaluation[engine]["recall tactical empty"] = []      # recall over empty squares on tactical puzzles where engine executed solution move
+        evaluation[engine]["salient positional"] = 0          # number of salient marked squares for positional puzzles
+        evaluation[engine]["salient tactical"] = 0            # number of salient marked squares for tactical puzzles
+        evaluation[engine]["missing"] = 0                     # number of missing salient (false negative) squares
+        evaluation[engine]["precision"] = 0                   # precision
+        evaluation[engine]["recall"] = 0                      # recall
+        evaluation[engine]["precision right"] = 0             # precision over puzzles where engine executed solution move
+        evaluation[engine]["recall right"] = 0                # recall over puzzles where engine executed solution move
+        evaluation[engine]["precision wrong"] = 0             # precision over puzzles where engine did not execute solution move
+        evaluation[engine]["recall wrong"] = 0                # recall over puzzles where engine did not execute solution move
+        evaluation[engine]["precision positional"] = 0        # precision over positional puzzles
+        evaluation[engine]["recall positional"] = 0           # recall over positional puzzles
+        evaluation[engine]["precision tactical"] = 0          # precision over tactical puzzles
+        evaluation[engine]["recall tactical"] = 0             # recall over tactical puzzles
+        evaluation[engine]["precision positional piece"] = [] # precision over non-empty squares on positional puzzles
+        evaluation[engine]["recall positional piece"] = []    # recall over non-empty squares on positional puzzles
+        evaluation[engine]["precision tactical piece"] = []   # precision over non-empty squares on tactical puzzles
+        evaluation[engine]["recall tactical piece"] = []      # recall over non-empty squares on tactical puzzles
+        evaluation[engine]["precision positional empty"] = [] # precision over empty squares on positional puzzles
+        evaluation[engine]["recall positional empty"] = []    # recall over empty squares on positional puzzles
+        evaluation[engine]["precision tactical empty"] = []   # precision over empty squares on tactical puzzles
+        evaluation[engine]["recall tactical empty"] = []      # recall over empty squares on tactical puzzles
         evaluation[engine]["wrong move positional"] = 0       # times that engine executed wrong move for positional puzzles
         evaluation[engine]["wrong move tactical"] = 0         # times that engine executed wrong move for tactical puzzles
 
@@ -503,17 +507,18 @@ async def evaluateBratkoKopec_allPuzzles(directory="evaluation/bratko-kopec/orig
                                         print("      {}: {}".format(m, data[puzzleNr]["sorted saliencies"][
                                             "below threshold"][m]))
 
+                            evaluation[engine]["precision right"] += precision
                             evaluation[engine]["precision"] += precision
                             evaluation[engine]["precision {}".format(jsonF)] += precision
+                            evaluation[engine]["recall right"] += recall
                             evaluation[engine]["recall"] += recall
                             evaluation[engine]["recall {}".format(jsonF)] += recall
                             f1 = 2*precision*recall/(precision+recall)
                             if f1 > highestF1:
                                 highestF1 = f1
-                                print("highest F1 so far")
+                                print("   highest F1 so far")
 
-                            print("   {} piece squares should be salient".format(
-                                len(gTarray) - len(gTarrayEmpty)))  # only non empty squares
+                            print("   {} piece squares should be salient".format(len(gTarray) - len(gTarrayEmpty)))  # only non empty squares
                             if (sal - salEmpty) > 0:
                                 precision = ((len(gTarray) - len(gTarrayEmpty)) - (miss - missEmpty)) / (sal - salEmpty) * 100
                                 recall = ((len(gTarray) - len(gTarrayEmpty)) - (miss - missEmpty)) / (
@@ -537,12 +542,12 @@ async def evaluateBratkoKopec_allPuzzles(directory="evaluation/bratko-kopec/orig
                                 evaluation[engine]["precision {} empty".format(jsonF)].append(precision)
                                 evaluation[engine]["recall {} empty".format(jsonF)].append(recall)
                 else:
-                    print("wrong move")
+                    print("   wrong move")
                     evaluation[engine]["wrong move {}".format(jsonF)] += 1
                     if mode == "Wrong" or mode == "All":
                         if not os.path.exists(pathDir + "/" + engine + "/" + jsonF):
                             os.makedirs(pathDir + "/" + engine + "/" + jsonF)
-                            print("created directory")
+                            print("   created directory")
 
                         path = directory + "/" + engine + "/" + jsonF + "/" + "output.txt"
                         with open(path, "r") as file:
@@ -577,7 +582,6 @@ async def evaluateBratkoKopec_allPuzzles(directory="evaluation/bratko-kopec/orig
                                     if len(m) > 2:
                                         value = m[2]
                                     beforePdict[key] = float(value)
-                                print(beforePdict)
                             elif output[i].startswith("perturbing square = "):
                                 sq = output[i].replace("perturbing square = ", "")
                                 sq = sq.replace("\n", "")
@@ -662,7 +666,7 @@ async def evaluateBratkoKopec_allPuzzles(directory="evaluation/bratko-kopec/orig
                                     "opponent" : afterP2dict
                                 }
                             i += 1
-                        print("starting SARFA")
+                        print("   starting SARFA")
                         ss = puzzle["best move"][0][0:2]
                         ds = puzzle["best move"][0][2:4]
                         move = chess.Move(chess.SQUARES[chess.parse_square(ss)], chess.SQUARES[chess.parse_square(ds)])
@@ -698,14 +702,16 @@ async def evaluateBratkoKopec_allPuzzles(directory="evaluation/bratko-kopec/orig
                                     if m in gTarray:
                                         print("      {}: {}".format(m, aboveThreshold[m]))
 
+                            evaluation[engine]["precision wrong"] += precision
                             evaluation[engine]["precision"] += precision
                             evaluation[engine]["precision {}".format(jsonF)] += precision
+                            evaluation[engine]["recall wrong"] += recall
                             evaluation[engine]["recall"] += recall
                             evaluation[engine]["recall {}".format(jsonF)] += recall
                             f1 = 2 * precision * recall / (precision + recall)
                             if f1 > highestF1:
                                 highestF1 = f1
-                                print("highest F1 so far")
+                                print("   highest F1 so far")
 
                             print("   {} piece squares should be salient".format(
                                 len(gTarray) - len(gTarrayEmpty)))  # only non empty squares
@@ -737,6 +743,10 @@ async def evaluateBratkoKopec_allPuzzles(directory="evaluation/bratko-kopec/orig
             print("{}\'s averages are calculated over all {} puzzles".format(engine, (nr - 1) * 2))
             evaluation[engine]["precision"] = round(evaluation[engine]["precision"] / ((nr - 1) * 2), 2)  # calculate mean of all precision values
             evaluation[engine]["recall"] = round(evaluation[engine]["recall"] / ((nr - 1) * 2), 2)        # calculate mean of all recall values
+            evaluation[engine]["precision right"] = round(evaluation[engine]["precision right"] / (((nr - 1) * 2) - (evaluation[engine]["wrong move positional"] + evaluation[engine]["wrong move tactical"])), 2)  # calculate mean of all precision values
+            evaluation[engine]["recall right"] = round(evaluation[engine]["recall right"] / (((nr - 1) * 2) - (evaluation[engine]["wrong move positional"] + evaluation[engine]["wrong move tactical"])), 2)  # calculate mean of all recall values
+            evaluation[engine]["precision wrong"] = round(evaluation[engine]["precision wrong"] / (evaluation[engine]["wrong move positional"] + evaluation[engine]["wrong move tactical"]), 2)  # calculate mean of all precision values
+            evaluation[engine]["recall wrong"] = round(evaluation[engine]["recall wrong"] / (evaluation[engine]["wrong move positional"] + evaluation[engine]["wrong move tactical"]), 2)  # calculate mean of all recall values
             evaluation[engine]["precision positional"] = round(evaluation[engine]["precision positional"] / (nr - 1), 2)
             evaluation[engine]["recall positional"] = round(evaluation[engine]["recall positional"] / (nr - 1), 2)
             evaluation[engine]["precision tactical"] = round(evaluation[engine]["precision tactical"] / (nr - 1), 2)
@@ -744,7 +754,9 @@ async def evaluateBratkoKopec_allPuzzles(directory="evaluation/bratko-kopec/orig
         elif mode == "Right":
             print("{}\'s averages are calculated over {} puzzles".format(engine, ((nr - 1) * 2) - (evaluation[engine]["wrong move positional"] + evaluation[engine]["wrong move tactical"])))
             evaluation[engine]["precision"] = round(evaluation[engine]["precision"] / (((nr - 1) * 2) - (evaluation[engine]["wrong move positional"] + evaluation[engine]["wrong move tactical"])), 2)  # calculate mean of all precision values
+            evaluation[engine]["precision right"] = round(evaluation[engine]["precision right"] / (((nr - 1) * 2) - (evaluation[engine]["wrong move positional"] + evaluation[engine]["wrong move tactical"])), 2)  # calculate mean of all precision values
             evaluation[engine]["recall"] = round(evaluation[engine]["recall"] / (((nr - 1) * 2) - (evaluation[engine]["wrong move positional"] + evaluation[engine]["wrong move tactical"])), 2)  # calculate mean of all recall values
+            evaluation[engine]["recall right"] = round(evaluation[engine]["recall right"] / (((nr - 1) * 2) - (evaluation[engine]["wrong move positional"] + evaluation[engine]["wrong move tactical"])), 2)  # calculate mean of all recall values
             evaluation[engine]["precision positional"] = round(evaluation[engine]["precision positional"] / (nr - 1 - evaluation[engine]["wrong move positional"]), 2)
             evaluation[engine]["recall positional"] = round(evaluation[engine]["recall positional"] / (nr - 1 - evaluation[engine]["wrong move positional"]), 2)
             evaluation[engine]["precision tactical"] = round(evaluation[engine]["precision tactical"] / (nr - 1 - evaluation[engine]["wrong move tactical"]), 2)
@@ -753,13 +765,16 @@ async def evaluateBratkoKopec_allPuzzles(directory="evaluation/bratko-kopec/orig
             print("{}\'s averages are calculated over {} puzzles".format(engine, evaluation[engine]["wrong move positional"] + evaluation[engine]["wrong move tactical"]))
             if (evaluation[engine]["wrong move positional"] + evaluation[engine]["wrong move tactical"]) > 0:
                 evaluation[engine]["precision"] = round(evaluation[engine]["precision"] / (evaluation[engine]["wrong move positional"] + evaluation[engine]["wrong move tactical"]), 2)  # calculate mean of all precision values
+                evaluation[engine]["precision wrong"] = round(evaluation[engine]["precision wrong"] / (evaluation[engine]["wrong move positional"] + evaluation[engine]["wrong move tactical"]), 2)  # calculate mean of all precision values
                 evaluation[engine]["recall"] = round(evaluation[engine]["recall"] / (evaluation[engine]["wrong move positional"] + evaluation[engine]["wrong move tactical"]), 2)  # calculate mean of all recall values
+                evaluation[engine]["recall wrong"] = round(evaluation[engine]["recall wrong"] / (evaluation[engine]["wrong move positional"] + evaluation[engine]["wrong move tactical"]), 2)  # calculate mean of all recall values
             if evaluation[engine]["wrong move positional"] > 0:
                 evaluation[engine]["precision positional"] = round(evaluation[engine]["precision positional"] / evaluation[engine]["wrong move positional"], 2)
                 evaluation[engine]["recall positional"] = round(evaluation[engine]["recall positional"] / evaluation[engine]["wrong move positional"], 2)
             if evaluation[engine]["wrong move tactical"] > 0:
                 evaluation[engine]["precision tactical"] = round(evaluation[engine]["precision tactical"] / evaluation[engine]["wrong move tactical"], 2)
                 evaluation[engine]["recall tactical"] = round(evaluation[engine]["recall tactical"] / evaluation[engine]["wrong move tactical"], 2)
+
 
         type1 = ["precision", "recall"]
         type2 = ["positional", "tactical"]
@@ -769,14 +784,14 @@ async def evaluateBratkoKopec_allPuzzles(directory="evaluation/bratko-kopec/orig
                     x = 0
                     for m in evaluation[engine]["{} {} empty".format(a, b)]:
                         x += m
-                    evaluation[engine]["{} {} empty".format(a, b)] = round(x/len(evaluation[engine]["{} {} empty".format(a, b)]),2)
+                    evaluation[engine]["{} {} empty".format(a, b)] = round(x/len(evaluation[engine]["{} {} empty".format(a, b)]), 2)
                 else:
                     evaluation[engine]["{} {} empty".format(a, b)] = 0
                 if len(evaluation[engine]["{} {} piece".format(a, b)]) > 0:
                     x = 0
                     for m in evaluation[engine]["{} {} piece".format(a, b)]:
                         x += m
-                    evaluation[engine]["{} {} piece".format(a, b)] = round( x / len(evaluation[engine]["{} {} piece".format(a, b)]), 2)
+                    evaluation[engine]["{} {} piece".format(a, b)] = round(x/len(evaluation[engine]["{} {} piece".format(a, b)]), 2)
                 else:
                     evaluation[engine]["{} {} piece".format(a, b)] = 0
         outputF.write('------------------------------------------\n')
@@ -799,6 +814,20 @@ async def evaluateBratkoKopec_allPuzzles(directory="evaluation/bratko-kopec/orig
                 print("engine {} deleted".format(engine))
                 folders.remove(engine)
                 del evaluation[engine]
+    elif mode=="All":
+        keys = list(evaluation)
+        for engine in keys:
+            print(engine)
+            if evaluation[engine]["precision right"] > evaluation[engine]["precision wrong"]:
+                print("   precision is higher at right move ({} vs. {})".format(evaluation[engine]["precision right"], evaluation[engine]["precision wrong"]))
+            else:
+                print("   precision is higher at wrong move ({} vs. {})".format(evaluation[engine]["precision wrong"], evaluation[engine]["precision right"]))
+            if evaluation[engine]["recall right"] > evaluation[engine]["recall wrong"]:
+                print("   recall is higher at right move ({} vs. {})".format(evaluation[engine]["recall right"], evaluation[engine]["recall wrong"]))
+            else:
+                print("   recall is higher at wrong move ({} vs. {})".format(evaluation[engine]["recall wrong"], evaluation[engine]["recall right"]))
+        print('------------------------------------------')
+
 
     for t in type2: # Positional, Tactical Overall
         print("Engines sorted by {} F1:".format(t.capitalize()))
@@ -1781,8 +1810,7 @@ def bratkoKopec_markEmptySquares(num):
                         if len(m) > 2:
                             value = m[2]
                         afterP2dict[key] = float(value)
-                    move = chess.Move(chess.SQUARES[chess.parse_square(data[puzzleNr]['move'][0:2])],
-                                      chess.SQUARES[chess.parse_square(data[puzzleNr]['move'][2:4])])
+                    move = chess.Move(chess.SQUARES[chess.parse_square(data[puzzleNr]['move'][0:2])], chess.SQUARES[chess.parse_square(data[puzzleNr]['move'][2:4])])
                     if board.piece_type_at(chess.SQUARES[move.from_square]) == chess.KING:  # be careful as opponents pawn can make original move illegal
                         if str(data[puzzleNr]['move']) in afterP2dict:
                             saliency2, dP2, k2, qmax2, gapBefore2, gapAfter2, text = sarfa_saliency.computeSaliencyUsingSarfa(str(data[puzzleNr]["move"]), beforePdict, afterP2dict, None)

@@ -1136,8 +1136,7 @@ def markEmptySquares(num):
                     if len(m) > 2:
                         value = m[2]
                     afterP2dict[key] = float(value)
-                move = chess.Move(chess.SQUARES[chess.parse_square(data[puzzleNr]['best move'][0:2])],
-                                  chess.SQUARES[chess.parse_square(data[puzzleNr]['best move'][2:4])])
+                move = chess.Move(chess.SQUARES[chess.parse_square(data[puzzleNr]['best move'][0:2])], chess.SQUARES[chess.parse_square(data[puzzleNr]['best move'][2:4])])
                 if board.piece_type_at(chess.SQUARES[move.from_square]) == chess.KING:  # be careful as opponents pawn can make original move illegal
                     if str(data[puzzleNr]['move']) in afterP2dict:
                         saliency2, dP2, k2, qmax2, gapBefore2, gapAfter2, text = sarfa_saliency.computeSaliencyUsingSarfa(str(data[puzzleNr]["best move"]), beforePdict, afterP2dict, None)

@@ -344,15 +344,19 @@ async def evaluateEndgames_allPuzzles(directory="evaluation/endgames/original", 
 
     for engine in folders: # iterate engines
         print(engine)
-        evaluation[engine]["salient"] = 0  # number of salient marked squares for puzzles where engine executed solution move
-        evaluation[engine]["missing"] = 0  # number of missing salient (false negative) squares for puzzles where engine executed solution move
-        evaluation[engine]["precision"] = 0  # precision over puzzles where engine executed solution move
-        evaluation[engine]["recall"] = 0  # recall over puzzles where engine executed solution move
-        evaluation[engine]["precision piece"] = []  # precision over non-empty squares where engine executed solution move
-        evaluation[engine]["recall piece"] = []  # recall over non-empty squares where engine executed solution move
-        evaluation[engine]["precision empty"] = []  # precision over empty squares where engine executed solution move
-        evaluation[engine]["recall empty"] = []  # recall over empty squares where engine executed solution move
-        evaluation[engine]["wrong move"] = 0  # times that engine executed wrong move
+        evaluation[engine]["salient"] = 0           # number of salient marked squares for puzzles
+        evaluation[engine]["missing"] = 0           # number of missing salient (false negative) squares for puzzles
+        evaluation[engine]["precision"] = 0         # precision
+        evaluation[engine]["recall"] = 0            # recall
+        evaluation[engine]["precision right"] = 0   # precision over puzzles where engine executed solution move
+        evaluation[engine]["recall right"] = 0      # recall over puzzles where engine executed solution move
+        evaluation[engine]["precision wrong"] = 0   # precision over puzzles where engine did not execute solution move
+        evaluation[engine]["recall wrong"] = 0      # recall over puzzles where engine did not execute solution move
+        evaluation[engine]["precision piece"] = []  # precision over non-empty squares
+        evaluation[engine]["recall piece"] = []     # recall over non-empty squares
+        evaluation[engine]["precision empty"] = []  # precision over empty squares
+        evaluation[engine]["recall empty"] = []     # recall over empty squares
+        evaluation[engine]["wrong move"] = 0        # times that engine executed wrong move
 
         if mode != "Right":
             if not os.path.exists(pathDir+"/"+engine):
@@ -390,7 +394,6 @@ async def evaluateEndgames_allPuzzles(directory="evaluation/endgames/original", 
                         gTarray = puzzle["groundTruth"]
                         if len(puzzle["best move"]) > 1:
                             gTarray = puzzle["groundTruth"][j]
-                        print(gTarray)
                         if gTarray is not None and len(gTarray) > 0:  # calculate precision and recall
                             print("   {} squares should be salient".format(len(gTarray)))
 
@@ -426,12 +429,14 @@ async def evaluateEndgames_allPuzzles(directory="evaluation/endgames/original", 
                                         print("      {}: {}".format(m, data["move1"]["sorted saliencies"][
                                             "below threshold"][m]))
 
+                            evaluation[engine]["precision right"] += precision
                             evaluation[engine]["precision"] += precision
+                            evaluation[engine]["recall right"] += recall
                             evaluation[engine]["recall"] += recall
                             f1 = 2 * precision * recall / (precision + recall)
                             if f1 > highestF1:
                                 highestF1 = f1
-                                print("highest F1 so far")
+                                print("   highest F1 so far")
 
                             print("   {} piece squares should be salient".format(
                                 len(gTarray) - len(gTarrayEmpty)))  # only non empty squares
@@ -494,7 +499,6 @@ async def evaluateEndgames_allPuzzles(directory="evaluation/endgames/original", 
                                     if len(m) > 2:
                                         value = m[2]
                                     beforePdict[key] = float(value)
-                                print(beforePdict)
                             elif output[i].startswith("perturbing square = "):
                                 sq = output[i].replace("perturbing square = ", "")
                                 sq = sq.replace("\n", "")
@@ -579,14 +583,14 @@ async def evaluateEndgames_allPuzzles(directory="evaluation/endgames/original", 
                                     "opponent" : afterP2dict
                                 }
                             i += 1
-                        print("starting SARFA")
+                        print("   starting SARFA")
                         ss = puzzle["best move"][0][0:2]
                         ds = puzzle["best move"][0][2:4]
                         move = chess.Move(chess.SQUARES[chess.parse_square(ss)], chess.SQUARES[chess.parse_square(ds)])
                         if mode != "Right":
                             if not os.path.exists(pathDir + "/" + engine + "/" + puzzleNr):
                                 os.makedirs(pathDir + "/" + engine + "/" + puzzleNr)
-                                print("created directory")
+                                print("   created directory")
                         aboveThreshold, _ = await givenQValues_computeSaliency(board, move, data["move1"]["fen"], beforePdict, qValuesEngine, pathDir + "/" + engine + "/" + puzzleNr, "move1")
 
                         gTarray = puzzle["groundTruth"]
@@ -620,12 +624,14 @@ async def evaluateEndgames_allPuzzles(directory="evaluation/endgames/original", 
                                     if m in gTarray:
                                         print("      {}: {}".format(m, aboveThreshold[m]))
 
+                            evaluation[engine]["precision wrong"] += precision
                             evaluation[engine]["precision"] += precision
+                            evaluation[engine]["recall wrong"] += recall
                             evaluation[engine]["recall"] += recall
                             f1 = 2 * precision * recall / (precision + recall)
                             if f1 > highestF1:
                                 highestF1 = f1
-                                print("highest F1 so far")
+                                print("   highest F1 so far")
 
                             print("   {} piece squares should be salient".format(
                             len(gTarray) - len(gTarrayEmpty)))  # only non empty squares
@@ -657,15 +663,24 @@ async def evaluateEndgames_allPuzzles(directory="evaluation/endgames/original", 
             print("{}\'s averages are calculated over all {} puzzles".format(engine, nr - 1 - notGiven))
             evaluation[engine]["precision"] = round(evaluation[engine]["precision"] / (nr - 1 - notGiven), 2)  # calculate mean of all precision values
             evaluation[engine]["recall"] = round(evaluation[engine]["recall"] / (nr - 1 - notGiven), 2)        # calculate mean of all recall values
+            evaluation[engine]["precision right"] = round(evaluation[engine]["precision right"] / (nr - 1 - evaluation[engine]["wrong move"] - notGiven), 2)  # calculate mean of all precision values
+            evaluation[engine]["recall right"] = round(evaluation[engine]["recall right"] / (nr - 1 - evaluation[engine]["wrong move"] - notGiven), 2)  # calculate mean of all recall values
+            evaluation[engine]["precision wrong"] = round(evaluation[engine]["precision wrong"] / evaluation[engine]["wrong move"], 2)  # calculate mean of all precision values
+            evaluation[engine]["recall wrong"] = round(evaluation[engine]["recall wrong"] / evaluation[engine]["wrong move"], 2)  # calculate mean of all recall values
+
         elif mode == "Right":
             print("{}\'s averages are calculated over {} puzzles".format(engine, nr - 1 - evaluation[engine]["wrong move"] - notGiven))
             evaluation[engine]["precision"] = round(evaluation[engine]["precision"] / (nr - 1 - evaluation[engine]["wrong move"] - notGiven), 2)  # calculate mean of all precision values
             evaluation[engine]["recall"] = round(evaluation[engine]["recall"] / (nr - 1 - evaluation[engine]["wrong move"] - notGiven), 2)  # calculate mean of all recall values
+            evaluation[engine]["precision right"] = round(evaluation[engine]["precision right"] / (nr - 1 - evaluation[engine]["wrong move"] - notGiven), 2)  # calculate mean of all precision values
+            evaluation[engine]["recall right"] = round(evaluation[engine]["recall right"] / (nr - 1 - evaluation[engine]["wrong move"] - notGiven), 2)  # calculate mean of all recall values
         elif mode == "Wrong":
             print("{}\'s averages are calculated over {} puzzles".format(engine, evaluation[engine]["wrong move"]))
             if evaluation[engine]["wrong move"] > 0:
                 evaluation[engine]["precision"] = round(evaluation[engine]["precision"] / evaluation[engine]["wrong move"], 2)  # calculate mean of all precision values
                 evaluation[engine]["recall"] = round(evaluation[engine]["recall"] / evaluation[engine]["wrong move"], 2)  # calculate mean of all recall values
+                evaluation[engine]["precision wrong"] = round(evaluation[engine]["precision wrong"] / evaluation[engine]["wrong move"], 2)  # calculate mean of all precision values
+                evaluation[engine]["recall wrong"] = round(evaluation[engine]["recall wrong"] / evaluation[engine]["wrong move"], 2)  # calculate mean of all recall values
 
         type1 =["precision", "recall"]
         for a in type1:
@@ -700,6 +715,19 @@ async def evaluateEndgames_allPuzzles(directory="evaluation/endgames/original", 
                 print("engine {} deleted".format(engine))
                 folders.remove(engine)
                 del evaluation[engine]
+    elif mode=="All":
+        keys = list(evaluation)
+        for engine in keys:
+            print(engine)
+            if evaluation[engine]["precision right"] > evaluation[engine]["precision wrong"]:
+                print("   precision is higher at right move ({} vs. {})".format(evaluation[engine]["precision right"], evaluation[engine]["precision wrong"]))
+            else:
+                print("   precision is higher at wrong move ({} vs. {})".format(evaluation[engine]["precision wrong"], evaluation[engine]["precision right"]))
+            if evaluation[engine]["recall right"] > evaluation[engine]["recall wrong"]:
+                print("   recall is higher at right move ({} vs. {})".format(evaluation[engine]["recall right"], evaluation[engine]["recall wrong"]))
+            else:
+                print("   recall is higher at wrong move ({} vs. {})".format(evaluation[engine]["recall wrong"], evaluation[engine]["recall right"]))
+        print('------------------------------------------')
 
     # Analysis For Non-Empty Square
     print("Engines sorted by Non-Empty Squares:")

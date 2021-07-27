@@ -46,9 +46,9 @@ leela_saliency.enableEmptySquares = True
 #calculateImprovements_positive()
 
 #************************** modify saliency maps
-#markEmptySquares(0)
 '''asyncio.set_event_loop_policy(chess.engine.EventLoopPolicy())
 asyncio.run(rerun_qValues())'''
+#markEmptySquares(0)
 
 
 #********************************** run & evaluate bratko-kopec test from http://kopecchess.com/bratko-kopec-test/ **********************************
@@ -79,9 +79,9 @@ asyncio.run(evaluateBratkoKopec_allPuzzles("evaluation/bratko-kopec/updated", mo
 #bratkoKopec_calculateImprovements_TopEmptySquares()
 
 #************************** modify saliency maps
-#bratkoKopec_markEmptySquares(3)
 '''asyncio.set_event_loop_policy(chess.engine.EventLoopPolicy())
 asyncio.run(rerunBratkoKopec_qValues())'''
+#bratkoKopec_markEmptySquares(3)
 
 
 #****************************** run & evaluate 20 endgame puzzles from https://www.stmintz.com/ccc/index.php?id=476109 ******************************
@@ -109,9 +109,9 @@ asyncio.run(evaluateEndgames_allPuzzles("evaluation/endgames/updated", mode="All
 #endgames_calculateImprovements_TopEmptySquares()
 
 #************************** modify saliency maps
-#endgames_markEmptySquares(3)
 '''asyncio.set_event_loop_policy(chess.engine.EventLoopPolicy())
 asyncio.run(rerunEndgames_qValues())'''
+#endgames_markEmptySquares(3)
 
 
 #****************************************** run some generally problematic maps & more posiitonal puzzles *******************************************

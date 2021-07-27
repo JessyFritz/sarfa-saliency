@@ -21,6 +21,9 @@ puzzle4 - solution move is ['g5g6']
    'd7d4': 0.34
    'g3f3': 0.34
    'b3b4': 0.34
+   'g3g4': 0.28
+   'g3g2': 0.28
+   'g3f2': 0.28
 puzzle5 - solution move is ['f4f5']
    'f4f5': 1.11
    'e2c3': 0.06
@@ -42,6 +45,7 @@ puzzle8 - solution move is ['b2b4']
    'a1c1': 0.21
    'b2b3': 0.18
    'a2a3': 0.18
+   'a1b1': 0.17
 puzzle9 - solution move is ['h7h5']
    'd7c5': -0.25
    'h7h6': -0.27
@@ -78,7 +82,6 @@ puzzle3 - solution move is ['h5f6']
    'a3b4': 0.72
    'f3e3': 0.6
    'f3g3': 0.51
-   'a3d6': 0.51
 puzzle4 - solution move is ['c6e5']
    'c6e5': 2.38
    'b6c5': 0.45
@@ -94,7 +97,6 @@ puzzle6 - solution move is ['d1d2', 'd1e1']
    'd1e1': 3.02
    'b2c3': -0.15
    'd1c2': -0.19
-   'd1c1': -0.19
 puzzle7 - solution move is ['g4g7']
    'g4g7': 0.86
    'f1f6': 0.18
@@ -120,6 +122,7 @@ puzzle11 - solution move is ['f5h6']
    'b2c3': 1.23
    'e1e3': 1.23
    'e1e2': 1.19
+   'd1d3': 1.14
 puzzle12 - solution move is ['b7e4']
    'd7e5': 0.31
    'b7e4': 0.26
@@ -129,8 +132,8 @@ puzzle12 - solution move is ['b7e4']
 engine: komodo
 positional
 puzzle1 - solution move is ['f6f5']
-   'f7g5': -0.36
    'f8g8': -0.44
+   'f7g5': -0.36
    'h8g8': -0.46
    'c8b7': -0.46
    'a6a5': -0.46
@@ -139,6 +142,7 @@ puzzle2 - solution move is ['d4d5']
    'f2g3': 0.54
    'e4e5': 0.54
    'c3h3': 0.47
+   'f2g2': 0.43
 puzzle3 - solution move is ['e5e6']
    'e5e6': 1.33
    'd4f3': 0.25
@@ -149,20 +153,21 @@ puzzle4 - solution move is ['g5g6']
    'f4f5': 0.45
    'd7d4': 0.34
    'c2c4': 0.34
+   'g3g4': 0.3
 puzzle5 - solution move is ['f4f5']
    'f4f5': 1.04
    'e2c3': 0.11
    'e3f3': 0.0
    'e3f2': 0.0
-   'e3d2': 0.0
 puzzle6 - solution move is ['f4f5']
-   'f4f5': 2.34
    'f1b5': 2.21
+   'f4f5': 2.34
    'f1d3': 2.12
    'c1b1': 2.12
+   'd1e1': 2.07
 puzzle7 - solution move is ['f2f4']
-   'g3f5': 1.59
    'f2f4': 1.52
+   'g3f5': 1.59
    'h2h4': 1.25
    'f1e1': 1.19
 puzzle8 - solution move is ['b2b4']
@@ -197,11 +202,10 @@ puzzle1 - solution move is ['d6d1']
    'd6d4': -3.0
    'b8c8': -3.54
 puzzle2 - solution move is ['c3d5']
-   'c3d5': 1.02
    'a2a4': 0.77
+   'c3d5': 1.02
    'h2h3': 0.72
    'a1d1': 0.44
-   'a1c1': 0.44
 puzzle3 - solution move is ['h5f6']
    'a3b4': 1.53
    'h5f6': 1.47
@@ -222,7 +226,6 @@ puzzle6 - solution move is ['d1d2', 'd1e1']
    'd1e1': 4.82
    'd1c1': 0.83
    'b2c3': 0.45
-   'd1c2': 0.45
 puzzle7 - solution move is ['g4g7']
    'g4g7': 1.04
    'f1f6': 0.44
@@ -250,7 +253,6 @@ puzzle11 - solution move is ['f5h6']
    'h3e3': 1.41
    'b2d4': 1.41
    'b2a1': 1.41
-   'e1e2': 1.41
 puzzle12 - solution move is ['b7e4']
    'd7c5': 0.31
    'f8d8': 0.21
@@ -268,9 +270,6 @@ puzzle1 - solution move is ['f6f5']
    'f7h6': -0.55
    'd7e6': -0.55
    'd7c6': -0.55
-   'd7f5': -0.55
-   'd7b5': -0.55
-   'd7a4': -0.55
 puzzle2 - solution move is ['d4d5']
    'd4d5': 3.04
    'c3d3': 1.09
@@ -281,19 +280,22 @@ puzzle3 - solution move is ['e5e6']
    'd4f3': 0.02
    'd4b3': -0.08
    'e2b5': -0.08
+   'd4b5': -0.14
 puzzle4 - solution move is ['g5g6']
    'g5g6': 4.29
    'g3g2': 0.39
    'b3b4': 0.34
    'c2c4': 0.34
+   'a2a4': 0.3
 puzzle5 - solution move is ['f4f5']
    'f4f5': 1.12
    'e2c3': 0.43
    'e3d2': 0.36
    'a2a3': 0.36
+   'h2h3': 0.35
 puzzle6 - solution move is ['f4f5']
-   'f1b5': 3.07
    'd1e1': 2.99
+   'f1b5': 3.07
    'c1b1': 2.53
    'c3a4': 2.39
 puzzle7 - solution move is ['f2f4']
@@ -326,6 +328,7 @@ puzzle12 - solution move is ['f2f4']
    'e4f5': 0.7
    'b4c5': 0.18
    'g2g3': 0.18
+   'f2f3': -0.1
 tactical
 puzzle1 - solution move is ['d6d1']
    'd6d1': 40.0
@@ -341,13 +344,6 @@ puzzle1 - solution move is ['d6d1']
    'd6f6': -0.17
    'd6e6': -0.17
    'd6a6': -0.17
-   'd6d5': -0.17
-   'd6c5': -0.17
-   'd6d3': -0.17
-   'd6a3': -0.17
-   'd6d2': -0.17
-   'e5e4': -0.17
-   'b7b5': -0.17
 puzzle2 - solution move is ['c3d5']
    'c3d5': 0.72
    'd4a7': 0.48
@@ -358,7 +354,6 @@ puzzle3 - solution move is ['h5f6']
    'd1c1': 0.76
    'f3h3': 0.72
    'f3g3': 0.71
-   'a3d6': 0.71
 puzzle4 - solution move is ['c6e5']
    'c6e5': 3.9
    'f6d7': 0.69
@@ -379,7 +374,6 @@ puzzle7 - solution move is ['g4g7']
    'g3f3': 0.2
    'f1f6': 0.14
    'g4g5': 0.06
-   'h2h3': 0.06
 puzzle8 - solution move is ['d2e4']
    'd2e4': 1.36
    'g5f4': 0.15
@@ -395,6 +389,7 @@ puzzle10 - solution move is ['e8e4']
    'c7c5': -0.04
    'd8b8': -0.09
    'd6d5': -0.09
+   'e8e7': -0.1
 puzzle11 - solution move is ['f5h6']
    'f5h6': 4.27
    'd1d6': 3.18
@@ -408,7 +403,6 @@ puzzle12 - solution move is ['b7e4']
    'b7a6': 0.23
    'b7d5': 0.23
    'f6d5': 0.23
-   'f6g4': 0.23
 ------------------------------------------
 engine: octochess
 positional
@@ -417,12 +411,19 @@ puzzle1 - solution move is ['f6f5']
    'a6a5': -0.64
    'f8g8': -0.71
    'c8b8': -0.71
+   'h8g8': -0.72
 puzzle2 - solution move is ['d4d5']
    'f2e3': 0.67
    'c3c2': 0.66
    'c1c2': 0.66
    'c1g1': 0.66
    'c1e1': 0.66
+   'c3h3': 0.64
+   'c3g3': 0.64
+   'c3e3': 0.64
+   'c3d3': 0.64
+   'f2g3': 0.64
+   'f2f3': 0.64
 puzzle3 - solution move is ['e5e6']
    'e5e6': 0.48
    'd4f3': 0.25
@@ -433,7 +434,6 @@ puzzle4 - solution move is ['g5g6']
    'f4f5': 0.84
    'c2c4': 0.45
    'g3f3': 0.43
-   'b3b4': 0.43
 puzzle5 - solution move is ['f4f5']
    'f4f5': 0.41
    'e2c3': -0.18
@@ -449,6 +449,7 @@ puzzle7 - solution move is ['f2f4']
    'g3f5': 0.94
    'f1b1': 0.92
    'f2f3': 0.92
+   'g1h1': 0.91
 puzzle8 - solution move is ['b2b4']
    'b2b4': 0.11
    'a1c1': 0.08
@@ -464,6 +465,7 @@ puzzle10 - solution move is ['g3g4']
    'h2h3': 0.79
    'a2a3': 0.73
    'h2h4': 0.73
+   'e2h5': 0.68
 puzzle11 - solution move is ['f7f6']
    'c8f5': 0.44
    'g7g6': 0.04
@@ -474,7 +476,6 @@ puzzle12 - solution move is ['f2f4']
    'e4f5': 1.23
    'f2f4': 0.98
    'g2g3': 0.96
-   'f2f3': 0.96
 tactical
 puzzle1 - solution move is ['d6d1']
    'd6d1': 40.0
@@ -486,7 +487,6 @@ puzzle2 - solution move is ['c3d5']
    'a2a4': 0.64
    'g1h1': 0.63
    'a1d1': 0.56
-   'a2a3': 0.56
 puzzle3 - solution move is ['h5f6']
    'h5f6': 1.51
    'a3b4': 0.54
@@ -503,13 +503,11 @@ puzzle5 - solution move is ['d7f5']
    'h7h6': -3.1
    'd7e6': -4.14
    'd7c6': -5.09
-   'd7b5': -5.09
 puzzle6 - solution move is ['d1d2', 'd1e1']
    'd1d2': 5.33
    'd1e1': 3.82
    'b2c3': -0.12
    'd1c2': -0.47
-   'd1c1': -0.47
 puzzle7 - solution move is ['g4g7']
    'g4g7': 1.09
    'f1f3': 0.14
@@ -535,6 +533,7 @@ puzzle11 - solution move is ['f5h6']
    'e1e3': 1.31
    'b2c3': 1.27
    'd1d3': 1.27
+   'b2a1': 1.2
 puzzle12 - solution move is ['b7e4']
    'b7e4': 0.16
    'd7e5': 0.09
@@ -555,6 +554,12 @@ puzzle2 - solution move is ['d4d5']
    'f2f3': 0.38
    'f2e3': 0.38
    'f4f5': 0.38
+   'c3h3': 0.37
+   'c3f3': 0.37
+   'c3d3': 0.37
+   'f2g2': 0.37
+   'f2e2': 0.37
+   'c1c2': 0.37
 puzzle3 - solution move is ['e5e6']
    'e5e6': 0.32
    'd4f3': 0.26
@@ -565,17 +570,18 @@ puzzle4 - solution move is ['g5g6']
    'd7d4': 0.48
    'b3b4': 0.48
    'g3f2': 0.38
+   'g3g4': 0.36
 puzzle5 - solution move is ['f4f5']
    'f4f5': 0.55
    'e2c3': -0.09
    'e3d2': -0.2
    'e3f3': -0.21
-   'e3f2': -0.21
 puzzle6 - solution move is ['f4f5']
    'f1d3': 1.49
    'f1b5': 1.44
    'd1e1': 1.42
    'c1b1': 1.42
+   'f4f5': 1.37
 puzzle7 - solution move is ['f2f4']
    'f2f4': 0.77
    'g3f5': 0.71
@@ -588,18 +594,17 @@ puzzle8 - solution move is ['b2b4']
    'a1c1': 0.07
    'b2b3': 0.07
    'a2a3': 0.07
+   'h2h3': 0.06
 puzzle9 - solution move is ['h7h5']
    'a6a5': -0.25
    'c7c6': -0.28
    'h7h6': -0.3
    'a8c8': -0.32
-   'h7h5': -0.32
 puzzle10 - solution move is ['g3g4']
    'g3g4': 1.1
    'c1b1': 0.91
    'h2h3': 0.86
    'e2h5': 0.81
-   'a2a3': 0.81
 puzzle11 - solution move is ['f7f6']
    'c8f5': 0.1
    'g7g6': -0.08
@@ -621,11 +626,13 @@ puzzle2 - solution move is ['c3d5']
    'c3d5': 0.43
    'a1d1': 0.43
    'f1f4': 0.4
+   'f1f3': 0.36
 puzzle3 - solution move is ['h5f6']
+   'a1a2': 0.54
    'a3d6': 0.54
    'd1c1': 0.54
-   'a1a2': 0.54
    'f3g3': 0.53
+   'a3b4': 0.52
 puzzle4 - solution move is ['c6e5']
    'c6e5': 2.01
    'b6c5': 0.3
@@ -641,11 +648,13 @@ puzzle6 - solution move is ['d1d2', 'd1e1']
    'd1e1': 2.34
    'd1c2': 0.1
    'd1c1': 0.1
+   'b2c3': 0.06
 puzzle7 - solution move is ['g4g7']
    'g4g7': 0.85
    'f1f6': 0.17
    'f1f4': 0.03
    'f1f3': 0.03
+   'g3f3': 0.02
 puzzle8 - solution move is ['d2e4']
    'd2e4': 0.97
    'g5f4': 0.34
@@ -656,6 +665,7 @@ puzzle9 - solution move is ['c5b3']
    'd8b6': 0.24
    'c6a5': 0.17
    'f7f5': 0.17
+   'd6d5': 0.03
 puzzle10 - solution move is ['e8e4']
    'e8e4': 0.23
    'd7c8': -0.32
@@ -666,6 +676,7 @@ puzzle11 - solution move is ['f5h6']
    'e1e2': 0.8
    'h3f3': 0.78
    'b2c3': 0.78
+   'h3g3': 0.73
 puzzle12 - solution move is ['b7e4']
    'b7e4': 0.1
    'f6h5': 0.04
@@ -675,6 +686,7 @@ puzzle12 - solution move is ['b7e4']
 engine: slowchess
 positional
 puzzle1 - solution move is ['f6f5']
+   'a6a5': -0.68
    'h8g8': 0.0
 puzzle2 - solution move is ['d4d5']
    'd4d5': 1.88
@@ -691,6 +703,7 @@ puzzle7 - solution move is ['f2f4']
 puzzle8 - solution move is ['b2b4']
    'b2b4': 0.76
 puzzle9 - solution move is ['h7h5']
+   'h7h6': -0.4
    'g8h8': 0.0
 puzzle10 - solution move is ['g3g4']
    'g3g4': 2.28
@@ -704,6 +717,7 @@ puzzle1 - solution move is ['d6d1']
 puzzle2 - solution move is ['c3d5']
    'c3d5': 1.72
 puzzle3 - solution move is ['h5f6']
+   'd1b1': 0.0
    'a3b4': 1.24
 puzzle4 - solution move is ['c6e5']
    'c6e5': 4.17
@@ -716,6 +730,7 @@ puzzle7 - solution move is ['g4g7']
 puzzle8 - solution move is ['d2e4']
    'd2e4': 1.84
 puzzle9 - solution move is ['c5b3']
+   'f7f5': -0.19
    'g8h8': 0.0
 puzzle10 - solution move is ['e8e4']
    'e8e4': 1.16
@@ -727,6 +742,7 @@ puzzle12 - solution move is ['b7e4']
 engine: stockfish
 positional
 puzzle1 - solution move is ['f6f5']
+   'f8g8': -0.75
    'a6a5': -0.63
    'f7g5': -0.66
    'c8c7': -0.67
@@ -736,7 +752,6 @@ puzzle2 - solution move is ['d4d5']
    'e4e5': 1.22
    'c3f3': 1.06
    'f2f1': 1.04
-   'g4g5': 1.04
 puzzle3 - solution move is ['e5e6']
    'e5e6': 1.78
    'd4f3': 0.35
@@ -747,7 +762,6 @@ puzzle4 - solution move is ['g5g6']
    'c2c4': 0.82
    'd7d4': 0.67
    'g3f3': 0.64
-   'b3b4': 0.64
 puzzle5 - solution move is ['f4f5']
    'f4f5': 1.87
    'h2h3': 0.48
@@ -824,6 +838,7 @@ puzzle7 - solution move is ['g4g7']
    'g3f3': 0.3
    'f1f6': 0.3
    'f1f4': 0.01
+   'a2a4': 0.0
 puzzle8 - solution move is ['d2e4']
    'd2e4': 2.12
    'g5f4': 0.63
@@ -872,13 +887,6 @@ puzzle2 - solution move is ['d4d5']
    'f2g2': 1.96
    'f2e2': 1.96
    'c1c2': 1.96
-   'c1h1': 1.96
-   'c1g1': 1.96
-   'c1f1': 1.96
-   'c1e1': 1.96
-   'c1d1': 1.96
-   'c1b1': 1.96
-   'c1a1': 1.96
 puzzle3 - solution move is ['e5e6']
    'e5e6': 2.51
    'd4b3': -0.13
@@ -910,7 +918,6 @@ puzzle8 - solution move is ['b2b4']
    'b2b3': 0.03
    'h2h3': 0.01
    'a1b1': 0.0
-   'f2f4': 0.0
 puzzle9 - solution move is ['h7h5']
    'c7c6': -0.25
    'h7h5': -0.44
@@ -962,7 +969,6 @@ puzzle6 - solution move is ['d1d2', 'd1e1']
    'd1d2': 5.98
    'b2c3': 0.0
    'd1c2': 0.0
-   'd1c1': 0.0
 puzzle7 - solution move is ['g4g7']
    'g4g7': 1.47
    'a2a4': 0.41
