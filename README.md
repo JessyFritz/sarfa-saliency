@@ -28,8 +28,6 @@ All executions and evaluations can be called from the [main.py](main.py).
      implemented in [chess_saliency_chessSpecific.py](chess_saliency_chessSpecific.py)
    - increasing saliency based on Δp and K  
      implemented in [chess_saliency_combination.py](chess_saliency_combination.py)
-   - adaptation for Leela  
-     implemented in [chess_saliency_leela.py](chess_saliency_leela.py)
 3. Chess Saliency Map Graphical User Interface
    - can be downloaded [here](https://github.com/JessyFritz/sarfa-saliency/releases)
 
