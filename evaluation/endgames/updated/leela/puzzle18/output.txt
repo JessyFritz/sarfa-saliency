@@ -7,10 +7,16 @@ squares of best move:
 {'a4'}
 ------------------------------------------
 perturbing square = a1
-original move illegal in perturbed state a1
+Q Values: {'g8h8': 45.53, 'g8f8': 47.21, 'g8g7': 51.27, 'c8f8': 42.91, 'c8e8': 43.45, 'c8d8': 43.95, 'c8b8': 43.98, 'c8a8': 45.96, 'c8c7': 45.52, 'c8c6': 45.53, 'c8c5': 55.41, 'c8c4': 0.25, 'c8c3': 43.77, 'c8c2': 51.83, 'c8c1': 45.35, 'b4b8': 47.16, 'b4b7': 46.03, 'b4b6': 47.29, 'b4b5': -0.38, 'b4h4': 0.3, 'b4g4': 35.48, 'b4f4': 0.01, 'b4e4': 51.97, 'b4d4': 0.19, 'b4c4': 0.33, 'b4a4': 0.42, 'b4b3': 3.37, 'h7h6': 46.94, 'f7f6': 47.58, 'e7e6': 50.54, 'g6g5': 41.02, 'a5a4': 51.5, 'h7h5': 47.24, 'f7f5': 48.98, 'e7e5': 47.53}
+perturbed reward Q(s',â): 51.5, original reward Q(s,â): 0.14
+'saliency': 0.087180657237653, 'dP': 0.05621721635302804, 'K': 0.1940721250119769, 'QMaxAnswer': 1, 'actionGapBeforePerturbation': 0.0, 'actionGapAfterPerturbation': 3.4399999999999977
+saliency for this square = {'int': 0, 'saliency': 0.087180657237653, 'dP': 0.05621721635302804, 'K': 0.1940721250119769, 'QMaxAnswer': 1, 'actionGapBeforePerturbation': 0.0, 'actionGapAfterPerturbation': 3.4399999999999977}
 ------------------------------------------
 perturbing square = a2
-original move illegal in perturbed state a2
+Q Values: {'g8h8': 0.09, 'g8f8': 0.2, 'g8g7': 0.28, 'c8f8': 0.12, 'c8e8': 0.14, 'c8d8': 0.11, 'c8b8': 0.19, 'c8a8': 0.12, 'c8c7': 0.17, 'c8c6': 0.13, 'c8c5': 0.02, 'c8c4': -54.75, 'c8c3': 0.23, 'c8c2': 0.51, 'c8c1': -65.33, 'b4b8': 0.14, 'b4b7': 0.14, 'b4b6': 0.13, 'b4b5': -72.35, 'b4h4': -87.38, 'b4g4': 0.02, 'b4f4': -90.7, 'b4e4': 0.18, 'b4d4': -67.93, 'b4c4': -69.46, 'b4a4': -85.63, 'b4b3': 0.29, 'h7h6': 0.15, 'f7f6': 0.26, 'e7e6': 0.03, 'g6g5': -0.08, 'a5a4': 0.14, 'h7h5': 0.22, 'f7f5': 0.19, 'e7e5': 0.0}
+perturbed reward Q(s',â): 0.14, original reward Q(s,â): 0.14
+'saliency': 0.07263282153530382, 'dP': 0.03796450731533897, 'K': 0.8365618168366967, 'QMaxAnswer': 1, 'actionGapBeforePerturbation': 0.0, 'actionGapAfterPerturbation': 0.22000000000000003
+saliency for this square = {'int': 8, 'saliency': 0.07263282153530382, 'dP': 0.03796450731533897, 'K': 0.8365618168366967, 'QMaxAnswer': 1, 'actionGapBeforePerturbation': 0.0, 'actionGapAfterPerturbation': 0.22000000000000003}
 ------------------------------------------
 perturbing square = a3
 square is empty, so put a pawn from player's color here
@@ -70,10 +76,16 @@ saliency for this square with opponent's pawn: 'saliency': 0, 'dP': -0.249325818
 saliency calculated as max from pawn perturbation for this empty square: 0
 ------------------------------------------
 perturbing square = b3
-original move illegal in perturbed state b3
+Q Values: {'g8h8': 0.16, 'g8f8': 0.33, 'g8g7': 0.4, 'c8f8': 0.04, 'c8e8': 0.04, 'c8d8': 0.03, 'c8b8': 0.05, 'c8a8': 2.1, 'c8c7': 0.21, 'c8c6': 0.23, 'c8c5': 0.95, 'c8c4': 0.41, 'c8c3': 0.33, 'c8c2': 5.47, 'c8c1': -59.79, 'b4b8': 0.18, 'b4b7': 0.22, 'b4b6': 0.22, 'b4b5': -49.93, 'b4h4': -71.81, 'b4g4': 0.02, 'b4f4': -77.62, 'b4e4': 4.36, 'b4d4': -38.73, 'b4c4': 0.07, 'b4a4': 4.09, 'b4b3': -43.32, 'h7h6': 0.22, 'f7f6': 0.4, 'e7e6': 0.5, 'g6g5': -0.1, 'a5a4': 3.97, 'h7h5': 0.29, 'f7f5': 0.39, 'e7e5': 0.13}
+perturbed reward Q(s',â): 3.97, original reward Q(s,â): 0.14
+'saliency': 0, 'dP': -0.038946810898351295, 'K': 0.3568382461816701, 'QMaxAnswer': 1, 'actionGapBeforePerturbation': 0.0, 'actionGapAfterPerturbation': 1.1099999999999994
+saliency for this square = {'int': 17, 'saliency': 0, 'dP': -0.038946810898351295, 'K': 0.3568382461816701, 'QMaxAnswer': 1, 'actionGapBeforePerturbation': 0.0, 'actionGapAfterPerturbation': 1.1099999999999994}
 ------------------------------------------
 perturbing square = b4
-original move illegal in perturbed state b4
+Q Values: {'g8h8': -42.42, 'g8f8': -39.85, 'g8g7': -39.12, 'c8f8': -42.03, 'c8e8': -42.46, 'c8d8': -43.21, 'c8b8': -41.3, 'c8a8': -32.19, 'c8c7': -42.98, 'c8c6': -42.44, 'c8c5': -47.38, 'c8c4': -55.02, 'c8c3': -43.45, 'c8c2': -41.56, 'c8c1': -48.45, 'h7h6': -43.32, 'f7f6': -42.05, 'e7e6': -42.71, 'g6g5': -41.39, 'a5a4': -38.87, 'h7h5': -41.76, 'f7f5': -40.78, 'e7e5': -45.29}
+perturbed reward Q(s',â): -38.87, original reward Q(s,â): 0.14
+'saliency': 0.0942997058529365, 'dP': 0.07305803196542184, 'K': 0.13295706568523016, 'QMaxAnswer': 1, 'actionGapBeforePerturbation': 0.0, 'actionGapAfterPerturbation': 6.68
+saliency for this square = {'int': 25, 'saliency': 0.0942997058529365, 'dP': 0.07305803196542184, 'K': 0.13295706568523016, 'QMaxAnswer': 1, 'actionGapBeforePerturbation': 0.0, 'actionGapAfterPerturbation': 6.68}
 ------------------------------------------
 perturbing square = b5
 square is empty, so put a pawn from player's color here
@@ -181,7 +193,10 @@ saliency for this square with opponent's pawn: 'saliency': 0.04613767304299981, 
 saliency calculated as max from pawn perturbation for this empty square: 0.046916484851408626
 ------------------------------------------
 perturbing square = c8
-original move illegal in perturbed state c8
+Q Values: {'g8h8': -29.24, 'g8f8': -40.89, 'g8g7': -38.45, 'b4b8': -42.51, 'b4b7': -43.48, 'b4b6': -43.04, 'b4b5': -59.95, 'b4h4': -28.83, 'b4g4': -28.48, 'b4f4': -27.05, 'b4e4': -29.08, 'b4d4': -57.16, 'b4c4': -53.63, 'b4a4': -26.51, 'b4b3': -44.8, 'h7h6': -45.04, 'f7f6': -43.79, 'e7e6': -40.43, 'g6g5': -42.33, 'a5a4': -37.44, 'h7h5': -43.67, 'f7f5': -43.08, 'e7e5': -47.19}
+perturbed reward Q(s',â): -37.44, original reward Q(s,â): 0.14
+'saliency': 0.07616586131678961, 'dP': 0.07430022268335583, 'K': 0.07812760342223786, 'QMaxAnswer': 1, 'actionGapBeforePerturbation': 0.0, 'actionGapAfterPerturbation': 0.5399999999999991
+saliency for this square = {'int': 58, 'saliency': 0.07616586131678961, 'dP': 0.07430022268335583, 'K': 0.07812760342223786, 'QMaxAnswer': 1, 'actionGapBeforePerturbation': 0.0, 'actionGapAfterPerturbation': 0.5399999999999991}
 ------------------------------------------
 perturbing square = d1
 can not put a pawn on this square - so skipped
@@ -220,10 +235,16 @@ saliency for this square with opponent's pawn: 'saliency': 0.05238437370967263, 
 saliency calculated as max from pawn perturbation for this empty square: 0.05238437370967263
 ------------------------------------------
 perturbing square = d5
-original move illegal in perturbed state d5
+Q Values: {'g8h8': 47.1, 'g8f8': 48.0, 'g8g7': 50.57, 'c8f8': 25.08, 'c8e8': 25.11, 'c8d8': 26.23, 'c8b8': 26.56, 'c8a8': 24.52, 'c8c7': 46.18, 'c8c6': 45.92, 'c8c5': 44.38, 'c8c4': 9.74, 'c8c3': 44.52, 'c8c2': 47.99, 'c8c1': -0.19, 'b4b8': 48.27, 'b4b7': 47.36, 'b4b6': 48.67, 'b4b5': 46.98, 'b4h4': 1.71, 'b4g4': 40.47, 'b4f4': 0.46, 'b4e4': 49.15, 'b4d4': 46.77, 'b4c4': 9.78, 'b4a4': 5.67, 'b4b3': 2.39, 'h7h6': 47.83, 'f7f6': 48.43, 'e7e6': 47.74, 'g6g5': 45.88, 'a5a4': 48.35, 'h7h5': 46.6, 'f7f5': 47.92, 'e7e5': 48.31}
+perturbed reward Q(s',â): 48.35, original reward Q(s,â): 0.14
+'saliency': 0.049730321398073755, 'dP': 0.027986538233747568, 'K': 0.22294315982394375, 'QMaxAnswer': 1, 'actionGapBeforePerturbation': 0.0, 'actionGapAfterPerturbation': 1.4200000000000017
+saliency for this square = {'int': 35, 'saliency': 0.049730321398073755, 'dP': 0.027986538233747568, 'K': 0.22294315982394375, 'QMaxAnswer': 1, 'actionGapBeforePerturbation': 0.0, 'actionGapAfterPerturbation': 1.4200000000000017}
 ------------------------------------------
 perturbing square = d6
-original move illegal in perturbed state d6
+Q Values: {'g8h8': -10.44, 'g8f8': -6.47, 'g8g7': -4.99, 'c8f8': -21.19, 'c8e8': -21.75, 'c8d8': -79.22, 'c8b8': -21.6, 'c8a8': -1.17, 'c8c7': -8.91, 'c8c6': -7.85, 'c8c5': -94.39, 'c8c4': -78.65, 'c8c3': -6.33, 'c8c2': -1.1, 'c8c1': -98.32, 'b4b8': -7.38, 'b4b7': -5.78, 'b4b6': -3.54, 'b4b5': -90.5, 'b4h4': -79.49, 'b4g4': -18.75, 'b4f4': -75.13, 'b4e4': -0.23, 'b4d4': -71.52, 'b4c4': -77.4, 'b4a4': -85.29, 'b4b3': -71.91, 'h7h6': -10.22, 'f7f6': -2.74, 'e7e6': -5.3, 'g6g5': -25.66, 'a5a4': -0.07, 'h7h5': -8.23, 'f7f5': -5.91, 'e7e5': -20.63}
+perturbed reward Q(s',â): -0.07, original reward Q(s,â): 0.14
+'saliency': 0, 'dP': -0.30072449217007863, 'K': 0.08526451064998193, 'QMaxAnswer': 0, 'actionGapBeforePerturbation': 0.0, 'actionGapAfterPerturbation': 0.16
+saliency for this square = {'int': 43, 'saliency': 0, 'dP': -0.30072449217007863, 'K': 0.08526451064998193, 'QMaxAnswer': 0, 'actionGapBeforePerturbation': 0.0, 'actionGapAfterPerturbation': 0.16}
 ------------------------------------------
 perturbing square = d7
 square is empty, so put a pawn from player's color here
@@ -243,7 +264,10 @@ perturbing square = e1
 can not put a pawn on this square - so skipped
 ------------------------------------------
 perturbing square = e2
-original move illegal in perturbed state e2
+Q Values: {'g8h8': 0.03, 'g8f8': 0.21, 'g8g7': 0.21, 'c8f8': -0.02, 'c8e8': 0.0, 'c8d8': 0.0, 'c8b8': 0.0, 'c8a8': 4.94, 'c8c7': 0.1, 'c8c6': 0.04, 'c8c5': 0.41, 'c8c4': -56.43, 'c8c3': 0.08, 'c8c2': 0.46, 'c8c1': -95.84, 'b4b8': 0.11, 'b4b7': 0.17, 'b4b6': 0.04, 'b4b5': -57.3, 'b4h4': -86.49, 'b4g4': -0.18, 'b4f4': -82.73, 'b4e4': 0.48, 'b4d4': -48.78, 'b4c4': -53.37, 'b4a4': -52.79, 'b4b3': -27.5, 'h7h6': 0.07, 'f7f6': 0.18, 'e7e6': 0.16, 'g6g5': -0.26, 'a5a4': 8.41, 'h7h5': 0.14, 'f7f5': 0.18, 'e7e5': 0.06}
+perturbed reward Q(s',â): 8.41, original reward Q(s,â): 0.14
+'saliency': 0, 'dP': -0.8898471484957511, 'K': 0.39567395840845115, 'QMaxAnswer': 0, 'actionGapBeforePerturbation': 0.0, 'actionGapAfterPerturbation': 3.4699999999999998
+saliency for this square = {'int': 12, 'saliency': 0, 'dP': -0.8898471484957511, 'K': 0.39567395840845115, 'QMaxAnswer': 0, 'actionGapBeforePerturbation': 0.0, 'actionGapAfterPerturbation': 3.4699999999999998}
 ------------------------------------------
 perturbing square = e3
 square is empty, so put a pawn from player's color here
@@ -290,7 +314,10 @@ saliency for this square with opponent's pawn: 'saliency': 0, 'dP': -0.857437372
 saliency calculated as max from pawn perturbation for this empty square: 0
 ------------------------------------------
 perturbing square = e7
-original move illegal in perturbed state e7
+Q Values: {'g8h8': -16.65, 'g8f8': -9.3, 'g8g7': -4.88, 'c8f8': -28.96, 'c8e8': -1.66, 'c8d8': -32.31, 'c8b8': -22.63, 'c8a8': -1.58, 'c8c7': -15.12, 'c8c6': -15.62, 'c8c5': -1.05, 'c8c4': -78.39, 'c8c3': -8.85, 'c8c2': -1.54, 'c8c1': -100.32, 'b4b8': -7.59, 'b4b7': -7.89, 'b4b6': -8.35, 'b4b5': -93.46, 'b4h4': -78.18, 'b4g4': -23.06, 'b4f4': -73.99, 'b4e4': -1.26, 'b4d4': -75.47, 'b4c4': -77.12, 'b4a4': -83.98, 'b4b3': -75.24, 'h7h6': -12.83, 'f7f6': -20.33, 'g6g5': -28.2, 'a5a4': -0.22, 'h7h5': -8.45, 'f7f5': -12.36}
+perturbed reward Q(s',â): -0.22, original reward Q(s,â): 0.14
+'saliency': 0, 'dP': -0.31606347037131044, 'K': 0.14760242783423097, 'QMaxAnswer': 0, 'actionGapBeforePerturbation': 0.0, 'actionGapAfterPerturbation': 0.8300000000000001
+saliency for this square = {'int': 52, 'saliency': 0, 'dP': -0.31606347037131044, 'K': 0.14760242783423097, 'QMaxAnswer': 0, 'actionGapBeforePerturbation': 0.0, 'actionGapAfterPerturbation': 0.8300000000000001}
 ------------------------------------------
 perturbing square = e8
 can not put a pawn on this square - so skipped
@@ -299,7 +326,10 @@ perturbing square = f1
 can not put a pawn on this square - so skipped
 ------------------------------------------
 perturbing square = f2
-original move illegal in perturbed state f2
+Q Values: {'g8h8': 0.09, 'g8f8': 0.25, 'g8g7': 0.36, 'c8f8': -0.03, 'c8e8': -0.04, 'c8d8': -0.04, 'c8b8': -0.02, 'c8a8': 5.99, 'c8c7': 0.04, 'c8c6': 0.05, 'c8c5': 0.67, 'c8c4': -55.27, 'c8c3': 0.39, 'c8c2': 3.78, 'c8c1': -89.02, 'b4b8': 0.09, 'b4b7': 0.2, 'b4b6': 0.02, 'b4b5': -53.76, 'b4h4': -77.93, 'b4g4': 0.23, 'b4f4': -81.68, 'b4e4': 7.41, 'b4d4': -50.64, 'b4c4': -55.69, 'b4a4': -51.57, 'b4b3': -28.89, 'h7h6': 0.11, 'f7f6': 0.4, 'e7e6': 0.55, 'g6g5': -0.19, 'a5a4': 10.86, 'h7h5': 0.25, 'f7f5': 0.7, 'e7e5': 0.18}
+perturbed reward Q(s',â): 10.86, original reward Q(s,â): 0.14
+'saliency': 0, 'dP': -0.8865007289184735, 'K': 0.24421397925927155, 'QMaxAnswer': 0, 'actionGapBeforePerturbation': 0.0, 'actionGapAfterPerturbation': 3.4499999999999993
+saliency for this square = {'int': 13, 'saliency': 0, 'dP': -0.8865007289184735, 'K': 0.24421397925927155, 'QMaxAnswer': 0, 'actionGapBeforePerturbation': 0.0, 'actionGapAfterPerturbation': 3.4499999999999993}
 ------------------------------------------
 perturbing square = f3
 square is empty, so put a pawn from player's color here
@@ -346,7 +376,10 @@ saliency for this square with opponent's pawn: 'saliency': 0, 'dP': -0.872900429
 saliency calculated as max from pawn perturbation for this empty square: 0
 ------------------------------------------
 perturbing square = f7
-original move illegal in perturbed state f7
+Q Values: {'g8h8': -12.67, 'g8f8': -8.51, 'g8g7': -5.56, 'c8f8': -19.6, 'c8e8': -20.22, 'c8d8': -19.12, 'c8b8': -24.87, 'c8a8': -0.4, 'c8c7': -10.24, 'c8c6': -9.78, 'c8c5': -1.31, 'c8c4': -79.66, 'c8c3': -6.65, 'c8c2': -0.74, 'c8c1': -102.26, 'b4b8': -4.86, 'b4b7': -4.1, 'b4b6': -5.08, 'b4b5': -93.7, 'b4h4': -84.02, 'b4g4': -19.12, 'b4f4': -78.55, 'b4e4': -0.21, 'b4d4': -74.06, 'b4c4': -81.81, 'b4a4': -88.23, 'b4b3': -72.2, 'h7h6': -10.64, 'e7e6': -12.81, 'g6g5': -26.41, 'a5a4': -0.11, 'h7h5': -8.18, 'e7e5': -12.58}
+perturbed reward Q(s',â): -0.11, original reward Q(s,â): 0.14
+'saliency': 0, 'dP': -0.20918556169304536, 'K': 0.18711582232854254, 'QMaxAnswer': 0, 'actionGapBeforePerturbation': 0.0, 'actionGapAfterPerturbation': 0.09999999999999999
+saliency for this square = {'int': 53, 'saliency': 0, 'dP': -0.20918556169304536, 'K': 0.18711582232854254, 'QMaxAnswer': 0, 'actionGapBeforePerturbation': 0.0, 'actionGapAfterPerturbation': 0.09999999999999999}
 ------------------------------------------
 perturbing square = f8
 can not put a pawn on this square - so skipped
@@ -366,7 +399,10 @@ saliency for this square with opponent's pawn: 'saliency': 0, 'dP': -0.098519372
 saliency calculated as max from pawn perturbation for this empty square: 0
 ------------------------------------------
 perturbing square = g3
-original move illegal in perturbed state g3
+Q Values: {'g8h8': 0.02, 'g8f8': 0.18, 'g8g7': 0.26, 'c8f8': -0.02, 'c8e8': -0.01, 'c8d8': -0.02, 'c8b8': -0.03, 'c8a8': 5.37, 'c8c7': 0.04, 'c8c6': 0.0, 'c8c5': 0.56, 'c8c4': -51.99, 'c8c3': 0.17, 'c8c2': 3.25, 'c8c1': -85.9, 'b4b8': 0.11, 'b4b7': 0.19, 'b4b6': 0.02, 'b4b5': -54.37, 'b4h4': 0.28, 'b4g4': 4.03, 'b4f4': 0.36, 'b4e4': 3.53, 'b4d4': -51.61, 'b4c4': -52.04, 'b4a4': -52.36, 'b4b3': -25.16, 'h7h6': 0.08, 'f7f6': 0.25, 'e7e6': 0.58, 'g6g5': -0.26, 'a5a4': 9.7, 'h7h5': 0.12, 'f7f5': 0.33, 'e7e5': 0.13}
+perturbed reward Q(s',â): 9.7, original reward Q(s,â): 0.14
+'saliency': 0, 'dP': -0.9042143019585424, 'K': 0.36718773143240535, 'QMaxAnswer': 0, 'actionGapBeforePerturbation': 0.0, 'actionGapAfterPerturbation': 4.329999999999999
+saliency for this square = {'int': 22, 'saliency': 0, 'dP': -0.9042143019585424, 'K': 0.36718773143240535, 'QMaxAnswer': 0, 'actionGapBeforePerturbation': 0.0, 'actionGapAfterPerturbation': 4.329999999999999}
 ------------------------------------------
 perturbing square = g4
 square is empty, so put a pawn from player's color here
@@ -391,7 +427,10 @@ saliency for this square with opponent's pawn: 'saliency': 0, 'dP': -0.899269739
 saliency calculated as max from pawn perturbation for this empty square: 0
 ------------------------------------------
 perturbing square = g6
-original move illegal in perturbed state g6
+Q Values: {'g8h8': -13.1, 'g8f8': -6.41, 'g8g7': -6.44, 'c8f8': -21.54, 'c8e8': -20.37, 'c8d8': -19.83, 'c8b8': -24.08, 'c8a8': -0.44, 'c8c7': -12.27, 'c8c6': -11.88, 'c8c5': -1.55, 'c8c4': -75.35, 'c8c3': -9.38, 'c8c2': -0.6, 'c8c1': -97.08, 'b4b8': -8.02, 'b4b7': -6.62, 'b4b6': -7.11, 'b4b5': -90.59, 'b4h4': -78.47, 'b4g4': -17.38, 'b4f4': -72.96, 'b4e4': -0.46, 'b4d4': -69.45, 'b4c4': -81.95, 'b4a4': -83.57, 'b4b3': -77.03, 'h7h6': -10.81, 'f7f6': -8.15, 'e7e6': -3.15, 'a5a4': -0.1, 'h7h5': -10.93, 'f7f5': -20.52, 'e7e5': -10.54}
+perturbed reward Q(s',â): -0.1, original reward Q(s,â): 0.14
+'saliency': 0, 'dP': -0.22828744939493772, 'K': 0.16332473747959708, 'QMaxAnswer': 0, 'actionGapBeforePerturbation': 0.0, 'actionGapAfterPerturbation': 0.33999999999999997
+saliency for this square = {'int': 46, 'saliency': 0, 'dP': -0.22828744939493772, 'K': 0.16332473747959708, 'QMaxAnswer': 0, 'actionGapBeforePerturbation': 0.0, 'actionGapAfterPerturbation': 0.33999999999999997}
 ------------------------------------------
 perturbing square = g7
 square is empty, so put a pawn from player's color here
@@ -411,7 +450,10 @@ perturbing square = h1
 can not put a pawn on this square - so skipped
 ------------------------------------------
 perturbing square = h2
-original move illegal in perturbed state h2
+Q Values: {'g8h8': -0.03, 'g8f8': 0.04, 'g8g7': 0.1, 'c8f8': -0.06, 'c8e8': -0.05, 'c8d8': -0.05, 'c8b8': -0.1, 'c8a8': 2.41, 'c8c7': -0.07, 'c8c6': -0.09, 'c8c5': 0.31, 'c8c4': -59.84, 'c8c3': 0.05, 'c8c2': 1.25, 'c8c1': -97.6, 'b4b8': 0.02, 'b4b7': 0.06, 'b4b6': -0.03, 'b4b5': -68.2, 'b4h4': -98.28, 'b4g4': -0.06, 'b4f4': -88.14, 'b4e4': 1.72, 'b4d4': -61.88, 'b4c4': -64.07, 'b4a4': -61.09, 'b4b3': -33.09, 'h7h6': 0.0, 'f7f6': 0.09, 'e7e6': 0.14, 'g6g5': -0.31, 'a5a4': 5.44, 'h7h5': 0.05, 'f7f5': 0.11, 'e7e5': 0.02}
+perturbed reward Q(s',â): 5.44, original reward Q(s,â): 0.14
+'saliency': 0, 'dP': -0.769994755118111, 'K': 0.7974337281109014, 'QMaxAnswer': 0, 'actionGapBeforePerturbation': 0.0, 'actionGapAfterPerturbation': 3.0300000000000002
+saliency for this square = {'int': 15, 'saliency': 0, 'dP': -0.769994755118111, 'K': 0.7974337281109014, 'QMaxAnswer': 0, 'actionGapBeforePerturbation': 0.0, 'actionGapAfterPerturbation': 3.0300000000000002}
 ------------------------------------------
 perturbing square = h3
 square is empty, so put a pawn from player's color here
@@ -458,11 +500,15 @@ saliency for this square with opponent's pawn: 'saliency': 0, 'dP': -0.784848113
 saliency calculated as max from pawn perturbation for this empty square: 0
 ------------------------------------------
 perturbing square = h7
-original move illegal in perturbed state h7
+Q Values: {'g8h8': -9.86, 'g8f8': -4.55, 'g8g7': -2.69, 'c8f8': -15.38, 'c8e8': -14.72, 'c8d8': -14.64, 'c8b8': -21.19, 'c8a8': -0.23, 'c8c7': -7.53, 'c8c6': -6.55, 'c8c5': -1.05, 'c8c4': -77.87, 'c8c3': -4.5, 'c8c2': -0.23, 'c8c1': -104.78, 'b4b8': -3.76, 'b4b7': -2.64, 'b4b6': -3.3, 'b4b5': -95.74, 'b4h4': -87.19, 'b4g4': -12.28, 'b4f4': -83.07, 'b4e4': -0.11, 'b4d4': -72.6, 'b4c4': -81.01, 'b4a4': -87.56, 'b4b3': -72.29, 'f7f6': -6.08, 'e7e6': -1.96, 'g6g5': -22.04, 'a5a4': -0.03, 'f7f5': -3.57, 'e7e5': -5.31}
+perturbed reward Q(s',â): -0.03, original reward Q(s,â): 0.14
+'saliency': 0, 'dP': -0.15649417603908616, 'K': 0.32987321922932067, 'QMaxAnswer': 0, 'actionGapBeforePerturbation': 0.0, 'actionGapAfterPerturbation': 0.08
+saliency for this square = {'int': 55, 'saliency': 0, 'dP': -0.15649417603908616, 'K': 0.32987321922932067, 'QMaxAnswer': 0, 'actionGapBeforePerturbation': 0.0, 'actionGapAfterPerturbation': 0.08}
 ------------------------------------------
 perturbing square = h8
 can not put a pawn on this square - so skipped
 ------------------------------------------
+square b4 guards best move
 new moves after best move:
 ['a4b3', 'a4a3']
 considered salient:
@@ -482,23 +528,9 @@ b5: max: 0.039733761, colour player: 0.0390505767, colour opponent: 0.039733761
 displaying top empty squares:
 ['a4', 'a3', 'd4', 'd2']
 Printing positive saliencies in order: 
-h7: 1
-h2: 1
-g6: 1
-g3: 1
-f7: 1
-f2: 1
-e7: 1
-e2: 1
-d6: 1
-d5: 1
-c8: 1
-b4: 1
-b3: 1
 a5: 1
-a2: 1
-a1: 1
 a4: 0.7294332659650202
+b4: 0.4849247058529365
 a3: 0.4117972729455081
 d4: 0.3911926396746928
 d2: 0.390625
