@@ -5,7 +5,9 @@ Link to the original SARFA paper - [SARFA paper](https://arxiv.org/abs/1912.1219
 
 Link to the SARFA project https://github.com/nikaashpuri/sarfa-saliency
 
-### My Contributions
+### Our Contributions
+Conference on Games 2021 [Proceeding](https://ieee-cog.org/2021/assets/papers/paper_180.pdf), written by Jessica Fritz & Johannes Fürnkranz
+
 All executions and evaluations can be called from the [main.py](main.py).
 1. [Original SARFA implementation](chess_saliency_original.py) evaluation on Windows with
    - different chess engines (see [engines](engines) folder)
